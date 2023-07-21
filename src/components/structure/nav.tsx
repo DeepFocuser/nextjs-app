@@ -29,7 +29,7 @@ function Nav() {
                         </label>
                         <ul
                             tabIndex={0}
-                            className="dropdown-content menu rounded-box menu-sm z-[1] mt-3 w-52 bg-base-300 p-1 font-bold shadow"
+                            className="dropdown-content menu rounded-box menu-sm z-[1] mt-3 w-56 bg-base-300 p-1 font-bold shadow"
                         >
                             <li>
                                 <Link href="/">Home</Link>
