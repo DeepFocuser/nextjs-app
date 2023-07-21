@@ -1,0 +1,13 @@
+@tailwind base;
+/*기본 스타일링이 필요했음.
+https://tailwindcss.com/docs/preflight
+https://www.daleseo.com/tailwind-preflight/
+ */
+/*@layer base {*/
+/*    ul {*/
+/*        @apply list-inside list-disc marker:text-sky-500;*/
+/*    }*/
+/*}*/
+
+@tailwind components;
+@tailwind utilities;

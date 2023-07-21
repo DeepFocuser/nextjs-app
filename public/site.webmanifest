@@ -1,0 +1,20 @@
+{
+    "name": "Next.js First App",
+    "short_name": "Next.js App",
+    "icons": [
+        {
+            "src": "/images/me.jpg",
+            "sizes": "413x531",
+            "type": "image/jpg"
+        }
+    ],
+    "lang": "ko",
+    "dir": "ltr",
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "display": "standalone",
+    "orientation": "landscape-primary",
+    "description": "Website description",
+    "categories": []
+}
