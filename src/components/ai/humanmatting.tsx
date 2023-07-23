@@ -2,11 +2,22 @@
 // // https://github.com/PeterL1n/RobustVideoMatting/blob/tfjs/index.html
 // // https://dev.to/yuikoito/tensorflow-next-js-typescript-remove-background-and-add-virtual-background-image-with-web-camera-296k
 
-import {memo, useLayoutEffect, useRef, useState} from 'react';
+import {memo, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import getWebcam from '@/utils/webcam';
+import * as tf from '@tensorflow/tfjs';
+import '@tensorflow/tfjs-backend-webgpu';
 // 처음에 recoil 사용해서 하려고 했으나, useLayoutEffect을 사용하면 될일 이었음.
 // import {useSetRecoilState} from 'recoil';
 // import {webCamStateAtom} from '../../utils/recoilatoms';
+
+async function setBackend(backend : string) {
+    // https://www.npmjs.com/package/@tensorflow/tfjs-backend-webgpu
+    await tf.setBackend(backend);
+}
+async function loadGraph(path : string){
+    const model = await tf.loadGraphModel(path);
+    return model
+}
 
 function Humanmatting() {
     const [playing, setPlaying] = useState<boolean>(false);
@@ -14,7 +25,15 @@ function Humanmatting() {
     //const setWebCamStateAtom = useSetRecoilState(webCamStateAtom);
     const videoRef = useRef<any>(null);
     const canvasRef = useRef<any>(null);
+    let model;
 
+    useEffect(() => {
+        setBackend("webgpu");
+        model = loadGraph('/models/humanmatting/model.json');
+    }, []);
+
+    console.log(tf.getBackend());
+    console.log(model);
     // useLayoutEffect 이거쓰면 꺼지는구나
     useLayoutEffect(() => {
         if (playing) {
@@ -22,6 +41,7 @@ function Humanmatting() {
                 videoRef.current.srcObject = stream;
                 // setWebCamStateAtom(stream);
             });
+
         }
         return () => {
             if (videoRef.current?.srcObject !== null) {
@@ -56,7 +76,7 @@ function Humanmatting() {
             <video
                 ref={videoRef}
                 style={{
-                    width: '55%', objectFit: 'cover', transform: 'scaleX(-1)',
+                    objectFit: 'cover', transform: 'scaleX(-1)',
                 }}
                 autoPlay
             />

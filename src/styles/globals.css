@@ -11,3 +11,11 @@ https://www.daleseo.com/tailwind-preflight/
 
 @tailwind components;
 @tailwind utilities;
+
+::-ms-expand {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}

@@ -11,7 +11,6 @@ module.exports = {
     },
     theme: {},
     plugins: [require('daisyui')],
-
     // daisyUI config (optional - here are the default values)
     // https://daisyui.com/docs/config/
     daisyui: {
