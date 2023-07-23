@@ -2,7 +2,7 @@
 // // https://github.com/PeterL1n/RobustVideoMatting/blob/tfjs/index.html
 // // https://dev.to/yuikoito/tensorflow-next-js-typescript-remove-background-and-add-virtual-background-image-with-web-camera-296k
 
-import {memo, useEffect, useLayoutEffect, useRef, useState} from 'react';
+import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import getWebcam from '@/utils/webcam';
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgpu';
@@ -10,13 +10,13 @@ import '@tensorflow/tfjs-backend-webgpu';
 // import {useSetRecoilState} from 'recoil';
 // import {webCamStateAtom} from '../../utils/recoilatoms';
 
-async function setBackend(backend : string) {
+async function setBackend(backend: string) {
     // https://www.npmjs.com/package/@tensorflow/tfjs-backend-webgpu
     await tf.setBackend(backend);
 }
-async function loadGraph(path : string){
+async function loadGraph(path: string) {
     const model = await tf.loadGraphModel(path);
-    return model
+    return model;
 }
 
 function Humanmatting() {
@@ -28,7 +28,7 @@ function Humanmatting() {
     let model;
 
     useEffect(() => {
-        setBackend("webgpu");
+        setBackend('webgpu');
         model = loadGraph('/models/humanmatting/model.json');
     }, []);
 
@@ -41,7 +41,6 @@ function Humanmatting() {
                 videoRef.current.srcObject = stream;
                 // setWebCamStateAtom(stream);
             });
-
         }
         return () => {
             if (videoRef.current?.srcObject !== null) {
@@ -54,34 +53,35 @@ function Humanmatting() {
         };
     }, [playing]);
 
-    return (<div>
-        <div className="mt-6 flex items-center justify-center md:justify-self-end">
-            <label
-                htmlFor="AcceptConditions"
-                className="relative h-8 w-14 cursor-pointer"
-                onChange={() => setPlaying(!playing)}
-            >
-                <input
-                    type="checkbox"
-                    id="AcceptConditions"
-                    className="peer sr-only"
+    return (
+        <div>
+            <div className="mt-6 flex items-center justify-center md:justify-self-end">
+                <label
+                    htmlFor="AcceptConditions"
+                    className="relative h-8 w-14 cursor-pointer"
+                    onChange={() => setPlaying(!playing)}
+                >
+                    <input
+                        type="checkbox"
+                        id="AcceptConditions"
+                        className="peer sr-only"
+                    />
+                    <span className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                    <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                </label>
+            </div>
+            <div className="mt-8 flex items-center justify-center">
+                <video
+                    ref={videoRef}
+                    style={{
+                        objectFit: 'cover',
+                        transform: 'scaleX(-1)',
+                    }}
+                    autoPlay
                 />
-                <span
-                    className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                <span
-                    className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
-            </label>
+            </div>
         </div>
-        <div className="mt-8 flex items-center justify-center">
-            <video
-                ref={videoRef}
-                style={{
-                    objectFit: 'cover', transform: 'scaleX(-1)',
-                }}
-                autoPlay
-            />
-        </div>
-    </div>);
+    );
 }
 
 export default memo(Humanmatting);
