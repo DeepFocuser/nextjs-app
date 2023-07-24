@@ -2,7 +2,8 @@
 // // https://github.com/PeterL1n/RobustVideoMatting/blob/tfjs/index.html
 // // https://dev.to/yuikoito/tensorflow-next-js-typescript-remove-background-and-add-virtual-background-image-with-web-camera-296k
 
-import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import {memo, useEffect, useLayoutEffect, useRef, useState} from 'react';
+import {ModelInfo} from "@/types";
 import getWebcam from '@/utils/webcam';
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgpu';
@@ -10,44 +11,49 @@ import '@tensorflow/tfjs-backend-webgpu';
 // import {useSetRecoilState} from 'recoil';
 // import {webCamStateAtom} from '../../utils/recoilatoms';
 
-async function setBackend(backend: string) {
-    // https://www.npmjs.com/package/@tensorflow/tfjs-backend-webgpu
-    await tf.setBackend(backend);
-}
-async function loadGraph(path: string) {
-    const model = await tf.loadGraphModel(path);
-    return model;
-}
 
-function Humanmatting() {
+function Humanmatting({backendName, modelName}: ModelInfo) {
+
     const [playing, setPlaying] = useState<boolean>(false);
 
     //const setWebCamStateAtom = useSetRecoilState(webCamStateAtom);
     const videoRef = useRef<any>(null);
     const canvasRef = useRef<any>(null);
-    let model;
+    const [backend, setBackend] = useState<boolean>(false);
+    const [model, setModel] = useState<any>(null);
 
+    // 비동기 처리
+    const setENV = async () => {
+        setBackend(await tf.setBackend(backendName));
+        setModel(await tf.loadGraphModel(modelName));
+        return `Model Load Completed in ${tf.getBackend()}`;
+    }
+    // tensorflow.js backend, Model 초기화
     useEffect(() => {
-        setBackend('webgpu');
-        model = loadGraph('/models/humanmatting/model.json');
+        (async () => {
+            console.log(await setENV());
+        })();
     }, []);
 
-    console.log(tf.getBackend());
-    console.log(model);
     // useLayoutEffect 이거쓰면 꺼지는구나
     useLayoutEffect(() => {
+
         if (playing) {
             getWebcam((stream: any) => {
                 videoRef.current.srcObject = stream;
                 // setWebCamStateAtom(stream);
             });
+            // console.log(backend);
+            // console.log(model);
+
+            let [r1i, r2i, r3i, r4i] = [tf.tensor(0.), tf.tensor(0.), tf.tensor(0.), tf.tensor(0.)];
+            // console.log(r1i);
         }
         return () => {
             if (videoRef.current?.srcObject !== null) {
                 const s = videoRef.current?.srcObject;
                 s?.getTracks().forEach((track: MediaStreamTrack) => {
                     track.stop();
-                    // setWebCamStateAtom(null);
                 });
             }
         };
@@ -66,8 +72,10 @@ function Humanmatting() {
                         id="AcceptConditions"
                         className="peer sr-only"
                     />
-                    <span className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                    <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                    <span
+                        className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                    <span
+                        className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
             <div className="mt-8 flex items-center justify-center">
