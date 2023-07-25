@@ -21,24 +21,6 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
     const inferRef = useRef<boolean>(false);
     const [model, setModel] = useState<any>(undefined);
 
-
-    // const drawMatte = async (fgr, pha, canvas) => {
-    //     const rgba = tf.tidy(() => {
-    //         const rgb = (fgr !== null) ? fgr.squeeze(0).mul(255).cast('int32') : tf.fill([pha.shape[1], pha.shape[2], 3], 255, 'int32');
-    //         const a = (pha !== null) ? pha.squeeze(0).mul(255).cast('int32') : tf.fill([fgr.shape[1], fgr.shape[2], 1], 255, 'int32');
-    //         return tf.concat([rgb, a], -1);
-    //     });
-    //     fgr && fgr.dispose();
-    //     pha && pha.dispose();
-    //     const [height, width] = rgba.shape.slice(0, 2);
-    //     const pixelData = new Uint8ClampedArray(await rgba.data());
-    //     const imageData = new ImageData(pixelData, width, height);
-    //     canvas.width = width;
-    //     canvas.height = height;
-    //     canvas.getContext('2d').putImageData(imageData, 0, 0);
-    //     rgba.dispose();
-    // }
-
     // 비동기 처리1 - backend, Model Loading 하기
     const setENV = async () => {
         await tf.setBackend(backendName);
@@ -46,33 +28,60 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
         return `Model Load Completed in ${tf.getBackend()}`;
     }
 
+    const drawResult = async (image, alpha, background, canvas) => {
+        const result = tf.tidy(() => {
+            const pha = alpha.squeeze().expandDims(2); //float32
+            const one = tf.onesLike(pha); // float32
+            const output = tf.add(tf.mul(pha, image), tf.mul(one - pha, background)).cast("int32");
+            return tf.concat([output, pha], -1);;
+        });
+        image.dispose();
+        alpha.dispose();
+        background.dispose();
+
+        const [height, width] = result.shape.slice(0, 2);
+        const pixelData = new Uint8ClampedArray(await result.data()); // ui 안멈추게 하려고 비동기로 가져온다
+        const imageData = new ImageData(pixelData, width, height);
+        canvas.current.width = width;
+        canvas.current.height = height;
+        canvas.current.getContext('2d').putImageData(imageData, 0, 0);
+        result.dispose();
+    }
+
     // 비동기 처리2 - model inference
     const inference = async () => {
 
         // 카메라 1개만 선택하기
         let deviceId = "";
+        let cameraCount = 0; // deviceId가 안나오는 경우도 있다.
         for (const camera of await navigator.mediaDevices.enumerateDevices()) {
             if (camera.kind.startsWith("video")) {
                 deviceId = camera.deviceId;
+                cameraCount += 1;
                 break;
             }
         }
-
-        // 배경이미지 가져오기
         // https://www.youtube.com/watch?v=kSSycUT0r1M
         // 배경이미지
-        // const temp = new Image();
-        // tf.image.
-        // temp.src = '/images/sample.jpg';
-        // const background = tf.browser.fromPixels(temp);
-        // const resizedBackground = tf.image.resizeBilinear(background, [384, 384]);
-        // tf.dispose(background);
-        // console.log(resizedBackground.shape);
+        const modelHeight = 384;
+        const modelWidth = 384;
+
+        let background;
+        const temp = new Image();
+        temp.src = '/images/sample.jpg';
+        temp.onload = () => {
+            const tensor = tf.browser.fromPixels(temp);
+            background = tf.image.resizeBilinear(tensor, [modelHeight, modelWidth])
+            tf.dispose(tensor);
+        }
 
         // 내 모델은 384x384x3 을 입력으로 받음
-        if (inferRef.current && deviceId !== "") {
-            const webcam = await tf.data.webcam(videoRef.current, {
-                deviceId, resizeWidth: 384, resizeHeight: 384
+        if (inferRef.current && cameraCount > 0) {
+            let webcam;
+            if (deviceId !== "") webcam = await tf.data.webcam(videoRef.current, {
+                deviceId, resizeWidth: modelWidth, resizeHeight: modelHeight
+            }); else webcam = await tf.data.webcam(videoRef.current, {
+                resizeWidth: modelWidth, resizeHeight: modelHeight
             });
             // Inference loop
             while (inferRef.current) {
@@ -85,8 +94,7 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
                     const [output, ho1, ho2, ho3, ho4] = model.execute({input, hi1, hi2, hi3, hi4}, // provide inputs
                         ['output', 'ho1', 'ho2', 'ho3', 'ho4']   // select outputs
                     );
-                    //drawMatte(img.clone(), output.clone(), canvasRef);
-
+                    await drawResult(img.clone(), output.clone(), background.clone(), canvasRef);
                     // Dispose old tensors, Update recurrent states.
                     // dispose 안해주면 메모리 치솟음
                     tf.dispose([img, input, output, hi1, hi2, hi3, hi4]);
@@ -153,7 +161,7 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
                 }}
                 autoPlay
             />
-            <canvas></canvas>
+            <canvas ref={canvasRef} width="512" height="512"></canvas>
         </div>
     </div>);
 }

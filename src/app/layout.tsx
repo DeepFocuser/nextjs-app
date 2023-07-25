@@ -1,6 +1,6 @@
 // import localFont from 'next/font/local';
 import {Inter as InterFont} from 'next/font/google';
-import '@/styles/globals.css';
+import '../styles/globals.css';
 import {siteMetadata} from '@/config/seo';
 import {ReactNode, Suspense} from 'react';
 import Nav from '@/components/structure/nav';
@@ -28,7 +28,7 @@ export const metadata = {...siteMetadata};
 //     display: 'swap',
 // });
 
-const inter = InterFont({
+const interFont = InterFont({
     subsets: ['latin'],
     display: 'swap',
 });
@@ -46,7 +46,7 @@ export default function RootLayout({children}: { children: ReactNode }) {
         // This property only applies one level deep, so it won't block hydration warnings on other elements.
         // suppressHydrationWarning 쓰기
         // https://eunhee-programming.tistory.com/205
-        <html suppressHydrationWarning lang="ko" className={inter.className}>
+        <html suppressHydrationWarning lang="ko" className={interFont.className}>
         <body className="container mx-auto">
         {/*<RecoilProviders>*/}
         <ThemeProviders>

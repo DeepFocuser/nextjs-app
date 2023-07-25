@@ -6,8 +6,7 @@ import ThemeSwitch from './theme';
 // const ThemeSwitch = dynamic(() => import('@/components/theme'), {ssr: true})
 
 function Nav() {
-    return (
-        <nav className="mb-7 border-b-2">
+    return (<nav className="mb-7 border-b-2">
             <div className="navbar">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -103,7 +102,7 @@ function Nav() {
                     </Link>
                 </div>
                 <div className="navbar-end">
-                    <ThemeSwitch />
+                    <ThemeSwitch/>
                     <div className="avatar w-10 sm:block">
                         <div className="mask mask-squircle w-full">
                             <Image
@@ -119,8 +118,7 @@ function Nav() {
                     </div>
                 </div>
             </div>
-        </nav>
-    );
+        </nav>);
 }
 
 export default Nav;

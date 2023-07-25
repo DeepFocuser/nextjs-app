@@ -2,7 +2,6 @@ import Image from 'next/image';
 
 export default function Home() {
     return (
-        // 이거 해결해야됨 범위 넘어가면 스크롤바 생기도록
         <div className="mb-36">
             <div className="chat chat-start">
                 <div className="chat-image avatar">
