@@ -4,9 +4,8 @@
 
 import {memo, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {ModelInfo} from "@/types";
-import getWebcam from '@/utils/webcam';
 import * as tf from '@tensorflow/tfjs';
-import '@tensorflow/tfjs-backend-webgpu';
+// import '@tensorflow/tfjs-backend-webgpu';
 // 처음에 recoil 사용해서 하려고 했으나, useLayoutEffect을 사용하면 될일 이었음.
 // import {useSetRecoilState} from 'recoil';
 // import {webCamStateAtom} from '../../utils/recoilatoms';
@@ -19,7 +18,9 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
     //const setWebCamStateAtom = useSetRecoilState(webCamStateAtom);
     const videoRef = useRef<any>(null);
     const canvasRef = useRef<any>(null);
-    const [model, setModel] = useState<any>(null);
+    const inferRef = useRef<boolean>(false);
+    const [model, setModel] = useState<any>(undefined);
+
 
     // const drawMatte = async (fgr, pha, canvas) => {
     //     const rgba = tf.tidy(() => {
@@ -47,43 +48,58 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
 
     // 비동기 처리2 - model inference
     const inference = async () => {
-        const webcamElement = videoRef.current;
-        const webcam = await tf.data.webcam(webcamElement, {
-            resizeWidth: 384, resizeHeight: 384,
-        });
 
-        // Inference loop
-        while (true) {
-            await tf.nextFrame();
-            const img = await webcam.capture();
-            const input = img.expandDims(0); // normalize input
-            let [hi1, hi2, hi3, hi4] = [tf.zeros([1, 20, 24, 24]), tf.zeros([1, 16, 48, 48]), tf.zeros([1, 12, 96, 96]), tf.zeros([1, 10, 192, 192])];
-            const [output, ho1, ho2, ho3, ho4] = model.execute({input, hi1, hi2, hi3, hi4}, // provide inputs
-                ['output', 'ho1', 'ho2', 'ho3', 'ho4']   // select outputs
-            );
+        // 카메라 1개만 선택하기
+        let deviceId = "";
+        for (const camera of await navigator.mediaDevices.enumerateDevices()) {
+            if (camera.kind.startsWith("video")) {
+                deviceId = camera.deviceId;
+                break;
+            }
+        }
 
-            // // Draw the result based on selected view
-            // const viewOption = select.value;
-            // } if (viewOption === 'white') {
-            //     drawMatte(fgr.clone(), pha.clone(), canvas);
-            //     canvas.style.background = 'rgb(255, 255, 255)';
-            // } else if (viewOption === 'green') {
-            //     drawMatte(fgr.clone(), pha.clone(), canvas);
-            //     canvas.style.background = 'rgb(120, 255, 155)';
-            // } else if (viewOption === 'alpha') {
-            //     drawMatte(null, pha.clone(), canvas);
-            //     canvas.style.background = 'rgb(0, 0, 0)';
-            // }
-            // // Dispose old tensors.
-            // tf.dispose([img, src, fgr, pha, r1i, r2i, r3i, r4i]);
-            //
-            // // Update recurrent states.
-            // [r1i, r2i, r3i, r4i] = [r1o, r2o, r3o, r4o];
+        // 배경이미지 가져오기
+        // https://www.youtube.com/watch?v=kSSycUT0r1M
+        // 배경이미지
+        // const temp = new Image();
+        // tf.image.
+        // temp.src = '/images/sample.jpg';
+        // const background = tf.browser.fromPixels(temp);
+        // const resizedBackground = tf.image.resizeBilinear(background, [384, 384]);
+        // tf.dispose(background);
+        // console.log(resizedBackground.shape);
+
+        // 내 모델은 384x384x3 을 입력으로 받음
+        if (inferRef.current && deviceId !== "") {
+            const webcam = await tf.data.webcam(videoRef.current, {
+                deviceId, resizeWidth: 384, resizeHeight: 384
+            });
+            // Inference loop
+            while (inferRef.current) {
+                await tf.nextFrame();
+                // 중간에 inferRef.current가 바뀐다.
+                if (inferRef.current) {
+                    const img = await webcam.capture();
+                    const input = img.expandDims(0); // normalize input
+                    let [hi1, hi2, hi3, hi4] = [tf.zeros([1, 20, 24, 24]), tf.zeros([1, 16, 48, 48]), tf.zeros([1, 12, 96, 96]), tf.zeros([1, 10, 192, 192])];
+                    const [output, ho1, ho2, ho3, ho4] = model.execute({input, hi1, hi2, hi3, hi4}, // provide inputs
+                        ['output', 'ho1', 'ho2', 'ho3', 'ho4']   // select outputs
+                    );
+                    //drawMatte(img.clone(), output.clone(), canvasRef);
+
+                    // Dispose old tensors, Update recurrent states.
+                    // dispose 안해주면 메모리 치솟음
+                    tf.dispose([img, input, output, hi1, hi2, hi3, hi4]);
+                    [hi1, hi2, hi3, hi4] = [ho1, ho2, ho3, ho4];
+                    tf.dispose([ho1, ho2, ho3, ho4]);
+                }
+            }
         }
     }
 
     // tensorflow.js backend, Model 초기화
     useEffect(() => {
+
         (async () => {
             console.log(await setENV());
         })();
@@ -91,22 +107,23 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
 
     // useLayoutEffect 이거쓰면 꺼지는구나
     useLayoutEffect(() => {
-
         if (playing) {
-            getWebcam((stream: any) => {
-                videoRef.current.srcObject = stream;
-                // setWebCamStateAtom(stream);
-            });
+            inferRef.current = true;
             inference();
         }
         return () => {
-            if (videoRef.current?.srcObject !== null) {
-                const s = videoRef.current?.srcObject;
-                s?.getTracks().forEach((track: MediaStreamTrack) => {
-                    track.stop();
-                });
+            if (videoRef.current.srcObject !== null) {
+                console.log(tf.memory());
+                inferRef.current = false;
+                if ("getTracks" in videoRef.current.srcObject) {
+                    videoRef.current.srcObject.getTracks().forEach((track: MediaStreamTrack) => {
+                        track.stop();
+                    });
+                }
+
             }
         };
+
     }, [playing]);
 
     return (<div>
@@ -130,11 +147,13 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
         <div className="mt-8 flex items-center justify-center">
             <video
                 ref={videoRef}
+                height="512" width="512"
                 style={{
                     objectFit: 'cover', transform: 'scaleX(-1)',
                 }}
                 autoPlay
             />
+            <canvas></canvas>
         </div>
     </div>);
 }

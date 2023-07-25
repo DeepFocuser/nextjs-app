@@ -1,8 +1,8 @@
 // import localFont from 'next/font/local';
-import { Inter } from 'next/font/google';
+import {Inter as InterFont} from 'next/font/google';
 import '@/styles/globals.css';
-import { siteMetadata } from '@/config/seo';
-import { ReactNode, Suspense } from 'react';
+import {siteMetadata} from '@/config/seo';
+import {ReactNode, Suspense} from 'react';
 import Nav from '@/components/structure/nav';
 import Footer from '@/components/structure/footer';
 import NavigationEvents from '../components/structure/navigation-events';
@@ -10,7 +10,7 @@ import ThemeProviders from '../components/provider/themeproviders';
 import Loading from './loading';
 //import RecoilProviders from '../components/provider/recoil';
 
-export const metadata = { ...siteMetadata };
+export const metadata = {...siteMetadata};
 
 // const mainFont = localFont({
 //     src: [
@@ -28,7 +28,7 @@ export const metadata = { ...siteMetadata };
 //     display: 'swap',
 // });
 
-const inter = Inter({
+const inter = InterFont({
     subsets: ['latin'],
     display: 'swap',
 });
@@ -39,7 +39,7 @@ and React will automatically dedupe the requests without affecting performance.
 */
 
 // 반드시 default 붙여아한다.
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({children}: { children: ReactNode }) {
     return (
         // Note! If you do not add suppressHydrationWarning to your <html>
         // you will get warnings because next-themes updates that element.
@@ -47,20 +47,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         // suppressHydrationWarning 쓰기
         // https://eunhee-programming.tistory.com/205
         <html suppressHydrationWarning lang="ko" className={inter.className}>
-            <body className="container mx-auto">
-                {/*<RecoilProviders>*/}
-                <ThemeProviders>
-                    <header>
-                        <Nav />
-                    </header>
-                    <main>{children}</main>
-                    <Footer />
-                    <Suspense fallback={<Loading />}>
-                        <NavigationEvents />
-                    </Suspense>
-                </ThemeProviders>
-                {/*</RecoilProviders>*/}
-            </body>
+        <body className="container mx-auto">
+        {/*<RecoilProviders>*/}
+        <ThemeProviders>
+            <header>
+                <Nav/>
+            </header>
+            <main>{children}</main>
+            <Footer/>
+            <Suspense fallback={<Loading/>}>
+                <NavigationEvents/>
+            </Suspense>
+        </ThemeProviders>
+        {/*</RecoilProviders>*/}
+        </body>
         </html>
     );
 }

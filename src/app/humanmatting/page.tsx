@@ -4,5 +4,6 @@ import Humanmatting from '../../components/ai/humanmatting';
 
 // https://rubenchoi.tistory.com/20
 export default function Home() {
-    return <Humanmatting backendName='webgpu' modelName='/models/humanmatting/model.json'/>;
+    // 2023-07-25 아직까지는 webgl인가
+    return <Humanmatting backendName='webgl' modelName='/models/humanmatting/model.json'/>;
 }
