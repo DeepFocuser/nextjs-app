@@ -30,24 +30,25 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
     }
 
     // 비동기 처리2 - canvas에 그리기  하기
-    const drawResult: (image: tf.Tensor, alpha: tf.Tensor, background: tf.Tensor, videoHeight: number, videoWidth: number) => void
-        = async (image, alpha, background, videoHeight, videoWidth) => {
+    const drawResult: (image: tf.Tensor, alpha: tf.Tensor, background: tf.Tensor) => void
+        = async (image, alpha, background) => {
         const result = tf.tidy(() => {
             const pha = alpha.squeeze().expandDims(2); //float32
-            const one = tf.onesLike(pha); // float32
+            const pha255 = tf.mul(pha, 255).cast("int32");
+            const one = tf.onesLike(pha);
             const rgb = tf.add(tf.mul(pha, image), tf.mul(tf.sub(one, pha), background)).cast("int32");
-            const a = tf.onesLike(pha).cast("int32");
-            return tf.concat([rgb, a], -1);
+            const opacity = one.mul(255).cast('int32');
+            return tf.concat([pha255, pha255, pha255, opacity], 2);
         });
         image.dispose();
         alpha.dispose();
         background.dispose();
 
-        const [height, width] = result.shape.slice(0, 2);
-        const pixelData = new Uint8ClampedArray(await result.data()); // ui 안멈추게 하려고 비동기로 가져온다
+        // result를 resize하면 될듯~
+        const resizeResult = tf.image.resizeBilinear(result, [canvasRef.current.height, canvasRef.current.width]);
+        const [height, width] = resizeResult.shape.slice(0, 2);
+        const pixelData = new Uint8ClampedArray(await resizeResult.data()); // ui 안멈추게 하려고 비동기로 가져온다
         const imageData = new ImageData(pixelData, width, height);
-        canvasRef.current.height = videoHeight;
-        canvasRef.current.width = videoWidth;
         canvasRef.current.getContext('2d').putImageData(imageData, 0, 0);
         result.dispose();
     }
@@ -72,9 +73,6 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
 
     // 비동기 처리4 - model inference
     const inference = async () => {
-
-        const videoHeight = videoRef.current.height;
-        const videoWidth = videoRef.current.width;
 
         // 카메라 1개만 선택하기
         let deviceId = "";
@@ -114,7 +112,7 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
                     const [output, ho1, ho2, ho3, ho4] = model.execute({input, hi1, hi2, hi3, hi4}, // provide inputs
                         ['output', 'ho1', 'ho2', 'ho3', 'ho4']   // select outputs
                     );
-                    drawResult(img.clone(), output.clone(), background.clone(), videoHeight, videoWidth);
+                    drawResult(img.clone(), output.clone(), background.clone());
                     // Dispose old tensors, Update recurrent states.
                     // dispose 안해주면 메모리 치솟음
                     tf.dispose([img, input, output, hi1, hi2, hi3, hi4]);
@@ -123,9 +121,7 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
             }
             tf.dispose([hi1, hi2, hi3, hi4, background]);
         }
-
     }
-
     // tensorflow.js backend, Model 초기화
     useEffect(() => {
         (async () => {
@@ -137,11 +133,13 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
     useLayoutEffect(() => {
         if (playing) {
             inferenceRef.current = true;
+            canvasRef.current.style.display = "block";
             inference();
         }
         return () => {
             if (videoRef.current.srcObject !== null) {
                 inferenceRef.current = false;
+                canvasRef.current.style.display = "none";
                 console.log(tf.memory());
                 if ("getTracks" in videoRef.current.srcObject) {
                     videoRef.current.srcObject.getTracks().forEach((track: MediaStreamTrack) => {
@@ -172,15 +170,18 @@ function Humanmatting({backendName, modelName}: ModelInfo) {
             </label>
         </div>
         <div className="mt-8 flex items-center justify-center">
+            <canvas ref={canvasRef} height="480" width="640"
+                    style={{
+                        objectFit: 'cover', transform: 'scaleX(-1)',
+                    }}></canvas>
             <video
                 ref={videoRef}
-                height="512" width="512"
+                height="480" width="640"
                 style={{
                     display: 'none', objectFit: 'cover', transform: 'scaleX(-1)',
                 }}
                 autoPlay
             />
-            <canvas ref={canvasRef} width="512" height="512"></canvas>
         </div>
     </div>);
 }
