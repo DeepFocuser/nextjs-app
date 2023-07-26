@@ -24,7 +24,7 @@ function ThemeSwitch() {
                 <select
                     name="HeadlineAct"
                     id="HeadlineAct"
-                    className="block w-auto rounded-lg bg-slate-900 p-0.5 text-sm text-purple-50"
+                    className="block w-24 rounded-lg bg-slate-900 p-0.5 text-sm text-purple-50"
                 >
                     <option className="text-center font-bold">
                         {/*Loading!*/}
@@ -47,7 +47,7 @@ function ThemeSwitch() {
                 onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     setTheme(e.target.value)
                 }
-                className="block w-auto rounded-lg bg-slate-900 p-0.5 text-sm text-purple-50"
+                className="block w-24 rounded-lg bg-slate-900 p-0.5 text-sm text-purple-50"
             >
                 {/*https://velog.io/@chyoon0512/React-map-%EC%82%AC%EC%9A%A9%EC%8B%9C-key-props%EB%A5%BC-%EB%B6%80%EC%97%AC%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0*/}
                 {/*key는 React가 어떤 항목을 변경, 추가 또는 삭제할지 식별하는 것을 돕는다. key는 element에 안정적인 고유성을 부여하기 위해 배열 내부의 엘리먼트에 지정해야한다.*/}
