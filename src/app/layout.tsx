@@ -1,16 +1,17 @@
 // import localFont from 'next/font/local';
-import {Inter as InterFont} from 'next/font/google';
+import { Inter as InterFont } from 'next/font/google';
 import '../styles/globals.css';
-import {siteMetadata} from '@/config/seo';
-import {ReactNode, Suspense} from 'react';
+import { siteMetadata } from '@/config/seo';
+import { ReactNode, Suspense } from 'react';
 import Nav from '@/components/structure/nav';
 import Footer from '@/components/structure/footer';
 import NavigationEvents from '../components/structure/navigation-events';
 import ThemeProviders from '../components/provider/themeproviders';
 import Loading from './loading';
+import GoogleAnalytics from '@/components/provider/googleanalytics';
 //import RecoilProviders from '../components/provider/recoil';
 
-export const metadata = {...siteMetadata};
+export const metadata = { ...siteMetadata };
 
 // const mainFont = localFont({
 //     src: [
@@ -39,28 +40,35 @@ and React will automatically dedupe the requests without affecting performance.
 */
 
 // 반드시 default 붙여아한다.
-export default function RootLayout({children}: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         // Note! If you do not add suppressHydrationWarning to your <html>
         // you will get warnings because next-themes updates that element.
         // This property only applies one level deep, so it won't block hydration warnings on other elements.
         // suppressHydrationWarning 쓰기
         // https://eunhee-programming.tistory.com/205
-        <html suppressHydrationWarning lang="ko" className={interFont.className}>
-        <body className="container mx-auto">
-        {/*<RecoilProviders>*/}
-        <ThemeProviders>
-            <header>
-                <Nav/>
-            </header>
-            <main>{children}</main>
-            <Footer/>
-            <Suspense fallback={<Loading/>}>
-                <NavigationEvents/>
-            </Suspense>
-        </ThemeProviders>
-        {/*</RecoilProviders>*/}
-        </body>
+        <html
+            suppressHydrationWarning
+            lang="ko"
+            className={interFont.className}
+        >
+            {process.env.GA_TRACKING_ID && (
+                <GoogleAnalytics GA_TRACKING_ID={process.env.GA_TRACKING_ID} />
+            )}
+            <body className="container mx-auto">
+                {/*<RecoilProviders>*/}
+                <ThemeProviders>
+                    <header>
+                        <Nav />
+                    </header>
+                    <main>{children}</main>
+                    <Footer />
+                    <Suspense fallback={<Loading />}>
+                        <NavigationEvents />
+                    </Suspense>
+                </ThemeProviders>
+                {/*</RecoilProviders>*/}
+            </body>
         </html>
     );
 }

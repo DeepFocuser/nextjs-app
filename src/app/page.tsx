@@ -1,8 +1,9 @@
 import Image from 'next/image';
 
+// https://www.npmjs.com/package/nextjs-google-analytics
 export default function Home() {
     return (
-        <div className="mb-36">
+        <div className="mb-36 mt-7">
             <div className="chat chat-start">
                 <div className="chat-image avatar">
                     <div className="w-10 rounded-full">

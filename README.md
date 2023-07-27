@@ -1,5 +1,7 @@
 # Next.js 13.4 First App by DeepFocuser
 
+-   [Github](https://github.com/DeepFocuser/nextjs-app)
+
 ## Features
 
 This is a very simple starter template and it contains:
@@ -30,7 +32,7 @@ npm run dev
 run all tests:
 
 ```bash
-npm test # in progress
+npm test # 딱히 필요 없을듯
 ```
 
 ## Learn More

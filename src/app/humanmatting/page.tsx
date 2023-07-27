@@ -2,8 +2,12 @@
 // The Client module boundary only needs to be defined once, at the "entry point",
 import Humanmatting from '../../components/ai/humanmatting';
 
-// https://rubenchoi.tistory.com/20
 export default function Home() {
     // 2023-07-25 아직까지는 webgl인가
-    return <Humanmatting backendName='webgl' modelName='/models/humanmatting/model.json'/>;
+    return (
+        <Humanmatting
+            backendName="webgl"
+            modelName="/models/humanmatting/model.json"
+        />
+    );
 }

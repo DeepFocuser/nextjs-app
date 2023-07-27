@@ -6,7 +6,8 @@ import ThemeSwitch from './theme';
 // const ThemeSwitch = dynamic(() => import('@/components/theme'), {ssr: true})
 
 function Nav() {
-    return (<nav className="mb-7 border-b-2">
+    return (
+        <nav className="border-b-2">
             <div className="navbar">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -34,7 +35,7 @@ function Nav() {
                                 <Link href="/">Home</Link>
                             </li>
                             <li>
-                                <Link href="/">About</Link>
+                                <Link href="/about">About</Link>
                             </li>
                             <li>
                                 <Link href="/humanmatting">
@@ -42,13 +43,13 @@ function Nav() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/humanmatting">
+                                <Link href="/facerecognition">
                                     <p className="text-left">⛔</p>
                                     FaceRecognition
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/humanmatting">
+                                <Link href="/voiceactivitydetection">
                                     <p className="text-left">⛔</p>
                                     VoiceActivityDetection
                                 </Link>
@@ -66,7 +67,7 @@ function Nav() {
                         </li>
                         <li data-content="⛔" className="step-neutral step">
                             <Link
-                                href="/humanmatting"
+                                href="/facerecognition"
                                 className="btn-accent btn-sm btn text-xs normal-case"
                             >
                                 FR
@@ -74,7 +75,7 @@ function Nav() {
                         </li>
                         <li data-content="⛔" className="step-neutral step">
                             <Link
-                                href="/humanmatting"
+                                href="/voiceactivitydetection"
                                 className="btn-accent btn-sm btn text-xs normal-case"
                             >
                                 VD
@@ -102,7 +103,7 @@ function Nav() {
                     </Link>
                 </div>
                 <div className="navbar-end">
-                    <ThemeSwitch/>
+                    <ThemeSwitch />
                     <div className="avatar w-10 sm:block">
                         <div className="mask mask-squircle w-full">
                             <Image
@@ -118,7 +119,8 @@ function Nav() {
                     </div>
                 </div>
             </div>
-        </nav>);
+        </nav>
+    );
 }
 
 export default Nav;
