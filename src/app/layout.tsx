@@ -53,7 +53,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             className={interFont.className}
         >
             {process.env.NEXT_PUBLIC_GA_TRACKING_ID && (
-                <GoogleAnalytics GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_TRACKING_ID} />
+                <GoogleAnalytics
+                    GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_TRACKING_ID}
+                />
             )}
             <body className="container mx-auto">
                 {/*<RecoilProviders>*/}
