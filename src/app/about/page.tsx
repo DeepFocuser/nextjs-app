@@ -18,7 +18,8 @@ export default function Home() {
                     </h1>
                     <p className="mb-5 text-2xl text-gray-200">
                         &quot;The mind is a powerful tool. When you focus on
-                        something, you can achieve anything.&ldquo; - Oprah Winfrey
+                        something, you can achieve anything.&ldquo; - Oprah
+                        Winfrey
                     </p>
                     <Link
                         className="group relative inline-block overflow-hidden border border-black px-8 py-3 ring-pink-100 focus:outline-none focus:ring-4"
