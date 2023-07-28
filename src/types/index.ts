@@ -10,5 +10,5 @@ export type SiteConfig = {
 
 export type ModelInfo = {
     backendName: string;
-    modelName: string;
+    modelPath: string;
 };

@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 
 // https://www.npmjs.com/package/nextjs-google-analytics

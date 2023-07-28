@@ -7,7 +7,7 @@ export default function Home() {
     return (
         <Humanmatting
             backendName="webgl"
-            modelName="/models/humanmatting/model.json"
+            modelPath="/models/humanmatting/model.json"
         />
     );
 }

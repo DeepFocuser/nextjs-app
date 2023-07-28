@@ -21,6 +21,7 @@
         "sharp": "^0.32.3"
     },
     "devDependencies": {
+        "@types/gtag.js": "^0.0.12",
         "@types/jest": "^29.5.1",
         "@types/node": "^20.4.1",
         "@types/react": "^18.2.15",

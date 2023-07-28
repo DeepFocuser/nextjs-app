@@ -1,15 +1,15 @@
 'use client';
 
-import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { ModelInfo } from '@/types';
+import {memo, useEffect, useLayoutEffect, useRef, useState} from 'react';
+import {ModelInfo} from '@/types';
 import * as tf from '@tensorflow/tfjs';
-import { Rank } from '@tensorflow/tfjs';
+import {Rank} from '@tensorflow/tfjs';
 // import '@tensorflow/tfjs-backend-webgpu';
 // 처음에 recoil 사용해서 하려고 했으나, useLayoutEffect을 사용하면 될일 이었음.
 // import {useSetRecoilState} from 'recoil';
 // import {webCamStateAtom} from '../../utils/recoilatoms';
 
-function Humanmatting({ backendName, modelName }: ModelInfo) {
+function Humanmatting({backendName, modelPath}: ModelInfo) {
     const [playing, setPlaying] = useState<boolean>(false);
 
     //const setWebCamStateAtom = useSetRecoilState(webCamStateAtom);
@@ -17,14 +17,12 @@ function Humanmatting({ backendName, modelName }: ModelInfo) {
     const canvasRef1 = useRef<any>(null);
     const canvasRef2 = useRef<any>(null);
     const inputRef = useRef<any>(null);
-    const [model, setModel] = useState<any>(undefined);
     const inferenceRef = useRef<boolean>(false);
 
     // 비동기 처리1 - backend, Model Loading 하기
-    const setENV = async () => {
-        await tf.setBackend(backendName);
-        setModel(await tf.loadGraphModel(modelName));
-        return `Model Load Completed in ${tf.getBackend()}`;
+    const setENV: (name: string) => Promise<string> = async (name) => {
+        await tf.setBackend(name);
+        return `Backend is ${tf.getBackend()}`;
     };
 
     // 비동기 처리2 - canvas에 그리기  하기
@@ -96,7 +94,8 @@ function Humanmatting({ backendName, modelName }: ModelInfo) {
     };
 
     // 비동기 처리4 - model inference
-    const inference = async () => {
+    const inference: (path: string) => void = async (path) => {
+
         canvasRef1.current.style.display = 'block';
         canvasRef2.current.style.display = 'block';
 
@@ -134,6 +133,9 @@ function Humanmatting({ backendName, modelName }: ModelInfo) {
             const url = '/images/sample.jpg';
             const background = await loadImageAsync(url);
 
+            // model loading
+            const model = await tf.loadGraphModel(path);
+
             // model에 입력되는 rnn state 초기값
             let [hi1, hi2, hi3, hi4] = [
                 tf.zeros([1, 20, 24, 24]),
@@ -150,9 +152,10 @@ function Humanmatting({ backendName, modelName }: ModelInfo) {
                     const img = await webcam.capture();
                     const input = tf.tidy(() => img.expandDims(0).div(255)); // normalize input
                     const [output, ho1, ho2, ho3, ho4] = model.execute(
-                        { input, hi1, hi2, hi3, hi4 }, // provide inputs
+                        {input, hi1, hi2, hi3, hi4}, // provide inputs
                         ['output', 'ho1', 'ho2', 'ho3', 'ho4'], // select outputs
-                    );
+                    ) as tf.Tensor<Rank>[];
+
                     drawResult(
                         img.clone(),
                         output.clone(),
@@ -171,12 +174,14 @@ function Humanmatting({ backendName, modelName }: ModelInfo) {
                 canvasRef1.current.style.display = 'none';
                 canvasRef2.current.style.display = 'none';
             }
+            webcam.stop();
+            model.dispose();
         }
     };
     // tensorflow.js backend, Model 초기화
     useEffect(() => {
         (async () => {
-            console.log(await setENV());
+            console.log(await setENV(backendName));
         })();
     }, []);
 
@@ -185,18 +190,16 @@ function Humanmatting({ backendName, modelName }: ModelInfo) {
         if (playing) {
             inferenceRef.current = true;
             (async () => {
-                await inference();
+                await inference(modelPath);
             })();
 
             inputRef.current.disabled = true;
-            setTimeout(() => (inputRef.current.disabled = false), 2100);
+            setTimeout(() => inputRef.current.disabled = false, 1000);
         }
         return () => {
             if (videoRef.current.srcObject !== null) {
                 inferenceRef.current = false;
-                // canvasRef1.current.style.display = "none";
-                // canvasRef2.current.style.display = "none";
-                console.log(tf.memory());
+                // console.log(tf.memory());
                 if ('getTracks' in videoRef.current.srcObject) {
                     videoRef.current.srcObject
                         .getTracks()
@@ -222,8 +225,10 @@ function Humanmatting({ backendName, modelName }: ModelInfo) {
                         id="AcceptConditions"
                         className="peer sr-only"
                     />
-                    <span className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                    <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                    <span
+                        className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                    <span
+                        className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
             <div className="mt-8 flex items-center justify-center">

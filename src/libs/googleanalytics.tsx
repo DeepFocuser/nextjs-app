@@ -1,9 +1,9 @@
 // https://stackoverflow.com/questions/75749102/how-to-implement-google-analytics-with-nextjs-13
 // https://curryyou.tistory.com/508
-'use client';
 import Script from 'next/script';
 
-const GoogleAnalytics = ({ GA_TRACKING_ID }: { GA_TRACKING_ID: string }) => {
+const GoogleAnalytics = ({GA_TRACKING_ID}: { GA_TRACKING_ID: string }) => {
+
     return (
         <>
             <Script
