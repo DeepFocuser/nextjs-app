@@ -57,6 +57,7 @@ export default function RootLayout({children}: { children: ReactNode }) {
                 GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_TRACKING_ID}
             />
         )}
+        {/*<body className="container mx-auto">*/}
         <body className="container mx-auto">
         {/*<RecoilProviders>*/}
         <ThemeProviders>
