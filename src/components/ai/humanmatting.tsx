@@ -1,9 +1,9 @@
 'use client';
-import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
+import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
 import {ModelInfo} from '@/types';
 import * as tf from '@tensorflow/tfjs';
 import {Rank} from '@tensorflow/tfjs';
-import Loading from "@/components/structure/loading";
+import Loading from '@/components/structure/loading';
 // import '@tensorflow/tfjs-backend-webgpu';
 // 처음에 recoil 사용해서 하려고 했으나, useLayoutEffect을 사용하면 될일 이었음.
 // import {useSetRecoilState} from 'recoil';
@@ -100,7 +100,6 @@ function Humanmatting({backendName, modelPath}: ModelInfo) {
 
     // 비동기 처리4 - model inference
     const inference = useCallback<(path: string) => void>(async (path) => {
-
         canvasRef1.current.style.display = 'block';
         canvasRef2.current.style.display = 'block';
 
@@ -181,7 +180,6 @@ function Humanmatting({backendName, modelPath}: ModelInfo) {
             }
             webcam.stop();
             model.dispose();
-            setLoading(false);
         }
     }, []);
 
@@ -215,6 +213,7 @@ function Humanmatting({backendName, modelPath}: ModelInfo) {
 
         return () => {
             if (videoRef.current.srcObject !== null) {
+                setLoading(false);
                 inferenceRef.current = false;
                 // console.log(tf.memory());
                 if ('getTracks' in videoRef.current.srcObject) {
