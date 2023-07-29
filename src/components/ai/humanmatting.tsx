@@ -1,16 +1,21 @@
 'use client';
-
 import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {ModelInfo} from '@/types';
 import * as tf from '@tensorflow/tfjs';
 import {Rank} from '@tensorflow/tfjs';
+import Loading from "@/components/structure/loading";
 // import '@tensorflow/tfjs-backend-webgpu';
 // 처음에 recoil 사용해서 하려고 했으나, useLayoutEffect을 사용하면 될일 이었음.
 // import {useSetRecoilState} from 'recoil';
 // import {webCamStateAtom} from '../../utils/recoilatoms';
 
-function Humanmatting({backendName, modelPath}: ModelInfo) {
+/*
+useLayoutEffect을 사용해야 페이지간 이동시 return이 동작
+useEffect는 return 동작 안함
+둘다 다른 페이지로 넘어가는 경우 현재 페이지에서 null이 나올수 있는 값들에 대해서는 null처리(?처리) 해줘야함.
+ */
 
+function Humanmatting({backendName, modelPath}: ModelInfo) {
     const [playing, setPlaying] = useState<boolean>(false);
 
     //const setWebCamStateAtom = useSetRecoilState(webCamStateAtom);
@@ -19,6 +24,7 @@ function Humanmatting({backendName, modelPath}: ModelInfo) {
     const canvasRef2 = useRef<any>(null);
     const inputRef = useRef<any>(null);
     const inferenceRef = useRef<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
     // 비동기 처리1 - backend, Model Loading 하기
     const setENV: (name: string) => void = async (name) => {
@@ -32,188 +38,181 @@ function Humanmatting({backendName, modelPath}: ModelInfo) {
         alpha: tf.Tensor,
         background: tf.Tensor,
         canvasHeight: number,
-        canvasWidth: number
-    ) => void>(
-        async (image, alpha, background, canvasHeight, canvasWidth) => {
-            const result: tf.Tensor<Rank>[] = tf.tidy(() => {
-                const pha = alpha.squeeze().expandDims(2); //float32
-                const pha255 = tf.mul(pha, 255).cast('int32');
-                const one = tf.onesLike(pha);
-                const rgb = tf
-                    .add(tf.mul(pha, image), tf.mul(tf.sub(one, pha), background))
-                    .cast('int32');
-                const opacity = one.mul(255).cast('int32');
-                return [
-                    tf.concat([rgb, opacity], 2),
-                    tf.concat([pha255, pha255, pha255, opacity], 2),
-                ];
-            });
-            image.dispose();
-            alpha.dispose();
-            background.dispose();
+        canvasWidth: number,
+    ) => void>(async (image, alpha, background, canvasHeight, canvasWidth) => {
+        const result: tf.Tensor<Rank>[] = tf.tidy(() => {
+            const pha = alpha.squeeze().expandDims(2); //float32
+            const pha255 = tf.mul(pha, 255).cast('int32');
+            const one = tf.onesLike(pha);
+            const rgb = tf
+                .add(tf.mul(pha, image), tf.mul(tf.sub(one, pha), background))
+                .cast('int32');
+            const opacity = one.mul(255).cast('int32');
+            return [
+                tf.concat([rgb, opacity], 2),
+                tf.concat([pha255, pha255, pha255, opacity], 2),
+            ];
+        });
+        image.dispose();
+        alpha.dispose();
+        background.dispose();
 
-            // result를 resize하면 될듯~
-            const resizeResult = result[0].resizeBilinear([
-                canvasHeight,
-                canvasWidth,
-            ]);
-            const resizeAlphaResult = result[1].resizeBilinear([
-                canvasHeight,
-                canvasWidth,
-            ]);
+        // result를 resize하면 될듯~
+        const resizeResult = result[0].resizeBilinear([
+            canvasHeight,
+            canvasWidth,
+        ]);
+        const resizeAlphaResult = result[1].resizeBilinear([
+            canvasHeight,
+            canvasWidth,
+        ]);
 
-            const [height, width] = resizeAlphaResult.shape.slice(0, 2);
-            const pixelData = new Uint8ClampedArray(await resizeResult.data()); //
-            const pixelDataAlpha = new Uint8ClampedArray(
-                await resizeAlphaResult.data(),
-            ); //
-            // ui 안멈추게 하려고 비동기로 가져온다
-            const imageData = new ImageData(pixelData, width, height);
-            const imageDataAlpha = new ImageData(pixelDataAlpha, width, height);
+        const [height, width] = resizeAlphaResult.shape.slice(0, 2);
+        const pixelData = new Uint8ClampedArray(await resizeResult.data()); //
+        const pixelDataAlpha = new Uint8ClampedArray(
+            await resizeAlphaResult.data(),
+        ); //
+        // ui 안멈추게 하려고 비동기로 가져온다
+        const imageData = new ImageData(pixelData, width, height);
+        const imageDataAlpha = new ImageData(pixelDataAlpha, width, height);
 
-            canvasRef1.current?.getContext('2d').putImageData(imageData, 0, 0);
-            canvasRef2.current?.getContext('2d').putImageData(imageDataAlpha, 0, 0);
-            tf.dispose([result, resizeResult, resizeAlphaResult]);
-        },
-        [],
-    );
+        canvasRef1.current?.getContext('2d').putImageData(imageData, 0, 0);
+        canvasRef2.current?.getContext('2d').putImageData(imageDataAlpha, 0, 0);
+        tf.dispose([result, resizeResult, resizeAlphaResult]);
+    }, []);
 
     // 비동기 처리3 - 배경이미지 로딩하기
-    const loadImageAsync = useCallback<(path: string) => Promise<tf.Tensor<Rank>>>(
-        path => {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.src = path;
-                img.onload = () => {
-                    const tensor = tf.browser.fromPixels(img);
-                    const background = tf.image.resizeBilinear(tensor, [384, 384]);
-                    tf.dispose(tensor);
-                    resolve(background);
-                };
-                img.onerror = (e) => {
-                    reject(e);
-                };
-            });
-        }, []);
+    const loadImageAsync = useCallback<(path: string) => Promise<tf.Tensor<Rank>>>((path) => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = path;
+            img.onload = () => {
+                const tensor = tf.browser.fromPixels(img);
+                const background = tf.image.resizeBilinear(tensor, [384, 384]);
+                tf.dispose(tensor);
+                resolve(background);
+            };
+            img.onerror = (e) => {
+                reject(e);
+            };
+        });
+    }, []);
 
     // 비동기 처리4 - model inference
-    const inference = useCallback<(path: string) => void>(
-        async (path) => {
+    const inference = useCallback<(path: string) => void>(async (path) => {
 
-            canvasRef1.current.style.display = 'block';
-            canvasRef2.current.style.display = 'block';
+        canvasRef1.current.style.display = 'block';
+        canvasRef2.current.style.display = 'block';
 
-            // 카메라 1개만 선택하기
-            let deviceId = '';
-            let cameraCount = 0; // deviceId가 안나오는 경우도 있다.
-            for (const camera of await navigator.mediaDevices.enumerateDevices()) {
-                if (camera.kind.startsWith('video')) {
-                    deviceId = camera.deviceId;
-                    cameraCount += 1;
-                    break;
+        // 카메라 1개만 선택하기
+        let deviceId = '';
+        let cameraCount = 0; // deviceId가 안나오는 경우도 있다.
+        for (const camera of await navigator.mediaDevices.enumerateDevices()) {
+            if (camera.kind.startsWith('video')) {
+                deviceId = camera.deviceId;
+                cameraCount += 1;
+                break;
+            }
+        }
+
+        // 내 모델은 384x384x3 을 입력으로 받음
+        if (inferenceRef.current && cameraCount > 0) {
+            let webcam;
+            if (deviceId !== '')
+                webcam = await tf.data.webcam(videoRef.current, {
+                    deviceId,
+                    resizeWidth: 384,
+                    resizeHeight: 384,
+                });
+            else
+                webcam = await tf.data.webcam(videoRef.current, {
+                    resizeWidth: 384,
+                    resizeHeight: 384,
+                });
+
+            // 배경 이미지 미리 Load 하기
+            // https://www.youtube.com/watch?v=kSSycUT0r1M
+            const url = '/images/sample.jpg';
+            const background = await loadImageAsync(url);
+
+            // model loading
+            const model = await tf.loadGraphModel(path);
+
+            // model에 입력되는 rnn state 초기값
+            let [hi1, hi2, hi3, hi4] = [
+                tf.zeros([1, 20, 24, 24]),
+                tf.zeros([1, 16, 48, 48]),
+                tf.zeros([1, 12, 96, 96]),
+                tf.zeros([1, 10, 192, 192]),
+            ];
+
+            // Inference loop
+            while (inferenceRef.current) {
+                const canvasHeight = canvasRef1.current?.height;
+                const canvasWidth = canvasRef1.current?.width;
+
+                await tf.nextFrame();
+                // 중간에 inferRef.current가 바뀐다.
+                if (inferenceRef.current) {
+                    const img = await webcam.capture();
+                    const input = tf.tidy(() => img.expandDims(0).div(255)); // normalize input
+                    const [output, ho1, ho2, ho3, ho4] = model.execute(
+                        {input, hi1, hi2, hi3, hi4}, // provide inputs
+                        ['output', 'ho1', 'ho2', 'ho3', 'ho4'], // select outputs
+                    ) as tf.Tensor<Rank>[];
+
+                    await drawResult(
+                        img.clone(),
+                        output.clone(),
+                        background.clone(),
+                        canvasHeight,
+                        canvasWidth,
+                    );
+                    // Dispose old tensors, Update recurrent states.
+                    // dispose 안해주면 메모리 치솟음
+                    tf.dispose([img, input, output, hi1, hi2, hi3, hi4]);
+                    [hi1, hi2, hi3, hi4] = [ho1, ho2, ho3, ho4];
                 }
             }
-
-            // 내 모델은 384x384x3 을 입력으로 받음
-            if (inferenceRef.current && cameraCount > 0) {
-                let webcam;
-                if (deviceId !== '')
-                    webcam = await tf.data.webcam(videoRef.current, {
-                        deviceId,
-                        resizeWidth: 384,
-                        resizeHeight: 384,
-                    });
-                else
-                    webcam = await tf.data.webcam(videoRef.current, {
-                        resizeWidth: 384,
-                        resizeHeight: 384,
-                    });
-
-                // 배경 이미지 미리 Load 하기
-                // https://www.youtube.com/watch?v=kSSycUT0r1M
-                const url = '/images/sample.jpg';
-                const background = await loadImageAsync(url);
-
-                // model loading
-                const model = await tf.loadGraphModel(path);
-
-                // model에 입력되는 rnn state 초기값
-                let [hi1, hi2, hi3, hi4] = [
-                    tf.zeros([1, 20, 24, 24]),
-                    tf.zeros([1, 16, 48, 48]),
-                    tf.zeros([1, 12, 96, 96]),
-                    tf.zeros([1, 10, 192, 192]),
-                ];
-
-                // Inference loop
-                while (inferenceRef.current) {
-
-                    const canvasHeight = canvasRef1.current?.height;
-                    const canvasWidth = canvasRef1.current?.width;
-
-                    await tf.nextFrame();
-                    // 중간에 inferRef.current가 바뀐다.
-                    if (inferenceRef.current) {
-                        const img = await webcam.capture();
-                        const input = tf.tidy(() => img.expandDims(0).div(255)); // normalize input
-                        const [output, ho1, ho2, ho3, ho4] = model.execute(
-                            {input, hi1, hi2, hi3, hi4}, // provide inputs
-                            ['output', 'ho1', 'ho2', 'ho3', 'ho4'], // select outputs
-                        ) as tf.Tensor<Rank>[];
-
-                        await drawResult(
-                            img.clone(),
-                            output.clone(),
-                            background.clone(),
-                            canvasHeight,
-                            canvasWidth,
-                        );
-                        // Dispose old tensors, Update recurrent states.
-                        // dispose 안해주면 메모리 치솟음
-                        tf.dispose([img, input, output, hi1, hi2, hi3, hi4]);
-                        [hi1, hi2, hi3, hi4] = [ho1, ho2, ho3, ho4];
-                    }
-                }
-                tf.dispose([hi1, hi2, hi3, hi4, background]);
-                if (canvasRef1.current !== null && canvasRef2.current !== null) {
-                    canvasRef1.current.style.display = 'none';
-                    canvasRef2.current.style.display = 'none';
-                }
-                webcam.stop();
-                model.dispose();
+            tf.dispose([hi1, hi2, hi3, hi4, background]);
+            if (canvasRef1.current !== null && canvasRef2.current !== null) {
+                canvasRef1.current.style.display = 'none';
+                canvasRef2.current.style.display = 'none';
             }
-        },
-        [],
-    );
+            webcam.stop();
+            model.dispose();
+            setLoading(false);
+        }
+    }, []);
 
     // tensorflow.js backend / windowResizeListener 초기화
     useEffect(() => {
         setENV(backendName);
 
         const windowResizeListener = () => {
-            canvasRef1.current.width = Math.floor(window.innerWidth * 0.4);
-            canvasRef1.current.height = Math.floor(window.innerHeight * 0.5);
-            canvasRef2.current.width = Math.floor(window.innerWidth * 0.4);
-            canvasRef2.current.height = Math.floor(window.innerHeight * 0.5);
-        }
+            canvasRef1.current.width = Math.floor(window.innerWidth * 0.41);
+            canvasRef1.current.height = Math.floor(window.innerHeight * 0.521);
+            canvasRef2.current.width = Math.floor(window.innerWidth * 0.41);
+            canvasRef2.current.height = Math.floor(window.innerHeight * 0.521);
+        };
 
         windowResizeListener();
-        window.addEventListener("resize", windowResizeListener);
+        window.addEventListener('resize', windowResizeListener);
         return () => {
-            window.removeEventListener("resize", windowResizeListener);
-        }
-
+            window.removeEventListener('resize', windowResizeListener);
+        };
     }, []);
 
-    // useLayoutEffect 이거쓰면 꺼지는구나
+    // useLayoutEffect을 사용해야 한다.
     useLayoutEffect(() => {
         if (playing) {
+            setLoading(true);
             inferenceRef.current = true;
             inference(modelPath);
-
             inputRef.current.disabled = true;
-            setTimeout(() => inputRef.current.disabled = false, 1000);
+            setTimeout(() => (inputRef.current.disabled = false), 1000);
         }
+
         return () => {
             if (videoRef.current.srcObject !== null) {
                 inferenceRef.current = false;
@@ -230,8 +229,8 @@ function Humanmatting({backendName, modelPath}: ModelInfo) {
     }, [playing]);
 
     return (
-        <div>
-            <div className="mt-6 grid items-center justify-center md:justify-self-end">
+        <div className="mb-36">
+            <div className="mt-12 grid items-center justify-center md:justify-self-end">
                 <label
                     htmlFor="AcceptConditions"
                     className="relative h-8 w-14 cursor-pointer"
@@ -249,7 +248,8 @@ function Humanmatting({backendName, modelPath}: ModelInfo) {
                         className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
-            <div className="mt-8 flex items-center justify-center">
+            {loading ? <Loading/> : null}
+            <div className="mt-12 flex items-center justify-center">
                 <canvas
                     ref={canvasRef1}
                     style={{

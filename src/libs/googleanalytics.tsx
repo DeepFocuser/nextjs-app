@@ -2,8 +2,7 @@
 // https://curryyou.tistory.com/508
 import Script from 'next/script';
 
-const GoogleAnalytics = ({GA_TRACKING_ID}: { GA_TRACKING_ID: string }) => {
-
+const GoogleAnalytics = ({ GA_TRACKING_ID }: { GA_TRACKING_ID: string }) => {
     return (
         <>
             <Script
