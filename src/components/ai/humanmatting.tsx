@@ -3,7 +3,7 @@ import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from '
 import {ModelInfo} from '@/types';
 import * as tf from '@tensorflow/tfjs';
 import {Rank} from '@tensorflow/tfjs';
-import Loading from '@/components/structure/loading';
+import Loading from "@/components/structure/loading";
 // import '@tensorflow/tfjs-backend-webgpu';
 // 처음에 recoil 사용해서 하려고 했으나, useLayoutEffect을 사용하면 될일 이었음.
 // import {useSetRecoilState} from 'recoil';
@@ -67,7 +67,7 @@ function Humanmatting({backendName, modelPath}: ModelInfo) {
             canvasWidth,
         ]);
 
-        const [height, width] = resizeAlphaResult.shape.slice(0, 2);
+        const [height, width] = resizeResult.shape.slice(0, 2);
         const pixelData = new Uint8ClampedArray(await resizeResult.data()); //
         const pixelDataAlpha = new Uint8ClampedArray(
             await resizeAlphaResult.data(),
@@ -147,6 +147,7 @@ function Humanmatting({backendName, modelPath}: ModelInfo) {
 
             // Inference loop
             while (inferenceRef.current) {
+
                 const canvasHeight = canvasRef1.current?.height;
                 const canvasWidth = canvasRef1.current?.width;
 
@@ -189,9 +190,10 @@ function Humanmatting({backendName, modelPath}: ModelInfo) {
 
         const windowResizeListener = () => {
             canvasRef1.current.width = Math.floor(window.innerWidth * 0.41);
-            canvasRef1.current.height = Math.floor(window.innerHeight * 0.521);
-            canvasRef2.current.width = Math.floor(window.innerWidth * 0.41);
-            canvasRef2.current.height = Math.floor(window.innerHeight * 0.521);
+            canvasRef1.current.height = Math.floor(window.innerHeight * 0.5);
+
+            canvasRef2.current.width = canvasRef1.current.width;
+            canvasRef2.current.height = canvasRef1.current.height;
         };
 
         windowResizeListener();
@@ -252,6 +254,7 @@ function Humanmatting({backendName, modelPath}: ModelInfo) {
                 <canvas
                     ref={canvasRef1}
                     style={{
+
                         transform: 'scaleX(-1)',
                     }}
                 ></canvas>
