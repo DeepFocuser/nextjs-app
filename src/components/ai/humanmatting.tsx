@@ -248,15 +248,23 @@ function Humanmatting({backendName, modelPath}: ModelInfo) {
                         className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
-            <div className="mt-4 mb-4 grid items-center justify-center md:justify-self-end">
+            <div className="mb-4 mt-4 grid items-center justify-center md:justify-self-end">
                 <label className="label cursor-pointer">
                     <span className="label-text mr-3 text-red-700">F</span>
-                    <input type="radio" name="radio-10" className="radio checked:bg-red-500" checked/>
+                    <input
+                        type="radio"
+                        name="radio-10"
+                        className="radio checked:bg-red-500"
+                        checked
+                    />
                 </label>
                 <label className="label cursor-pointer">
                     <span className="label-text mr-3 text-blue-700">R</span>
-                    <input type="radio" name="radio-10" className="radio checked:bg-blue-500"/>
-                    {/*<span className="label-text"> Rear Camera</span>*/}
+                    <input
+                        type="radio"
+                        name="radio-10"
+                        className="radio checked:bg-blue-500"
+                    />
                 </label>
             </div>
             {loading ? <Loading/> : null}
