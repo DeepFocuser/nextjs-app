@@ -1,10 +1,11 @@
 import Link from 'next/link';
 
 export default function Home() {
-    return (
-        <div
+    return (<div
             className="hero min-h-screen"
-            style={{ backgroundImage: 'url(/images/background.jpg)', backgroundRepeat: 'repeat' }}
+            style={{
+                backgroundImage: 'url(/images/background.jpg)', backgroundRepeat: 'repeat',
+            }}
         >
             <div className="hero-overlay bg-opacity-20"></div>
             <div className="hero-content text-center text-neutral-content">
@@ -25,13 +26,14 @@ export default function Home() {
                         className="group relative inline-block overflow-hidden border border-black px-8 py-3 ring-pink-100 focus:outline-none focus:ring-4"
                         href="https://github.com/DeepFocuser"
                     >
-                        <span className="absolute inset-y-0 left-0 w-[2px] bg-black transition-all group-hover:w-full group-active:bg-black"></span>
-                        <span className="relative text-sm font-medium text-white transition-colors group-hover:text-white">
+                        <span
+                            className="absolute inset-y-0 left-0 w-[2px] bg-black transition-all group-hover:w-full group-active:bg-black"></span>
+                        <span
+                            className="relative text-sm font-medium text-white transition-colors group-hover:text-white">
                             my Github
                         </span>
                     </Link>
                 </div>
             </div>
-        </div>
-    );
+        </div>);
 }
