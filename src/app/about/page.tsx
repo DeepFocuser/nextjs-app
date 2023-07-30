@@ -4,19 +4,19 @@ export default function Home() {
     return (
         <div
             className="hero min-h-screen"
-            style={{ backgroundImage: 'url(/images/background.jpg)' }}
+            style={{ backgroundImage: 'url(/images/background.jpg)', backgroundRepeat: 'repeat' }}
         >
             <div className="hero-overlay bg-opacity-20"></div>
             <div className="hero-content text-center text-neutral-content">
                 <div className="max-w-7xl">
-                    <p className="text-3xl font-medium uppercase tracking-widest text-pink-400">
+                    <p className="text-2xl font-medium uppercase tracking-widest text-pink-400">
                         Developer
                     </p>
                     {/*https://blog.outsider.ne.kr/380 HTML 엔티티(Entities) 정리*/}
-                    <h1 className="mb-5 text-5xl font-bold text-yellow-300">
+                    <h1 className="mb-5 text-4xl font-bold text-yellow-300">
                         Hello I &rsquo;m DeepFocuser
                     </h1>
-                    <p className="mb-5 text-2xl text-gray-200">
+                    <p className="mb-5 text-xl text-gray-200">
                         &quot;The mind is a powerful tool. When you focus on
                         something, you can achieve anything.&ldquo; - Oprah
                         Winfrey
