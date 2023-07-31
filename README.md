@@ -1,6 +1,7 @@
 # Next.js 13.4 First App by DeepFocuser
 
--   [Github](https://github.com/DeepFocuser/nextjs-app)
+-   [Source](https://github.com/DeepFocuser/nextjs-app)
+-   [Page with Vercel](https://deepfocuser.vercel.app/)
 
 ## Features
 

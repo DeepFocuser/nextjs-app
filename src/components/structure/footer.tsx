@@ -19,7 +19,7 @@ function Footer() {
                 <p>Copyright © 2023 - All right reserved</p>
             </div>
             <div className="flex gap-4 justify-self-end">
-                <Link href="https://github.com/DeepFocuser">
+                <Link href="https://github.com/DeepFocuser" target="_blank">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -32,7 +32,7 @@ function Footer() {
                         />
                     </svg>
                 </Link>
-                <Link href="https://www.linkedin.com/in/kim-jonggon-37ba19120/">
+                <Link href="https://www.linkedin.com/in/kim-jonggon-37ba19120/" target="_blank">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"

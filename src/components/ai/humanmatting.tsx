@@ -1,15 +1,8 @@
 'use client';
-import {
-    memo,
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from 'react';
-import { ModelInfo } from '@/types';
+import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
+import {ModelInfo} from '@/types';
 import * as tf from '@tensorflow/tfjs';
-import { Rank } from '@tensorflow/tfjs';
+import {Rank} from '@tensorflow/tfjs';
 import Loading from '@/components/structure/loading';
 // import '@tensorflow/tfjs-backend-webgpu';
 // 처음에 recoil 사용해서 하려고 했으나, useLayoutEffect을 사용하면 될일 이었음.
@@ -22,9 +15,13 @@ useEffect는 return 동작 안함
 둘다 다른 페이지로 넘어가는 경우 현재 페이지에서 null이 나올수 있는 값들에 대해서는 null처리(?처리) 해줘야함.
  */
 
-function Humanmatting({ backendName, modelPath }: ModelInfo) {
-    const [playing, setPlaying] = useState<boolean>(false);
+function Humanmatting({backendName, modelPath}: ModelInfo) {
 
+    const [playing, setPlaying] = useState<boolean>(false);
+    // false : front camera / true : rear camera whene mobile
+    const [cameraSelect, setCameraSelect] = useState<boolean>(false);
+    const cameraFrontRef = useRef<any>(null);
+    const cameraRearRef = useRef<any>(null);
     //const setWebCamStateAtom = useSetRecoilState(webCamStateAtom);
     const videoRef = useRef<any>(null);
     const canvasRef1 = useRef<any>(null);
@@ -40,15 +37,13 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
     };
 
     // 비동기 처리2 - canvas에 그리기  하기
-    const drawResult = useCallback<
-        (
-            image: tf.Tensor,
-            alpha: tf.Tensor,
-            background: tf.Tensor,
-            canvasHeight: number,
-            canvasWidth: number,
-        ) => void
-    >(async (image, alpha, background, canvasHeight, canvasWidth) => {
+    const drawResult = useCallback<(
+        image: tf.Tensor,
+        alpha: tf.Tensor,
+        background: tf.Tensor,
+        canvasHeight: number,
+        canvasWidth: number,
+    ) => void>(async (image, alpha, background, canvasHeight, canvasWidth) => {
         const result: tf.Tensor<Rank>[] = tf.tidy(() => {
             const pha = alpha.squeeze().expandDims(2); //float32
             const pha255 = tf.mul(pha, 255).cast('int32');
@@ -91,9 +86,7 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
     }, []);
 
     // 비동기 처리3 - 배경이미지 로딩하기
-    const loadImageAsync = useCallback<
-        (path: string) => Promise<tf.Tensor<Rank>>
-    >((path) => {
+    const loadImageAsync = useCallback<(path: string) => Promise<tf.Tensor<Rank>>>((path) => {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.src = path;
@@ -110,7 +103,7 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
     }, []);
 
     // 비동기 처리4 - model inference
-    const inference = useCallback<(path: string) => void>(async (path) => {
+    const inference = useCallback<(path: string, select: boolean) => void>(async (path, select) => {
         canvasRef1.current.style.display = 'block';
         canvasRef2.current.style.display = 'block';
 
@@ -133,12 +126,15 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
                     deviceId,
                     resizeWidth: 384,
                     resizeHeight: 384,
+                    facingMode: !select ? 'user' : 'environment'
                 });
             else
                 webcam = await tf.data.webcam(videoRef.current, {
                     resizeWidth: 384,
                     resizeHeight: 384,
+                    facingMode: !select ? 'user' : 'environment'
                 });
+
 
             // 배경 이미지 미리 Load 하기
             // https://www.youtube.com/watch?v=kSSycUT0r1M
@@ -160,14 +156,20 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
             while (inferenceRef.current) {
                 const canvasHeight = canvasRef1.current?.height;
                 const canvasWidth = canvasRef1.current?.width;
-
                 await tf.nextFrame();
                 // 중간에 inferRef.current가 바뀐다.
                 if (inferenceRef.current) {
-                    const img = await webcam.capture();
+                    let img: any;
+                    try {
+                        img = await webcam.capture();
+                    } catch (error) {
+                        if (img)
+                            img.dispose();
+                        continue;
+                    }
                     const input = tf.tidy(() => img.expandDims(0).div(255)); // normalize input
                     const [output, ho1, ho2, ho3, ho4] = model.execute(
-                        { input, hi1, hi2, hi3, hi4 }, // provide inputs
+                        {input, hi1, hi2, hi3, hi4}, // provide inputs
                         ['output', 'ho1', 'ho2', 'ho3', 'ho4'], // select outputs
                     ) as tf.Tensor<Rank>[];
 
@@ -218,16 +220,23 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
         if (playing) {
             setLoading(true);
             inferenceRef.current = true;
-            inference(modelPath);
+            inference(modelPath, cameraSelect);
+
             inputRef.current.disabled = true;
-            setTimeout(() => (inputRef.current.disabled = false), 1000);
+            cameraFrontRef.current.disabled = true;
+            cameraRearRef.current.disabled = true;
+            setTimeout(() => {
+                inputRef.current.disabled = false;
+                cameraFrontRef.current.disabled = false;
+                cameraRearRef.current.disabled = false;
+                setLoading(false); // 다른 버튼을 비활성화하기 위함
+            }, 2100);
         }
 
         return () => {
             if (videoRef.current.srcObject !== null) {
                 setLoading(false);
                 inferenceRef.current = false;
-                // console.log(tf.memory());
                 if ('getTracks' in videoRef.current.srcObject) {
                     videoRef.current.srcObject
                         .getTracks()
@@ -237,8 +246,7 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
                 }
             }
         };
-    }, [playing]);
-
+    }, [playing, cameraSelect]);
     return (
         <div className="mb-36">
             <div className="mt-3 grid items-center justify-center md:justify-self-end">
@@ -253,30 +261,42 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
                         id="AcceptConditions"
                         className="peer sr-only"
                     />
-                    <span className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                    <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                    <span
+                        className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                    <span
+                        className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
             <div className="mb-4 mt-4 grid items-center justify-center md:justify-self-end">
                 <label className="label cursor-pointer">
                     <span className="label-text mr-3 text-red-700">F</span>
                     <input
+                        ref={cameraFrontRef}
+                        onChange={useCallback(
+                            () => setCameraSelect(false),
+                            []
+                        )}
                         type="radio"
                         name="radio-10"
                         className="radio checked:bg-red-500"
-                        checked
+                        defaultChecked
                     />
                 </label>
                 <label className="label cursor-pointer">
                     <span className="label-text mr-3 text-blue-700">R</span>
                     <input
+                        ref={cameraRearRef}
+                        onChange={useCallback(
+                            () => setCameraSelect(true),
+                            []
+                        )}
                         type="radio"
                         name="radio-10"
                         className="radio checked:bg-blue-500"
                     />
                 </label>
             </div>
-            {loading ? <Loading /> : null}
+            {loading ? <Loading/> : null}
             <div className="flex items-center justify-center">
                 <canvas
                     ref={canvasRef1}
