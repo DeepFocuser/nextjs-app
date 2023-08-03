@@ -43,9 +43,9 @@ function Nav() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/facerecognition">
+                                <Link href="/facedetection">
                                     <p className="text-left">⛔</p>
-                                    FaceRecognition
+                                    FaceDetection
                                 </Link>
                             </li>
                             <li>
@@ -67,10 +67,10 @@ function Nav() {
                         </li>
                         <li data-content="⛔" className="step-neutral step">
                             <Link
-                                href="/facerecognition"
+                                href="/facedetection"
                                 className="btn-accent btn-sm btn text-xs normal-case"
                             >
-                                FR
+                                FD
                             </Link>
                         </li>
                         <li data-content="⛔" className="step-neutral step">
