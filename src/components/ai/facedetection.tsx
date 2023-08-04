@@ -1,12 +1,18 @@
 'use client';
-import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
-import {ModelInfo} from '@/types';
+import {
+    memo,
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from 'react';
+import { ModelInfo } from '@/types';
 import * as tf from '@tensorflow/tfjs';
-import {Rank, Tensor} from '@tensorflow/tfjs';
+import { Rank, Tensor } from '@tensorflow/tfjs';
 import Loading from '@/components/structure/loading';
 
-
-function Facedetection({backendName, modelPath}: ModelInfo) {
+function Facedetection({ backendName, modelPath }: ModelInfo) {
     const [playing, setPlaying] = useState<boolean>(false);
     // false : front camera / true : rear camera whene mobile
     const [cameraSelect, setCameraSelect] = useState<boolean>(false);
@@ -26,14 +32,15 @@ function Facedetection({backendName, modelPath}: ModelInfo) {
     };
 
     // 비동기 처리2 - canvas에 그리기  하기
-    const drawResult = useCallback<(
-        image: tf.Tensor,
-        score: tf.Tensor,
-        bbox: tf.Tensor,
-        canvasHeight: number,
-        canvasWidth: number,
-    ) => void>(async (image, score, bbox, canvasHeight, canvasWidth) => {
-
+    const drawResult = useCallback<
+        (
+            image: tf.Tensor,
+            score: tf.Tensor,
+            bbox: tf.Tensor,
+            canvasHeight: number,
+            canvasWidth: number,
+        ) => void
+    >(async (image, score, bbox, canvasHeight, canvasWidth) => {
         const imageAlpha: tf.Tensor<Rank> = tf.tidy(() => {
             const [height, width, _] = image.shape;
             const opacity = tf.ones([height, width, 1]).mul(255);
@@ -53,21 +60,24 @@ function Facedetection({backendName, modelPath}: ModelInfo) {
         });
 
         const finalBox: any = await resizeBbox.array();
-        finalBox.forEach((value : number, index : number) => {
+        finalBox.forEach((value: number, index: number) => {
             const wRatio = canvasWidth / 448;
             const hRatio = canvasHeight / 448;
-            if (index % 2 === 0)
-                finalBox[index] *= wRatio;
-            else
-                finalBox[index] *= hRatio;
+            if (index % 2 === 0) finalBox[index] *= wRatio;
+            else finalBox[index] *= hRatio;
         });
 
         const imageData = new ImageData(pixelData, width, height);
         const ctx = canvasRef.current?.getContext('2d');
         if (ctx) {
             ctx.putImageData(imageData, 0, 0);
-            ctx.fillRect(finalBox[0], finalBox[1], finalBox[2] - finalBox[0], finalBox[3] - finalBox[1]);
-            ctx.fillStyle = "rgba(183, 240, 177, 0.4)";
+            ctx.fillRect(
+                finalBox[0],
+                finalBox[1],
+                finalBox[2] - finalBox[0],
+                finalBox[3] - finalBox[1],
+            );
+            ctx.fillStyle = 'rgba(183, 240, 177, 0.4)';
         }
         tf.dispose([image, imageAlpha, resizeImage, score, bbox, resizeBbox]);
     }, []);
@@ -123,9 +133,10 @@ function Facedetection({backendName, modelPath}: ModelInfo) {
                             continue;
                         }
                         const input = tf.tidy(() => img.expandDims(0).div(255)); // normalize input
-                        const [ids, scores, bboxes] = await model.executeAsync({input}, // provide inputs
+                        const [ids, scores, bboxes] = (await model.executeAsync(
+                            { input }, // provide inputs
                             ['Identity_1:0', 'Identity_2:0', 'bboxes'], // select outputs
-                        ) as tf.Tensor<Rank>[];
+                        )) as tf.Tensor<Rank>[];
 
                         await drawResult(
                             img.clone(),
@@ -137,9 +148,7 @@ function Facedetection({backendName, modelPath}: ModelInfo) {
                         tf.dispose([img, input, ids, scores, bboxes]);
                     }
                 }
-                if (
-                    canvasRef.current !== null
-                ) {
+                if (canvasRef.current !== null) {
                     canvasRef.current.style.display = 'none';
                 }
                 webcam.stop();
@@ -154,7 +163,7 @@ function Facedetection({backendName, modelPath}: ModelInfo) {
         setENV(backendName);
 
         const windowResizeListener = () => {
-            canvasRef.current.width = Math.floor(window.innerWidth * 0.7);
+            canvasRef.current.width = Math.floor(window.innerWidth * 0.6);
             canvasRef.current.height = Math.floor(window.innerHeight * 0.6);
         };
 
@@ -187,7 +196,7 @@ function Facedetection({backendName, modelPath}: ModelInfo) {
             if (videoRef.current.srcObject !== null) {
                 setLoading(false);
                 inferenceRef.current = false;
-                console.log(tf.memory());
+                // console.log(tf.memory());
                 if ('getTracks' in videoRef.current.srcObject) {
                     videoRef.current.srcObject
                         .getTracks()
@@ -212,10 +221,8 @@ function Facedetection({backendName, modelPath}: ModelInfo) {
                         id="AcceptConditions"
                         className="peer sr-only"
                     />
-                    <span
-                        className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                    <span
-                        className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                    <span className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                    <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
             <div className="mb-4 mt-4 grid items-center justify-center md:justify-self-end">
@@ -241,7 +248,7 @@ function Facedetection({backendName, modelPath}: ModelInfo) {
                     />
                 </label>
             </div>
-            {loading ? <Loading/> : null}
+            {loading ? <Loading /> : null}
             <div className="flex items-center justify-center">
                 <canvas
                     ref={canvasRef}
