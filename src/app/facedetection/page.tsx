@@ -1,8 +1,13 @@
+// "use client" does not need to be defined in every file.
+// The Client module boundary only needs to be defined once, at the "entry point",
+import Facedetection from "@/components/ai/facedetection";
+
 export default function Home() {
+    // 2023-07-25 아직까지는 webgl인가
     return (
-        <div className="absolute right-0 flex h-3/5 w-screen flex-col items-center justify-center gap-2">
-            <span className="loading loading-spinner loading-lg text-info"></span>
-            <p className="text-center">🎗🎁 FaceDetection은 진행중 🍕~</p>
-        </div>
+        <Facedetection
+            backendName="webgl"
+            modelPath="/models/facedetection/model.json"
+        />
     );
 }
