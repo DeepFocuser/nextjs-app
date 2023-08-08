@@ -225,7 +225,10 @@ function Facedetection({ backendName, modelPath }: ModelInfo) {
                     <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
-            <div className="mb-4 mt-4 grid items-center justify-center md:justify-self-end">
+            <div className="mt-4 grid items-center justify-center md:justify-self-end">
+                <div className="badge badge-neutral sm:block hidden">Face Detection Algorithm made by DeepFocuser Using TensorflowJS</div>
+            </div>
+            <div className="mb-4 mt-2 grid items-center justify-center md:justify-self-end">
                 <label className="label cursor-pointer">
                     <span className="label-text mr-3 text-red-700">F</span>
                     <input
