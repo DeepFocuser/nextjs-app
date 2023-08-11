@@ -6,8 +6,7 @@ import ThemeSwitch from './theme';
 // const ThemeSwitch = dynamic(() => import('@/components/theme'), {ssr: true})
 
 function Nav() {
-    return (
-        <nav className="border-b-2">
+    return (<nav className="border-b-2">
             <div className="navbar">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -49,8 +48,8 @@ function Nav() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/voiceactivitydetection">
-                                    <p className="text-left">⛔</p>
+                                <Link href="/vad">
+                                    <p className="text-left">✅</p>
                                     VoiceActivityDetection
                                 </Link>
                             </li>
@@ -73,9 +72,9 @@ function Nav() {
                                 FD
                             </Link>
                         </li>
-                        <li data-content="⛔" className="step-neutral step">
+                        <li data-content="✅" className="step-neutral step">
                             <Link
-                                href="/voiceactivitydetection"
+                                href="/vad"
                                 className="btn-accent btn-sm btn text-xs normal-case"
                             >
                                 VD
@@ -103,7 +102,7 @@ function Nav() {
                     </Link>
                 </div>
                 <div className="navbar-end">
-                    <ThemeSwitch />
+                    <ThemeSwitch/>
                     <div className="avatar w-10 sm:block">
                         <div className="mask mask-squircle w-full">
                             <Image
@@ -119,8 +118,7 @@ function Nav() {
                     </div>
                 </div>
             </div>
-        </nav>
-    );
+        </nav>);
 }
 
 export default Nav;
