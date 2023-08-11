@@ -1,9 +1,8 @@
 class MyAudioWorkletProcessor extends AudioWorkletProcessor {
-
     constructor(options) {
         super();
         // 전달받은 파라미터 사용
-        this.myParameter = options.processorOptions.modelPath || "";
+        this.myParameter = options.processorOptions.modelPath || '';
     }
     process(inputs, outputs, parameters) {
         const input = inputs[0][0]; // 0번째 입력 채널의 데이터

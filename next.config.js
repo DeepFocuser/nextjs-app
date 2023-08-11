@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const nextConfig = {
     images: {
@@ -18,9 +18,8 @@ const nextConfig = {
         appDir: true,
     },
     reactStrictMode: true,
-    webpack: (config, {  }) => {
-
-        config.resolve.extensions.push(".ts", ".tsx");
+    webpack: (config, {}) => {
+        config.resolve.extensions.push('.ts', '.tsx');
         config.resolve.fallback = { fs: false };
 
         config.plugins.push(
@@ -29,19 +28,18 @@ const nextConfig = {
                 patterns: [
                     {
                         from: './node_modules/onnxruntime-web/dist/ort-wasm.wasm',
-                        to: 'static/chunks'
+                        to: 'static/chunks',
                     },
                     {
                         from: './node_modules/onnxruntime-web/dist/ort-wasm-simd.wasm',
-                        to: 'static/chunks'
-                    }
+                        to: 'static/chunks',
+                    },
                 ],
             }),
         );
 
         return config;
-    }
-
+    },
 };
 
 module.exports = nextConfig;

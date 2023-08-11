@@ -226,7 +226,10 @@ function Facedetection({ backendName, modelPath }: ModelInfo) {
                 </label>
             </div>
             <div className="mt-4 grid items-center justify-center md:justify-self-end">
-                <div className="badge badge-neutral sm:block hidden">Face Detection Algorithm made by DeepFocuser Using TensorflowJS</div>
+                <div className="badge badge-neutral hidden sm:block">
+                    Face Detection Algorithm made by DeepFocuser Using
+                    TensorflowJS
+                </div>
             </div>
             <div className="mb-4 mt-2 grid items-center justify-center md:justify-self-end">
                 <label className="label cursor-pointer">
