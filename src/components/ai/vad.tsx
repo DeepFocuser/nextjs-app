@@ -1,13 +1,11 @@
 'use client';
 
 import {memo, useCallback, useLayoutEffect, useRef, useState} from 'react';
-import Loading from '@/components/structure/loading';
 import {InferenceSession, Tensor} from 'onnxruntime-web';
 import {motion} from 'framer-motion';
 
 function Vad({modelPath}: { modelPath: string }) {
     const [playing, setPlaying] = useState<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(false);
     const [speaking, setSpeaking] = useState<boolean>(false);
 
     const inputRef = useRef<any>(null);
@@ -95,13 +93,11 @@ function Vad({modelPath}: { modelPath: string }) {
     // useLayoutEffect을 사용해야 한다.
     useLayoutEffect(() => {
         if (playing) {
-            setLoading(true);
             inferenceRef.current = true;
             inference(modelPath);
             inputRef.current.disabled = true;
             setTimeout(() => {
                 inputRef.current.disabled = false;
-                setLoading(false); // 다른 버튼을 비활성화하기 위함
             }, 100);
         }
 
@@ -142,50 +138,47 @@ function Vad({modelPath}: { modelPath: string }) {
                     Onnxruntime
                 </div>
             </div>
-            {loading ? <Loading/> : null}
-            {!loading &&
-                <div>
-                    <div className="mt-20 flex items-center justify-center">
-                        {playing &&
-                            (speaking ? (
-                                <HighEnergyCube2/>
-                            ) : (
-                                <LowEnergyCube2/>
-                            ))}
-                        {playing &&
-                            (speaking ? (
-                                <HighEnergyCube1/>
-                            ) : (
-                                <LowEnergyCube1/>
-                            ))}
-                        {playing &&
-                            (speaking ? (
-                                <HighEnergyCube2/>
-                            ) : (
-                                <LowEnergyCube2/>
-                            ))}
-                        {!playing && <DeactivatedCube2/>}
-                        {!playing && <DeactivatedCube1/>}
-                        {!playing && <DeactivatedCube2/>}
-                    </div>
-                    <div className="mt-20 flex items-center justify-center">
-                        {!playing && (
-                            <p className="badge badge-neutral badge-lg">
-                                Deactivated
-                            </p>
-                        )}
-                        {playing &&
-                            (speaking ? (
-                                <p className="badge badge-success badge-lg">
-                                    Speaking
-                                </p>
-                            ) : (
-                                <p className="badge badge-warning badge-lg">
-                                    Mute
-                                </p>
-                            ))}
-                    </div>
-                </div>}
+            {/*{loading ? <Loading /> : null}*/}
+            <div className="mt-20 flex items-center justify-center">
+                {playing &&
+                    (speaking ? (
+                        <HighEnergyCube2/>
+                    ) : (
+                        <LowEnergyCube2/>
+                    ))}
+                {playing &&
+                    (speaking ? (
+                        <HighEnergyCube1/>
+                    ) : (
+                        <LowEnergyCube1/>
+                    ))}
+                {playing &&
+                    (speaking ? (
+                        <HighEnergyCube2/>
+                    ) : (
+                        <LowEnergyCube2/>
+                    ))}
+                {!playing && <DeactivatedCube2/>}
+                {!playing && <DeactivatedCube1/>}
+                {!playing && <DeactivatedCube2/>}
+            </div>
+            <div className="mt-20 flex items-center justify-center">
+                {!playing && (
+                    <p className="badge badge-neutral badge-lg">
+                        Deactivated
+                    </p>
+                )}
+                {playing &&
+                    (speaking ? (
+                        <p className="badge badge-success badge-lg">
+                            Speaking
+                        </p>
+                    ) : (
+                        <p className="badge badge-warning badge-lg">
+                            Mute
+                        </p>
+                    ))}
+            </div>
         </div>
     );
 }
