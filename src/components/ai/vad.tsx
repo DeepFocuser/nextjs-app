@@ -102,7 +102,7 @@ function Vad({modelPath}: { modelPath: string }) {
             setTimeout(() => {
                 inputRef.current.disabled = false;
                 setLoading(false); // 다른 버튼을 비활성화하기 위함
-            }, 500);
+            }, 100);
         }
 
         return () => {
@@ -143,30 +143,49 @@ function Vad({modelPath}: { modelPath: string }) {
                 </div>
             </div>
             {loading ? <Loading/> : null}
-            {!loading && <div>
-                <div className="mt-20 flex items-center justify-center">
-                    {playing &&
-                        (speaking ? <HighEnergyCube2/> : <LowEnergyCube2/>)}
-                    {playing &&
-                        (speaking ? <HighEnergyCube1/> : <LowEnergyCube1/>)}
-                    {playing &&
-                        (speaking ? <HighEnergyCube2/> : <LowEnergyCube2/>)}
-                    {!playing && <DeactivatedCube2/>}
-                    {!playing && <DeactivatedCube1/>}
-                    {!playing && <DeactivatedCube2/>}
-                </div>
-                <div className="mt-20 flex items-center justify-center">
-                    {!playing && (
-                        <p className="badge badge-neutral badge-lg">Deactivated</p>
-                    )}
-                    {playing &&
-                        (speaking ? (
-                            <p className="badge badge-success badge-lg">Speaking</p>
-                        ) : (
-                            <p className="badge badge-warning badge-lg">Mute</p>
-                        ))}
-                </div>
-            </div>}
+            {!loading &&
+                <div>
+                    <div className="mt-20 flex items-center justify-center">
+                        {playing &&
+                            (speaking ? (
+                                <HighEnergyCube2/>
+                            ) : (
+                                <LowEnergyCube2/>
+                            ))}
+                        {playing &&
+                            (speaking ? (
+                                <HighEnergyCube1/>
+                            ) : (
+                                <LowEnergyCube1/>
+                            ))}
+                        {playing &&
+                            (speaking ? (
+                                <HighEnergyCube2/>
+                            ) : (
+                                <LowEnergyCube2/>
+                            ))}
+                        {!playing && <DeactivatedCube2/>}
+                        {!playing && <DeactivatedCube1/>}
+                        {!playing && <DeactivatedCube2/>}
+                    </div>
+                    <div className="mt-20 flex items-center justify-center">
+                        {!playing && (
+                            <p className="badge badge-neutral badge-lg">
+                                Deactivated
+                            </p>
+                        )}
+                        {playing &&
+                            (speaking ? (
+                                <p className="badge badge-success badge-lg">
+                                    Speaking
+                                </p>
+                            ) : (
+                                <p className="badge badge-warning badge-lg">
+                                    Mute
+                                </p>
+                            ))}
+                    </div>
+                </div>}
         </div>
     );
 }
