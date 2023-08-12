@@ -5,7 +5,7 @@ import FacedetectionTF from '@/components/ai/facedetectiontf';
 export default function Home() {
     return (
         <FacedetectionTF
-            backendName="webgl"
+            backendName="wasm"
             modelPath="/models/facedetectiontf/model.json"
         />
     );

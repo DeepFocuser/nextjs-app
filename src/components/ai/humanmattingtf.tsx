@@ -4,6 +4,7 @@ import {ModelInfo} from '@/types';
 import * as tf from '@tensorflow/tfjs';
 import {Rank} from '@tensorflow/tfjs';
 import Loading from '@/components/structure/loading';
+import '@tensorflow/tfjs-backend-wasm';
 // import '@tensorflow/tfjs-backend-webgpu';
 // 처음에 recoil 사용해서 하려고 했으나, useLayoutEffect을 사용하면 될일 이었음.
 // import {useSetRecoilState} from 'recoil';

@@ -35,10 +35,12 @@ function HumanmattingONNX({modelPath}: { modelPath: string }) {
 
             if (inferenceRef.current && cameraCount > 0) {
                 let constraints;
+
                 const session = await InferenceSession.create(modelPath, {
-                    executionProviders: ['wasm'],
+                    executionProviders: ['wasm'], // wasm이 호환성 최고, webgl is not good
                     graphOptimizationLevel: 'all',
                 });
+
                 const [targetHeight, targetWidth] = [384, 384];
 
                 if (deviceId !== '') {

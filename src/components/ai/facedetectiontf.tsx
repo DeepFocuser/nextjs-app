@@ -2,8 +2,9 @@
 import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
 import {ModelInfo} from '@/types';
 import * as tf from '@tensorflow/tfjs';
-import {Rank, Tensor} from '@tensorflow/tfjs';
+import {Rank} from '@tensorflow/tfjs';
 import Loading from '@/components/structure/loading';
+import '@tensorflow/tfjs-backend-wasm';
 
 function FacedetectionTF({backendName, modelPath}: ModelInfo) {
     const [playing, setPlaying] = useState<boolean>(false);
@@ -46,7 +47,7 @@ function FacedetectionTF({backendName, modelPath}: ModelInfo) {
         const [height, width] = resizeImage.shape.slice(0, 2);
         const pixelData = new Uint8ClampedArray(await resizeImage.data());
 
-        const resizeBbox: Tensor<Rank> = tf.tidy(() => {
+        const resizeBbox: tf.Tensor<Rank> = tf.tidy(() => {
             return bbox.squeeze();
         });
 
