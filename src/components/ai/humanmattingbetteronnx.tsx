@@ -4,7 +4,7 @@ import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState} from 'r
 import {InferenceSession, Tensor} from 'onnxruntime-web';
 import Loading from '@/components/structure/loading';
 
-function HumanmattingONNX({modelPath}: { modelPath: string }) {
+function HumanmattingBetterONNX({modelPath}: { modelPath: string }) {
     const [playing, setPlaying] = useState<boolean>(false);
     const canvasInferenceRef = useRef<any>(null);
     const canvasResultRef = useRef<any>(null);
@@ -40,7 +40,7 @@ function HumanmattingONNX({modelPath}: { modelPath: string }) {
                 graphOptimizationLevel: 'all',
             });
 
-            const [targetHeight, targetWidth] = [384, 384];
+            const [targetHeight, targetWidth] = [512, 512];
 
             if (deviceId !== '') {
                 constraints = {
@@ -71,10 +71,10 @@ function HumanmattingONNX({modelPath}: { modelPath: string }) {
                     const inputArray = new Float32Array(rgbLength);
                     const resultPlusAlpha = new Float32Array(originLength);
 
-                    feeds[session.inputNames[1]] = new Tensor(new Float32Array(1 * 20 * 24 * 24), [1, 20, 24, 24],);
-                    feeds[session.inputNames[2]] = new Tensor(new Float32Array(1 * 16 * 48 * 48), [1, 16, 48, 48],);
-                    feeds[session.inputNames[3]] = new Tensor(new Float32Array(1 * 12 * 96 * 96), [1, 12, 96, 96],);
-                    feeds[session.inputNames[4]] = new Tensor(new Float32Array(1 * 10 * 192 * 192), [1, 10, 192, 192],);
+                    feeds[session.inputNames[1]] = new Tensor(new Float32Array(1 * 64 * 32 * 32), [1, 64, 32, 32],);
+                    feeds[session.inputNames[2]] = new Tensor(new Float32Array(1 * 40 * 64 * 64), [1, 40, 64, 64],);
+                    feeds[session.inputNames[3]] = new Tensor(new Float32Array(1 * 20 * 128 * 128), [1, 20, 128, 128],);
+                    feeds[session.inputNames[4]] = new Tensor(new Float32Array(1 * 16 * 256 * 256), [1, 16, 256, 256],);
 
                     const drawCanvas = async () => {
                         if (inferenceRef.current) {
@@ -165,7 +165,7 @@ function HumanmattingONNX({modelPath}: { modelPath: string }) {
                 cameraFrontRef.current.disabled = false;
                 cameraRearRef.current.disabled = false;
                 setLoading(false); // 다른 버튼을 비활성화하기 위함
-            }, 500);
+            }, 2100);
         }
 
         return () => {
@@ -204,7 +204,7 @@ function HumanmattingONNX({modelPath}: { modelPath: string }) {
         </div>
         <div className="mt-6 grid items-center justify-center md:justify-self-end">
             <div className="badge badge-neutral hidden sm:block">
-                Human Matting Algorithm made by DeepFocuser Using
+                Human Matting Better Algorithm made by DeepFocuser Using
                 Onnxruntime(wasm)
             </div>
         </div>
@@ -244,8 +244,8 @@ function HumanmattingONNX({modelPath}: { modelPath: string }) {
             />
             <canvas
                 ref={canvasInferenceRef}
-                height="384"
-                width="384"
+                height="512"
+                width="512"
                 style={{
                     display: 'none', transform: 'scaleX(-1)',
                 }}
@@ -260,4 +260,4 @@ function HumanmattingONNX({modelPath}: { modelPath: string }) {
     </div>);
 }
 
-export default memo(HumanmattingONNX);
+export default memo(HumanmattingBetterONNX);

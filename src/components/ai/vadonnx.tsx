@@ -98,7 +98,7 @@ function VadONNX({modelPath}: { modelPath: string }) {
             inputRef.current.disabled = true;
             setTimeout(() => {
                 inputRef.current.disabled = false;
-            }, 100);
+            }, 500);
         }
 
         return () => {
@@ -114,7 +114,7 @@ function VadONNX({modelPath}: { modelPath: string }) {
 
     return (
         <div className="mb-36">
-            <div className="mt-3 grid items-center justify-center md:justify-self-end">
+            <div className="mt-7 grid items-center justify-center md:justify-self-end">
                 <label
                     htmlFor="AcceptConditions"
                     className="relative h-8 w-14 cursor-pointer"
@@ -132,14 +132,14 @@ function VadONNX({modelPath}: { modelPath: string }) {
                         className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
-            <div className="mt-4 grid items-center justify-center md:justify-self-end">
+            <div className="mt-6 grid items-center justify-center md:justify-self-end">
                 <div className="badge badge-neutral hidden sm:block">
                     Voice Detection Algorithm made by DeepFocuser Using
-                    Onnxruntime
+                    Onnxruntime(wasm)
                 </div>
             </div>
             {/*{loading ? <Loading /> : null}*/}
-            <div className="mt-20 flex items-center justify-center">
+            <div className="mt-16 flex items-center justify-center">
                 {playing &&
                     (speaking ? <HighEnergyCube2/> : <LowEnergyCube2/>)}
                 {playing &&

@@ -4,7 +4,8 @@ import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState} from 'r
 import {InferenceSession, Tensor} from 'onnxruntime-web';
 import Loading from '@/components/structure/loading';
 
-function HumanmattingONNX({modelPath}: { modelPath: string }) {
+function FacedetectionONNX({modelPath}: { modelPath: string }) {
+
     const [playing, setPlaying] = useState<boolean>(false);
     const canvasInferenceRef = useRef<any>(null);
     const canvasResultRef = useRef<any>(null);
@@ -69,12 +70,6 @@ function HumanmattingONNX({modelPath}: { modelPath: string }) {
 
                     const [redArray, greenArray, blueArray] = [new Array<number>(), new Array<number>(), new Array<number>()];
                     const inputArray = new Float32Array(rgbLength);
-                    const resultPlusAlpha = new Float32Array(originLength);
-
-                    feeds[session.inputNames[1]] = new Tensor(new Float32Array(1 * 20 * 24 * 24), [1, 20, 24, 24],);
-                    feeds[session.inputNames[2]] = new Tensor(new Float32Array(1 * 16 * 48 * 48), [1, 16, 48, 48],);
-                    feeds[session.inputNames[3]] = new Tensor(new Float32Array(1 * 12 * 96 * 96), [1, 12, 96, 96],);
-                    feeds[session.inputNames[4]] = new Tensor(new Float32Array(1 * 10 * 192 * 192), [1, 10, 192, 192],);
 
                     const drawCanvas = async () => {
                         if (inferenceRef.current) {
@@ -105,24 +100,19 @@ function HumanmattingONNX({modelPath}: { modelPath: string }) {
 
                             feeds[session.inputNames[0]] = new Tensor(inputArray, [1, 3, targetHeight, targetWidth]);
                             const outputData = await session.run(feeds);
-                            feeds[session.inputNames[1]] = outputData[session.outputNames[1]]; // (1, 20, 24, 24)
-                            feeds[session.inputNames[2]] = outputData[session.outputNames[2]]; // (1, 16, 48, 48)
-                            feeds[session.inputNames[3]] = outputData[session.outputNames[3]]; // (1, 12, 96, 96)
-                            feeds[session.inputNames[4]] = outputData[session.outputNames[4]]; // (1, 10, 192, 192)
+                            // const id: any = outputData[session.outputNames[0]].data;
+                            // const score: any = outputData[session.outputNames[1]].data;
+                            const bbox: any = outputData[session.outputNames[2]].data;
+                            const landmark: any = outputData[session.outputNames[3]].data;
+                            infernceContext.fillStyle = 'rgba(255, 121, 121, 0.33)';
+                            infernceContext.fillRect(bbox[0], bbox[1], bbox[2] - bbox[0], bbox[3] - bbox[1]);
 
-                            const result: any = outputData[session.outputNames[0]].data;
-
-                            for (let i = 0; i < originLength; i += 4) {
-                                resultPlusAlpha[i] = result[Math.floor(i / 4)] * 255.0;
-                                resultPlusAlpha[i + 1] = result[Math.floor(i / 4)] * 255.0;
-                                resultPlusAlpha[i + 2] = result[Math.floor(i / 4)] * 255.0;
-                                resultPlusAlpha[i + 3] = 255.0;
+                            infernceContext.strokeStyle = 'rgba(33, 255, 33, 1)';
+                            for (let i = 0; i < landmark.length; i += 2) {
+                                infernceContext.beginPath();
+                                infernceContext.arc(landmark[i], landmark[i + 1], 1, 0, 2 * Math.PI);
+                                infernceContext.stroke();
                             }
-                            const pixelData = new Uint8ClampedArray(resultPlusAlpha);
-                            const imageData = new ImageData(pixelData, targetWidth, targetHeight);
-
-                            infernceContext.clearRect(0, 0, targetWidth, targetHeight);
-                            infernceContext.putImageData(imageData, 0, 0);
 
                             resultContext.clearRect(0, 0, targetCanvasWidth, targetCanvasHeight);
                             resultContext.drawImage(canvasInferenceRef.current, 0, 0, targetCanvasWidth, targetCanvasHeight);
@@ -204,7 +194,7 @@ function HumanmattingONNX({modelPath}: { modelPath: string }) {
         </div>
         <div className="mt-6 grid items-center justify-center md:justify-self-end">
             <div className="badge badge-neutral hidden sm:block">
-                Human Matting Algorithm made by DeepFocuser Using
+                Face Detection Algorithm made by DeepFocuser Using
                 Onnxruntime(wasm)
             </div>
         </div>
@@ -260,4 +250,4 @@ function HumanmattingONNX({modelPath}: { modelPath: string }) {
     </div>);
 }
 
-export default memo(HumanmattingONNX);
+export default memo(FacedetectionONNX);

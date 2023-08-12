@@ -37,46 +37,26 @@ function HumanmattingTF({backendName, modelPath}: ModelInfo) {
     };
 
     // 비동기 처리2 - canvas에 그리기  하기
-    const drawResult = useCallback<(
-        image: tf.Tensor,
-        alpha: tf.Tensor,
-        background: tf.Tensor,
-        canvasHeight: number,
-        canvasWidth: number,
-    ) => void>(async (image, alpha, background, canvasHeight, canvasWidth) => {
+    const drawResult = useCallback<(image: tf.Tensor, alpha: tf.Tensor, background: tf.Tensor, canvasHeight: number, canvasWidth: number,) => void>(async (image, alpha, background, canvasHeight, canvasWidth) => {
         const result: tf.Tensor<Rank>[] = tf.tidy(() => {
             const pha = alpha.squeeze().expandDims(2); //float32
             const pha255 = tf.mul(pha, 255);
             const one = tf.onesLike(pha);
-            const rgb = tf.add(
-                tf.mul(pha, image),
-                tf.mul(tf.sub(one, pha), background),
-            );
+            const rgb = tf.add(tf.mul(pha, image), tf.mul(tf.sub(one, pha), background),);
             const opacity = one.mul(255);
-            return [
-                tf.concat([rgb, opacity], 2),
-                tf.concat([pha255, pha255, pha255, opacity], 2),
-            ];
+            return [tf.concat([rgb, opacity], 2), tf.concat([pha255, pha255, pha255, opacity], 2),];
         });
         image.dispose();
         alpha.dispose();
         background.dispose();
 
         // result를 resize하면 될듯~
-        const resizeResult = result[0].resizeBilinear([
-            canvasHeight,
-            canvasWidth,
-        ]);
-        const resizeAlphaResult = result[1].resizeBilinear([
-            canvasHeight,
-            canvasWidth,
-        ]);
+        const resizeResult = result[0].resizeBilinear([canvasHeight, canvasWidth,]);
+        const resizeAlphaResult = result[1].resizeBilinear([canvasHeight, canvasWidth,]);
 
         const [height, width] = resizeResult.shape.slice(0, 2);
         const pixelData = new Uint8ClampedArray(await resizeResult.data()); //
-        const pixelDataAlpha = new Uint8ClampedArray(
-            await resizeAlphaResult.data(),
-        ); //
+        const pixelDataAlpha = new Uint8ClampedArray(await resizeAlphaResult.data(),); //
         // ui 안멈추게 하려고 비동기로 가져온다
         const imageData = new ImageData(pixelData, width, height);
         const imageDataAlpha = new ImageData(pixelDataAlpha, width, height);
@@ -85,11 +65,9 @@ function HumanmattingTF({backendName, modelPath}: ModelInfo) {
         const alphaContext = canvasRef2.current?.getContext('2d');
 
         hmContext.clearRect(0, 0, width, height);
-        hmContext.beginPath();
         hmContext.putImageData(imageData, 0, 0);
 
         alphaContext.clearRect(0, 0, width, height);
-        alphaContext.beginPath();
         alphaContext.putImageData(imageDataAlpha, 0, 0);
 
         tf.dispose([result, resizeResult, resizeAlphaResult]);
@@ -113,102 +91,76 @@ function HumanmattingTF({backendName, modelPath}: ModelInfo) {
     }, []);
 
     // 비동기 처리4 - model inference
-    const inference = useCallback<(path: string, select: boolean) => void>(
-        async (path, select) => {
-            canvasRef1.current.style.display = 'block';
-            canvasRef2.current.style.display = 'block';
+    const inference = useCallback<(path: string, select: boolean) => void>(async (path, select) => {
+        canvasRef1.current.style.display = 'block';
+        canvasRef2.current.style.display = 'block';
 
-            // 카메라 1개만 선택하기
-            let deviceId = '';
-            let cameraCount = 0; // deviceId가 안나오는 경우도 있다.
-            for (const camera of await navigator.mediaDevices.enumerateDevices()) {
-                if (camera.kind.startsWith('video')) {
-                    deviceId = camera.deviceId;
-                    cameraCount += 1;
-                    break;
-                }
+        // 카메라 1개만 선택하기
+        let deviceId = '';
+        let cameraCount = 0; // deviceId가 안나오는 경우도 있다.
+        for (const camera of await navigator.mediaDevices.enumerateDevices()) {
+            if (camera.kind.startsWith('video')) {
+                deviceId = camera.deviceId;
+                cameraCount += 1;
+                break;
             }
+        }
 
-            // 내 모델은 384x384x3 을 입력으로 받음
-            if (inferenceRef.current && cameraCount > 0) {
-                let webcam;
-                if (deviceId !== '')
-                    webcam = await tf.data.webcam(videoRef.current, {
-                        deviceId,
-                        resizeWidth: 384,
-                        resizeHeight: 384,
-                        facingMode: !select ? 'user' : 'environment',
-                    });
-                else
-                    webcam = await tf.data.webcam(videoRef.current, {
-                        resizeWidth: 384,
-                        resizeHeight: 384,
-                        facingMode: !select ? 'user' : 'environment',
-                    });
+        // 내 모델은 384x384x3 을 입력으로 받음
+        if (inferenceRef.current && cameraCount > 0) {
+            let webcam;
+            if (deviceId !== '') webcam = await tf.data.webcam(videoRef.current, {
+                deviceId, resizeWidth: 384, resizeHeight: 384, facingMode: !select ? 'user' : 'environment',
+            }); else webcam = await tf.data.webcam(videoRef.current, {
+                resizeWidth: 384, resizeHeight: 384, facingMode: !select ? 'user' : 'environment',
+            });
 
-                // 배경 이미지 미리 Load 하기
-                // https://www.youtube.com/watch?v=kSSycUT0r1M
-                const url = '/images/sample.jpg';
-                const background = await loadImageAsync(url);
+            // 배경 이미지 미리 Load 하기
+            // https://www.youtube.com/watch?v=kSSycUT0r1M
+            const url = '/images/sample.jpg';
+            const background = await loadImageAsync(url);
 
-                // model loading
-                const model = await tf.loadGraphModel(path);
+            // model loading
+            const model = await tf.loadGraphModel(path);
 
-                // model에 입력되는 rnn state 초기값
-                let [hi1, hi2, hi3, hi4] = [
-                    tf.zeros([1, 20, 24, 24]),
-                    tf.zeros([1, 16, 48, 48]),
-                    tf.zeros([1, 12, 96, 96]),
-                    tf.zeros([1, 10, 192, 192]),
-                ];
+            // model에 입력되는 rnn state 초기값
+            let [hi1, hi2, hi3, hi4] = [tf.zeros([1, 20, 24, 24]), tf.zeros([1, 16, 48, 48]), tf.zeros([1, 12, 96, 96]), tf.zeros([1, 10, 192, 192]),];
 
-                // Inference loop
-                while (inferenceRef.current) {
-                    const canvasHeight = canvasRef1.current?.height;
-                    const canvasWidth = canvasRef1.current?.width;
-                    await tf.nextFrame();
-                    // 중간에 inferRef.current가 바뀐다.
-                    if (inferenceRef.current) {
-                        let img: any;
-                        try {
-                            img = await webcam.capture();
-                        } catch (error) {
-                            if (img) img.dispose();
-                            continue;
-                        }
-                        const input = tf.tidy(() => img.expandDims(0).div(255)); // normalize input
-                        const [output, ho1, ho2, ho3, ho4] = model.execute(
-                            {input, hi1, hi2, hi3, hi4}, // provide inputs
-                            ['output', 'ho1', 'ho2', 'ho3', 'ho4'], // select outputs
-                        ) as tf.Tensor<Rank>[];
-
-                        await drawResult(
-                            img.clone(),
-                            output.clone(),
-                            background.clone(),
-                            canvasHeight,
-                            canvasWidth,
-                        );
-                        // Dispose old tensors, Update recurrent states.
-                        // dispose 안해주면 메모리 치솟음
-                        tf.dispose([img, input, output, hi1, hi2, hi3, hi4]);
-                        [hi1, hi2, hi3, hi4] = [ho1, ho2, ho3, ho4];
+            // Inference loop
+            while (inferenceRef.current) {
+                const canvasHeight = canvasRef1.current?.height;
+                const canvasWidth = canvasRef1.current?.width;
+                await tf.nextFrame();
+                // 중간에 inferRef.current가 바뀐다.
+                if (inferenceRef.current) {
+                    let img: any;
+                    try {
+                        img = await webcam.capture();
+                    } catch (error) {
+                        if (img) img.dispose();
+                        continue;
                     }
+                    const input = tf.tidy(() => img.expandDims(0).div(255)); // normalize input
+                    const [output, ho1, ho2, ho3, ho4] = model.execute({input, hi1, hi2, hi3, hi4}, // provide inputs
+                        ['output', 'ho1', 'ho2', 'ho3', 'ho4'], // select outputs
+                    ) as tf.Tensor<Rank>[];
+
+                    await drawResult(img.clone(), output.clone(), background.clone(), canvasHeight, canvasWidth,);
+                    // Dispose old tensors, Update recurrent states.
+                    // dispose 안해주면 메모리 치솟음
+                    tf.dispose([img, input, output, hi1, hi2, hi3, hi4]);
+                    [hi1, hi2, hi3, hi4] = [ho1, ho2, ho3, ho4];
                 }
-                tf.dispose([hi1, hi2, hi3, hi4, background]);
-                if (
-                    canvasRef1.current !== null &&
-                    canvasRef2.current !== null
-                ) {
-                    canvasRef1.current.style.display = 'none';
-                    canvasRef2.current.style.display = 'none';
-                }
-                webcam.stop();
-                model.dispose();
             }
-        },
-        [],
-    );
+            tf.dispose([hi1, hi2, hi3, hi4, background]);
+            if (canvasRef1.current !== null && canvasRef2.current !== null) {
+                canvasRef1.current.style.display = 'none';
+                canvasRef2.current.style.display = 'none';
+            }
+            webcam.stop();
+            model.dispose();
+        }
+    }, [],);
 
     // tensorflow.js backend / windowResizeListener 초기화
     useEffect(() => {
@@ -260,82 +212,79 @@ function HumanmattingTF({backendName, modelPath}: ModelInfo) {
             }
         };
     }, [playing, cameraSelect]);
-    return (
-        <div className="mb-36">
-            <div className="mt-3 grid items-center justify-center md:justify-self-end">
-                <label
-                    htmlFor="AcceptConditions"
-                    className="relative h-8 w-14 cursor-pointer"
-                    onChange={() => setPlaying(!playing)}
-                >
-                    <input
-                        ref={inputRef}
-                        type="checkbox"
-                        id="AcceptConditions"
-                        className="peer sr-only"
-                    />
-                    <span
-                        className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                    <span
-                        className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
-                </label>
-            </div>
-            <div className="mt-4 grid items-center justify-center md:justify-self-end">
-                <div className="badge badge-neutral hidden sm:block">
-                    Human Matting Algorithm made by DeepFocuser Using
-                    TensorflowJS
-                </div>
-            </div>
-            <div className="mb-4 mt-2 grid items-center justify-center md:justify-self-end">
-                <label className="label cursor-pointer">
-                    <span className="label-text mr-3 text-red-700">F</span>
-                    <input
-                        ref={cameraFrontRef}
-                        onChange={useCallback(() => setCameraSelect(false), [])}
-                        type="radio"
-                        name="radio-10"
-                        className="radio checked:bg-red-500"
-                        defaultChecked
-                    />
-                </label>
-                <label className="label cursor-pointer">
-                    <span className="label-text mr-3 text-blue-700">R</span>
-                    <input
-                        ref={cameraRearRef}
-                        onChange={useCallback(() => setCameraSelect(true), [])}
-                        type="radio"
-                        name="radio-10"
-                        className="radio checked:bg-blue-500"
-                    />
-                </label>
-            </div>
-            {loading ? <Loading/> : null}
-            <div className="flex items-center justify-center">
-                <canvas
-                    ref={canvasRef1}
-                    style={{
-                        transform: 'scaleX(-1)',
-                    }}
-                ></canvas>
-                <canvas
-                    ref={canvasRef2}
-                    style={{
-                        transform: 'scaleX(-1)',
-                    }}
-                ></canvas>
-                <video
-                    ref={videoRef}
-                    height="1080"
-                    width="1920"
-                    style={{
-                        display: 'none',
-                        transform: 'scaleX(-1)',
-                    }}
-                    autoPlay
+    return (<div className="mb-36">
+        <div className="mt-7 grid items-center justify-center md:justify-self-end">
+            <label
+                htmlFor="AcceptConditions"
+                className="relative h-8 w-14 cursor-pointer"
+                onChange={() => setPlaying(!playing)}
+            >
+                <input
+                    ref={inputRef}
+                    type="checkbox"
+                    id="AcceptConditions"
+                    className="peer sr-only"
                 />
+                <span
+                    className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                <span
+                    className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+            </label>
+        </div>
+        <div className="mt-6 grid items-center justify-center md:justify-self-end">
+            <div className="badge badge-neutral hidden sm:block">
+                Human Matting Algorithm made by DeepFocuser Using
+                TensorflowJS
             </div>
         </div>
-    );
+        <div className="mb-3 mt-4 grid items-center justify-center md:justify-self-end">
+            <label className="label cursor-pointer">
+                <span className="label-text mr-3 text-red-700">F</span>
+                <input
+                    ref={cameraFrontRef}
+                    onChange={useCallback(() => setCameraSelect(false), [])}
+                    type="radio"
+                    name="radio-10"
+                    className="radio checked:bg-red-500"
+                    defaultChecked
+                />
+            </label>
+            <label className="label cursor-pointer">
+                <span className="label-text mr-3 text-blue-700">R</span>
+                <input
+                    ref={cameraRearRef}
+                    onChange={useCallback(() => setCameraSelect(true), [])}
+                    type="radio"
+                    name="radio-10"
+                    className="radio checked:bg-blue-500"
+                />
+            </label>
+        </div>
+        {loading ? <Loading/> : null}
+        <div className="flex items-center justify-center">
+            <canvas
+                ref={canvasRef1}
+                style={{
+                    transform: 'scaleX(-1)',
+                }}
+            ></canvas>
+            <canvas
+                ref={canvasRef2}
+                style={{
+                    transform: 'scaleX(-1)',
+                }}
+            ></canvas>
+            <video
+                ref={videoRef}
+                height="1080"
+                width="1920"
+                style={{
+                    display: 'none', transform: 'scaleX(-1)',
+                }}
+                autoPlay
+            />
+        </div>
+    </div>);
 }
 
 export default memo(HumanmattingTF);
