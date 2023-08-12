@@ -1,6 +1,6 @@
-// const Vad = dynamic(() => import("@/components/ai/vad"), {ssr: false})
-import Vad from '@/components/ai/vad';
+// const Vad = dynamic(() => import("@/components/ai/vadonnx"), {ssr: false})
+import VadONNX from '@/components/ai/vadonnx';
 
 export default function Home() {
-    return <Vad modelPath="./models/vad/silero_vad.onnx" />;
+    return <VadONNX modelPath="./models/vadonnx/silero_vad.onnx" />;
 }

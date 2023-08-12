@@ -1,13 +1,13 @@
 // "use client" does not need to be defined in every file.
 // The Client module boundary only needs to be defined once, at the "entry point",
-import Humanmatting from '../../components/ai/humanmatting';
-
+import HumanmattingONNX from "@/components/ai/humanmattingonnx";
+// import HumanmattingTF from "@/components/ai/humanmattingtf";
 export default function Home() {
-    // 2023-07-25 아직까지는 webgl인가
     return (
-        <Humanmatting
-            backendName="webgl"
-            modelPath="/models/humanmatting/model.json"
-        />
+        // <HumanmattingTF
+        //     backendName="webgl"
+        //     modelPath="/models/humanmattingtf/model.json"
+        // />
+        <HumanmattingONNX modelPath="/models/humanmattingonnx/model.onnx"/>
     );
 }

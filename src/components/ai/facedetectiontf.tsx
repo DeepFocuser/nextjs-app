@@ -1,28 +1,11 @@
 'use client';
-import {
-    memo,
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from 'react';
-import { ModelInfo } from '@/types';
+import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
+import {ModelInfo} from '@/types';
 import * as tf from '@tensorflow/tfjs';
-import { Rank } from '@tensorflow/tfjs';
+import {Rank, Tensor} from '@tensorflow/tfjs';
 import Loading from '@/components/structure/loading';
-// import '@tensorflow/tfjs-backend-webgpu';
-// 처음에 recoil 사용해서 하려고 했으나, useLayoutEffect을 사용하면 될일 이었음.
-// import {useSetRecoilState} from 'recoil';
-// import {webCamStateAtom} from '../../utils/recoilatoms';
 
-/*
-useLayoutEffect을 사용해야 페이지간 이동시 return이 동작
-useEffect는 return 동작 안함
-둘다 다른 페이지로 넘어가는 경우 현재 페이지에서 null이 나올수 있는 값들에 대해서는 null처리(?처리) 해줘야함.
- */
-
-function Humanmatting({ backendName, modelPath }: ModelInfo) {
+function FacedetectionTF({backendName, modelPath}: ModelInfo) {
     const [playing, setPlaying] = useState<boolean>(false);
     // false : front camera / true : rear camera whene mobile
     const [cameraSelect, setCameraSelect] = useState<boolean>(false);
@@ -30,8 +13,7 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
     const cameraRearRef = useRef<any>(null);
     //const setWebCamStateAtom = useSetRecoilState(webCamStateAtom);
     const videoRef = useRef<any>(null);
-    const canvasRef1 = useRef<any>(null);
-    const canvasRef2 = useRef<any>(null);
+    const canvasRef = useRef<any>(null);
     const inputRef = useRef<any>(null);
     const inferenceRef = useRef<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
@@ -43,81 +25,58 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
     };
 
     // 비동기 처리2 - canvas에 그리기  하기
-    const drawResult = useCallback<
-        (
-            image: tf.Tensor,
-            alpha: tf.Tensor,
-            background: tf.Tensor,
-            canvasHeight: number,
-            canvasWidth: number,
-        ) => void
-    >(async (image, alpha, background, canvasHeight, canvasWidth) => {
-        const result: tf.Tensor<Rank>[] = tf.tidy(() => {
-            const pha = alpha.squeeze().expandDims(2); //float32
-            const pha255 = tf.mul(pha, 255);
-            const one = tf.onesLike(pha);
-            const rgb = tf.add(
-                tf.mul(pha, image),
-                tf.mul(tf.sub(one, pha), background),
-            );
-            const opacity = one.mul(255);
-            return [
-                tf.concat([rgb, opacity], 2),
-                tf.concat([pha255, pha255, pha255, opacity], 2),
-            ];
+    const drawResult = useCallback<(
+        image: tf.Tensor,
+        score: tf.Tensor,
+        bbox: tf.Tensor,
+        canvasHeight: number,
+        canvasWidth: number,
+    ) => void>(async (image, score, bbox, canvasHeight, canvasWidth) => {
+        const imageAlpha: tf.Tensor<Rank> = tf.tidy(() => {
+            const [height, width, _] = image.shape;
+            const opacity = tf.ones([height, width, 1]).mul(255);
+            return tf.concat([image, opacity], 2);
         });
-        image.dispose();
-        alpha.dispose();
-        background.dispose();
 
-        // result를 resize하면 될듯~
-        const resizeResult = result[0].resizeBilinear([
-            canvasHeight,
-            canvasWidth,
-        ]);
-        const resizeAlphaResult = result[1].resizeBilinear([
+        const resizeImage = imageAlpha.resizeBilinear([
             canvasHeight,
             canvasWidth,
         ]);
 
-        const [height, width] = resizeResult.shape.slice(0, 2);
-        const pixelData = new Uint8ClampedArray(await resizeResult.data()); //
-        const pixelDataAlpha = new Uint8ClampedArray(
-            await resizeAlphaResult.data(),
-        ); //
-        // ui 안멈추게 하려고 비동기로 가져온다
+        const [height, width] = resizeImage.shape.slice(0, 2);
+        const pixelData = new Uint8ClampedArray(await resizeImage.data());
+
+        const resizeBbox: Tensor<Rank> = tf.tidy(() => {
+            return bbox.squeeze();
+        });
+
+        const finalBox: any = await resizeBbox.array();
+        finalBox.forEach((value: number, index: number) => {
+            const wRatio = canvasWidth / 448;
+            const hRatio = canvasHeight / 448;
+            if (index % 2 === 0) finalBox[index] *= wRatio;
+            else finalBox[index] *= hRatio;
+        });
+
         const imageData = new ImageData(pixelData, width, height);
-        const imageDataAlpha = new ImageData(pixelDataAlpha, width, height);
-
-        canvasRef1.current?.getContext('2d').putImageData(imageData, 0, 0);
-        canvasRef2.current?.getContext('2d').putImageData(imageDataAlpha, 0, 0);
-        tf.dispose([result, resizeResult, resizeAlphaResult]);
+        const ctx = canvasRef.current?.getContext('2d');
+        if (ctx) {
+            ctx.putImageData(imageData, 0, 0);
+            ctx.fillRect(
+                finalBox[0],
+                finalBox[1],
+                finalBox[2] - finalBox[0],
+                finalBox[3] - finalBox[1],
+            );
+            ctx.fillStyle = 'rgba(183, 240, 177, 0.4)';
+        }
+        tf.dispose([image, imageAlpha, resizeImage, score, bbox, resizeBbox]);
     }, []);
 
-    // 비동기 처리3 - 배경이미지 로딩하기
-    const loadImageAsync = useCallback<
-        (path: string) => Promise<tf.Tensor<Rank>>
-    >((path) => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.src = path;
-            img.onload = () => {
-                const tensor = tf.browser.fromPixels(img);
-                const background = tf.image.resizeBilinear(tensor, [384, 384]);
-                tf.dispose(tensor);
-                resolve(background);
-            };
-            img.onerror = (e) => {
-                reject(e);
-            };
-        });
-    }, []);
-
-    // 비동기 처리4 - model inference
+    // 비동기 처리3 - model inference
     const inference = useCallback<(path: string, select: boolean) => void>(
         async (path, select) => {
-            canvasRef1.current.style.display = 'block';
-            canvasRef2.current.style.display = 'block';
+            canvasRef.current.style.display = 'block';
 
             // 카메라 1개만 선택하기
             let deviceId = '';
@@ -130,43 +89,30 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
                 }
             }
 
-            // 내 모델은 384x384x3 을 입력으로 받음
+            // 내 모델은 448x448x3 을 입력으로 받음
             if (inferenceRef.current && cameraCount > 0) {
                 let webcam;
                 if (deviceId !== '')
                     webcam = await tf.data.webcam(videoRef.current, {
                         deviceId,
-                        resizeWidth: 384,
-                        resizeHeight: 384,
+                        resizeWidth: 448,
+                        resizeHeight: 448,
                         facingMode: !select ? 'user' : 'environment',
                     });
                 else
                     webcam = await tf.data.webcam(videoRef.current, {
-                        resizeWidth: 384,
-                        resizeHeight: 384,
+                        resizeWidth: 448,
+                        resizeHeight: 448,
                         facingMode: !select ? 'user' : 'environment',
                     });
-
-                // 배경 이미지 미리 Load 하기
-                // https://www.youtube.com/watch?v=kSSycUT0r1M
-                const url = '/images/sample.jpg';
-                const background = await loadImageAsync(url);
 
                 // model loading
                 const model = await tf.loadGraphModel(path);
 
-                // model에 입력되는 rnn state 초기값
-                let [hi1, hi2, hi3, hi4] = [
-                    tf.zeros([1, 20, 24, 24]),
-                    tf.zeros([1, 16, 48, 48]),
-                    tf.zeros([1, 12, 96, 96]),
-                    tf.zeros([1, 10, 192, 192]),
-                ];
-
                 // Inference loop
                 while (inferenceRef.current) {
-                    const canvasHeight = canvasRef1.current?.height;
-                    const canvasWidth = canvasRef1.current?.width;
+                    const canvasHeight = canvasRef.current?.height;
+                    const canvasWidth = canvasRef.current?.width;
                     await tf.nextFrame();
                     // 중간에 inferRef.current가 바뀐다.
                     if (inferenceRef.current) {
@@ -178,31 +124,23 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
                             continue;
                         }
                         const input = tf.tidy(() => img.expandDims(0).div(255)); // normalize input
-                        const [output, ho1, ho2, ho3, ho4] = model.execute(
-                            { input, hi1, hi2, hi3, hi4 }, // provide inputs
-                            ['output', 'ho1', 'ho2', 'ho3', 'ho4'], // select outputs
-                        ) as tf.Tensor<Rank>[];
+                        const [ids, scores, bboxes] = (await model.executeAsync(
+                            {input}, // provide inputs
+                            ['Identity_1:0', 'Identity_2:0', 'bboxes'], // select outputs
+                        )) as tf.Tensor<Rank>[];
 
                         await drawResult(
                             img.clone(),
-                            output.clone(),
-                            background.clone(),
+                            scores.clone(),
+                            bboxes.clone(),
                             canvasHeight,
                             canvasWidth,
                         );
-                        // Dispose old tensors, Update recurrent states.
-                        // dispose 안해주면 메모리 치솟음
-                        tf.dispose([img, input, output, hi1, hi2, hi3, hi4]);
-                        [hi1, hi2, hi3, hi4] = [ho1, ho2, ho3, ho4];
+                        tf.dispose([img, input, ids, scores, bboxes]);
                     }
                 }
-                tf.dispose([hi1, hi2, hi3, hi4, background]);
-                if (
-                    canvasRef1.current !== null &&
-                    canvasRef2.current !== null
-                ) {
-                    canvasRef1.current.style.display = 'none';
-                    canvasRef2.current.style.display = 'none';
+                if (canvasRef.current !== null) {
+                    canvasRef.current.style.display = 'none';
                 }
                 webcam.stop();
                 model.dispose();
@@ -216,13 +154,9 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
         setENV(backendName);
 
         const windowResizeListener = () => {
-            canvasRef1.current.width = Math.floor(window.innerWidth * 0.41);
-            canvasRef1.current.height = Math.floor(window.innerHeight * 0.5);
-
-            canvasRef2.current.width = canvasRef1.current.width;
-            canvasRef2.current.height = canvasRef1.current.height;
+            canvasRef.current.width = Math.floor(window.innerWidth * 0.7);
+            canvasRef.current.height = Math.floor(window.innerHeight * 0.5);
         };
-
         windowResizeListener();
         window.addEventListener('resize', windowResizeListener);
         return () => {
@@ -252,6 +186,7 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
             if (videoRef.current.srcObject !== null) {
                 setLoading(false);
                 inferenceRef.current = false;
+                // console.log(tf.memory());
                 if ('getTracks' in videoRef.current.srcObject) {
                     videoRef.current.srcObject
                         .getTracks()
@@ -276,13 +211,15 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
                         id="AcceptConditions"
                         className="peer sr-only"
                     />
-                    <span className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                    <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                    <span
+                        className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                    <span
+                        className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
             <div className="mt-4 grid items-center justify-center md:justify-self-end">
                 <div className="badge badge-neutral hidden sm:block">
-                    Human Matting Algorithm made by DeepFocuser Using
+                    Face Detection Algorithm made by DeepFocuser Using
                     TensorflowJS
                 </div>
             </div>
@@ -309,16 +246,10 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
                     />
                 </label>
             </div>
-            {loading ? <Loading /> : null}
+            {loading ? <Loading/> : null}
             <div className="flex items-center justify-center">
                 <canvas
-                    ref={canvasRef1}
-                    style={{
-                        transform: 'scaleX(-1)',
-                    }}
-                ></canvas>
-                <canvas
-                    ref={canvasRef2}
+                    ref={canvasRef}
                     style={{
                         transform: 'scaleX(-1)',
                     }}
@@ -338,4 +269,4 @@ function Humanmatting({ backendName, modelPath }: ModelInfo) {
     );
 }
 
-export default memo(Humanmatting);
+export default memo(FacedetectionTF);

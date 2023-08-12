@@ -4,7 +4,7 @@ import {memo, useCallback, useLayoutEffect, useRef, useState} from 'react';
 import {InferenceSession, Tensor} from 'onnxruntime-web';
 import {motion} from 'framer-motion';
 
-function Vad({modelPath}: { modelPath: string }) {
+function VadONNX({modelPath}: { modelPath: string }) {
     const [playing, setPlaying] = useState<boolean>(false);
     const [speaking, setSpeaking] = useState<boolean>(false);
 
@@ -56,11 +56,11 @@ function Vad({modelPath}: { modelPath: string }) {
                     const captureAudioData = async () => {
                         analyser.getFloatTimeDomainData(input);
                         if (inferenceRef.current) {
-                            const inputTensor = new Tensor(input, [
+                            feeds[session.inputNames[0]] = new Tensor(input, [
                                 1,
                                 chunkSize,
                             ]);
-                            feeds[session.inputNames[0]] = inputTensor; //1536 만큼만 넣어두자
+                             //1536 만큼만 넣어두자
                             const outputData = await session.run(feeds);
                             feeds[session.inputNames[2]] =
                                 outputData[session.outputNames[1]]; // (2, 1, 64)
@@ -141,42 +141,24 @@ function Vad({modelPath}: { modelPath: string }) {
             {/*{loading ? <Loading /> : null}*/}
             <div className="mt-20 flex items-center justify-center">
                 {playing &&
-                    (speaking ? (
-                        <HighEnergyCube2/>
-                    ) : (
-                        <LowEnergyCube2/>
-                    ))}
+                    (speaking ? <HighEnergyCube2/> : <LowEnergyCube2/>)}
                 {playing &&
-                    (speaking ? (
-                        <HighEnergyCube1/>
-                    ) : (
-                        <LowEnergyCube1/>
-                    ))}
+                    (speaking ? <HighEnergyCube1/> : <LowEnergyCube1/>)}
                 {playing &&
-                    (speaking ? (
-                        <HighEnergyCube2/>
-                    ) : (
-                        <LowEnergyCube2/>
-                    ))}
+                    (speaking ? <HighEnergyCube2/> : <LowEnergyCube2/>)}
                 {!playing && <DeactivatedCube2/>}
                 {!playing && <DeactivatedCube1/>}
                 {!playing && <DeactivatedCube2/>}
             </div>
             <div className="mt-20 flex items-center justify-center">
                 {!playing && (
-                    <p className="badge badge-neutral badge-lg">
-                        Deactivated
-                    </p>
+                    <p className="badge badge-neutral badge-lg">Deactivated</p>
                 )}
                 {playing &&
                     (speaking ? (
-                        <p className="badge badge-success badge-lg">
-                            Speaking
-                        </p>
+                        <p className="badge badge-success badge-lg">Speaking</p>
                     ) : (
-                        <p className="badge badge-warning badge-lg">
-                            Mute
-                        </p>
+                        <p className="badge badge-warning badge-lg">Mute</p>
                     ))}
             </div>
         </div>
@@ -223,4 +205,4 @@ const DeactivatedCube2 = () => {
     );
 };
 
-export default memo(Vad);
+export default memo(VadONNX);

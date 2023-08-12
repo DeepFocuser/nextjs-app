@@ -13,7 +13,7 @@ function NavigationEvents() {
     console.log(pathname);
     useEffect(() => {
         // video가 켜있으면 끄기
-        if (pathname !== '/humanmatting') {
+        if (pathname !== '/humanmattingtf') {
             // console.log(WebCamStateAtom);
         }
     }, [pathname]);
