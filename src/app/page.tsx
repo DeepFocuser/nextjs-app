@@ -2,7 +2,8 @@ import Image from 'next/image';
 
 // https://www.npmjs.com/package/nextjs-google-analytics
 export default function Home() {
-    return (<div className="mb-36 mt-7">
+    return (
+        <div className="mb-36 mt-7">
             <div className="chat chat-start">
                 <div className="chat-image avatar">
                     <div className="w-10 rounded-full">
@@ -219,5 +220,6 @@ export default function Home() {
                     다 하면 연락해라. 다음에 할 것을 알려주지.
                 </div>
             </div>
-        </div>);
+        </div>
+    );
 }

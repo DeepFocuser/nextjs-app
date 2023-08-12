@@ -1,8 +1,8 @@
 'use client';
 
 // https://codevoweb.com/setup-react-context-api-in-nextjs-13-app-directory/
-import {useEffect, memo, useState} from 'react';
-import {usePathname, useSearchParams} from 'next/navigation';
+import { useEffect, memo, useState } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 // import {useRecoilValue} from 'recoil';
 // import {webCamStateAtom} from '../../utils/recoilatoms';
 
