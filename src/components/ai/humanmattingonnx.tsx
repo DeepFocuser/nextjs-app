@@ -296,7 +296,9 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
             </div>
             <div className="mb-3 mt-4 grid items-center justify-center md:justify-self-end">
                 <label className="label cursor-pointer">
-                    <span className="label-text mr-3 text-red-700">Front Camera</span>
+                    <span className="label-text mr-3 text-red-700">
+                        Front Camera
+                    </span>
                     <input
                         ref={cameraFrontRef}
                         onChange={useCallback(() => setCameraSelect(false), [])}
@@ -307,7 +309,9 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
                     />
                 </label>
                 <label className="label cursor-pointer">
-                    <span className="label-text mr-3 text-blue-700">Rear Camera</span>
+                    <span className="label-text mr-3 text-blue-700">
+                        Rear Camera
+                    </span>
                     <input
                         ref={cameraRearRef}
                         onChange={useCallback(() => setCameraSelect(true), [])}

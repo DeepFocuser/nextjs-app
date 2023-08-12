@@ -289,14 +289,11 @@ function HumanmattingBetterONNX({modelPath}: { modelPath: string }) {
                     Onnxruntime(wasm)
                 </div>
             </div>
-            <div className="mt-1 grid items-center justify-center md:justify-self-end">
-                <div className="badge badge-warning">
-                    😿Inference is quite slow😿
-                </div>
-            </div>
-            <div className="mb-3 mt-4 grid items-center justify-center md:justify-self-end">
+            <div className="mb-1 mt-4 grid items-center justify-center md:justify-self-end">
                 <label className="label cursor-pointer">
-                    <span className="label-text mr-3 text-red-700">Front Camera</span>
+                    <span className="label-text mr-3 text-red-700">
+                        Front Camera
+                    </span>
                     <input
                         ref={cameraFrontRef}
                         onChange={useCallback(() => setCameraSelect(false), [])}
@@ -307,7 +304,9 @@ function HumanmattingBetterONNX({modelPath}: { modelPath: string }) {
                     />
                 </label>
                 <label className="label cursor-pointer">
-                    <span className="label-text mr-3 text-blue-700">Rear Camera</span>
+                    <span className="label-text mr-3 text-blue-700">
+                        Rear Camera
+                    </span>
                     <input
                         ref={cameraRearRef}
                         onChange={useCallback(() => setCameraSelect(true), [])}
@@ -343,9 +342,13 @@ function HumanmattingBetterONNX({modelPath}: { modelPath: string }) {
                     style={{
                         transform: 'scaleX(-1)',
                     }}
-                >
-                </canvas>
+                ></canvas>
             </div>
+            {playing && <div className="mt-0.5 grid items-center justify-center md:justify-self-end">
+                <div className="badge badge-warning">
+                    😿Inference is quite slow😿
+                </div>
+            </div>}
         </div>
     );
 }
