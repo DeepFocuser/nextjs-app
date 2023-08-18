@@ -7,7 +7,7 @@ import {
     useRef,
     useState,
 } from 'react';
-import { ModelInfo } from '@/types';
+import type { ModelInfo } from '@/types';
 import * as tf from '@tensorflow/tfjs';
 import { Rank } from '@tensorflow/tfjs';
 import Loading from '@/components/structure/loading';
