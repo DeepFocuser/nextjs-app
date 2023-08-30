@@ -38,6 +38,9 @@ function Nav() {
                                 <Link href="/about">About</Link>
                             </li>
                             <li>
+                                <Link href="/practice">Pratice</Link>
+                            </li>
+                            <li>
                                 <Link href="/humanmatting">
                                     <p className="text-left">✅</p>HumanMatting
                                 </Link>
