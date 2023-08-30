@@ -38,7 +38,7 @@ function Nav() {
                                 <Link href="/about">About</Link>
                             </li>
                             <li>
-                                <Link href="/practice">Pratice</Link>
+                                <Link href="/practice">Help For Develop</Link>
                             </li>
                             <li>
                                 <Link href="/humanmatting">
