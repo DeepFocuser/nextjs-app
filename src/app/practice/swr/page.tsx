@@ -8,12 +8,14 @@ import {dracula} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import useSWR from 'swr'
 import Loading from "@/components/structure/loading";
 import Link from 'next/link';
+import {useRef} from "react";
 
-const fetcher = (url : string) => fetch(url).then((res) => res.json());
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home() {
 
     const {data, error, isLoading, isValidating, mutate} = useSWR('/api/data', fetcher);
+    const modalRef = useRef<any>();
 
     if (error) return null;
     if (!data) return <Loading/>;
@@ -60,8 +62,8 @@ export default function Home() {
             </div>
         </div>
         <div className="mt-7 flex justify-center items-center">
-            {/*<button className="btn" onClick={() => window.my_modal_1.showModal()}>RUN</button>*/}
-            <dialog id="my_modal_1" className="modal modal-bottom sm:modal-middle">
+            <button className="btn btn-info" onClick={() => modalRef.current.showModal()}>RUN</button>
+            <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
                 <form method="dialog" className="modal-box">
                     <h3 className="font-bold text-lg">SWR Result!</h3>
                     <p className="py-4">{data.message}</p>
