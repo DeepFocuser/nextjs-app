@@ -48,7 +48,7 @@ export default function Home() {
     return (
         <div className="mb-36 mt-7">
             <div className="mx-auto max-w-lg text-center">
-                <h2 className="text-3xl font-bold sm:text-4xl">Example Code</h2>
+                <h2 className="text-3xl font-bold sm:text-4xl">ReactQuery Example Code</h2>
                 <Link href="/practice" className="btn-primary btn-sm btn mt-7">
                     Back to Help For Develop
                 </Link>
