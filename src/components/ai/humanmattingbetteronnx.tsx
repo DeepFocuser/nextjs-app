@@ -249,8 +249,8 @@ function HumanmattingBetterONNX({modelPath}: { modelPath: string }) {
             />
             <canvas
                 ref={canvasInferenceRef}
-                height="512"
-                width="512"
+                height="384"
+                width="384"
                 style={{
                     display: 'none', transform: 'scaleX(-1)',
                 }}
