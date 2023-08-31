@@ -23,7 +23,6 @@ export default function Home() {
 
     const codeString = `
     'use client'
-    
     import useSWR from 'swr'
     import Loading from "@/components/structure/loading";
     
@@ -41,18 +40,15 @@ export default function Home() {
             <div>
                 <p>{data.message}</p>
             </div>);
-    }
-  `;
+    }`;
     return (<div className="mb-36 mt-7">
         <div className="mx-auto max-w-lg text-center">
             <h2 className="text-3xl font-bold sm:text-4xl">
                 Example Code
             </h2>
-            <button className="mt-7 btn btn-primary btn-sm">
-                <Link href="/practice">
-                    Back to Help For Develop
-                </Link>
-            </button>
+            <Link href="/practice" className="mt-7 btn btn-primary btn-sm">
+                Back to Help For Develop
+            </Link>
         </div>
         <div className="flex justify-center items-center">
             <div className="w-2/3 p-4 rounded-lg shadow-lg">
