@@ -9,7 +9,7 @@ import NavigationEvents from '../components/structure/navigation-events';
 import ThemeProviders from '../components/provider/themeproviders';
 import Loading from './loading';
 import GoogleAnalytics from '@/libs/googleanalytics';
-import RQProviders from "@/components/provider/reactqueryproviders";
+import RQProviders from '@/components/provider/reactqueryproviders';
 //import RecoilProviders from '../components/provider/recoil';
 
 export const metadata = { ...siteMetadata };
@@ -66,9 +66,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         <Nav />
                     </header>
                     <main>
-                        <RQProviders>
-                            {children}
-                        </RQProviders>
+                        <RQProviders>{children}</RQProviders>
                     </main>
                     <Footer />
                     <Suspense fallback={<Loading />}>

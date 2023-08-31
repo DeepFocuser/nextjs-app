@@ -1,21 +1,21 @@
-'use client'
+'use client';
 /*
 비동기
+https://hoon1994.tistory.com/80
 */
 import {Light as SyntaxHighlighter} from 'react-syntax-highlighter';
-import {dracula} from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import Loading from "@/components/structure/loading";
+import {dark} from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import Loading from '@/components/structure/loading';
 import Link from 'next/link';
-import {useRef} from "react";
-import {useQuery} from '@tanstack/react-query'
+import {useRef} from 'react';
+import {useQuery} from '@tanstack/react-query';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home() {
-
     const {isLoading, isError, data, error} = useQuery({
         queryKey: ['sample'], queryFn: () => fetcher('/api/data'),
-    })
+    });
     const modalRef = useRef<any>();
 
     if (isError) return null;
@@ -46,25 +46,33 @@ export default function Home() {
     }`;
     return (<div className="mb-36 mt-7">
         <div className="mx-auto max-w-lg text-center">
-            <h2 className="text-3xl font-bold sm:text-4xl">
-                Example Code
-            </h2>
-            <Link href="/practice" className="mt-7 btn btn-primary btn-sm">
+            <h2 className="text-3xl font-bold sm:text-4xl">Example Code</h2>
+            <Link href="/practice" className="btn-primary btn-sm btn mt-7">
                 Back to Help For Develop
             </Link>
         </div>
-        <div className="flex justify-center items-center">
-            <div className="w-2/3 p-4 rounded-lg shadow-lg">
-                <SyntaxHighlighter language="javascript" style={dracula}>
+        <div className="flex items-center justify-center">
+            <div className="w-2/3 rounded-lg p-4 shadow-lg">
+                <SyntaxHighlighter language="javascript" style={dark}>
                     {codeString}
                 </SyntaxHighlighter>
             </div>
         </div>
-        <div className="mt-7 flex justify-center items-center">
-            <button className="btn btn-info" onClick={() => modalRef.current.showModal()}>RUN</button>
-            <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
+        <div className="mt-7 flex items-center justify-center">
+            <button
+                className="btn-info btn"
+                onClick={() => modalRef.current.showModal()}
+            >
+                RUN
+            </button>
+            <dialog
+                ref={modalRef}
+                className="modal modal-bottom sm:modal-middle"
+            >
                 <form method="dialog" className="modal-box">
-                    <h3 className="font-bold text-lg">ReactQuery Result!</h3>
+                    <h3 className="text-lg font-bold">
+                        ReactQuery Result!
+                    </h3>
                     <p className="py-4">{data.message}</p>
                     <div className="modal-action">
                         {/* if there is a button in form, it will close the modal */}
