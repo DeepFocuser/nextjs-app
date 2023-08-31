@@ -57,25 +57,32 @@ function Nav() {
                         </li>
                     </ul>
                 </div>
-                <Link href="/" className="btn btn-ghost normal-case text-xl text-gray-700 bg-gray-100">
-                    <progress className="progress-error progress bg-black"></progress>
-                    Home
-                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     <li>
-                        <Link className="mx-2 bg-purple-500 text-white" href="/">Home</Link>
+                        <Link href="/"
+                              className="mx-2 btn btn-ghost text-sm content-center text-gray-700 bg-gray-200">
+                            Home
+                        </Link>
                     </li>
                     <li>
-                        <Link className="mx-2 bg-purple-500 text-white" href="/about">About</Link>
+                        <Link href="/about"
+                              className="mx-2 btn btn-ghost text-sm content-center text-gray-700 bg-gray-200">
+                            About
+                        </Link>
                     </li>
                     <li>
-                        <Link className="mx-2 bg-purple-500 text-white" href="/practice">Help For Develop</Link>
+                        <Link href="/practice"
+                              className="mx-2 btn btn-ghost text-sm content-center text-gray-700 bg-gray-200">
+                            Help For Develop
+                        </Link>
                     </li>
-                    <li className="mx-2 bg-green-500 text-white" tabIndex={0}>
+                    <li tabIndex={0}>
                         <details>
-                            <summary>AI</summary>
+                            <summary
+                                className="mx-2 btn btn-ghost text-sm content-center text-gray-700 bg-green-200">AI
+                            </summary>
                             <ul className="dropdown-content menu rounded-box menu-sm z-[1] mt-3 w-56 bg-gray-100 p-1 font-bold shadow text-black">
                                 <li>
                                     <Link href="/humanmatting">
