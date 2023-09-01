@@ -1,8 +1,8 @@
-import { siteConfig } from '@/config/site';
+import {siteConfig} from '@/config/site';
 
 export const siteMetadata = {
     metadataBase: new URL('https://deepfocuser.vercel.app'),
-    title: 'Next.js First App',
+    title: 'DeepFocuser',
     description: siteConfig.description,
     keywords: [],
     authors: [
@@ -12,7 +12,7 @@ export const siteMetadata = {
         },
     ],
     creator: 'DeepFocuser',
-    themeColor: [{ media: '(prefers-color-scheme: light)', color: 'cyan' }],
+    themeColor: [{media: '(prefers-color-scheme: light)', color: 'cyan'}],
     openGraph: {
         type: 'website',
         locale: 'ko_KR',
@@ -28,7 +28,7 @@ export const siteMetadata = {
         },
     },
     icons: {
-        icon: '/favicon.ico',
+        icon: '/favicon.png',
     },
     manifest: '/site.webmanifest',
 };

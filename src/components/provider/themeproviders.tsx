@@ -1,12 +1,13 @@
 'use client';
-import { ThemeProvider } from 'next-themes';
-import { memo, ReactNode } from 'react';
+import {ThemeProvider} from 'next-themes';
+import {memo, ReactNode} from 'react';
 
-function ThemeProviders({ children }: { children: ReactNode }) {
+function ThemeProviders({children}: { children: ReactNode }) {
     return (
         <ThemeProvider
             disableTransitionOnChange
-            themes={['light', 'dark', 'cupcake', 'forest', 'dracula']}
+            defaultTheme="dark"
+            themes={['dark', 'light', 'cupcake', 'forest', 'dracula']}
         >
             {children}
         </ThemeProvider>

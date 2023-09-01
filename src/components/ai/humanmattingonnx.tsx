@@ -1,17 +1,10 @@
 'use client';
 
-import {
-    memo,
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from 'react';
-import { InferenceSession, Tensor } from 'onnxruntime-web';
+import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
+import {InferenceSession, Tensor} from 'onnxruntime-web';
 import Loading from '@/components/structure/loading';
 
-function HumanmattingONNX({ modelPath }: { modelPath: string }) {
+function HumanmattingONNX({modelPath}: { modelPath: string }) {
     const [playing, setPlaying] = useState<boolean>(false);
     const canvasInferenceRef = useRef<any>(null);
     const canvasResultRef = useRef<any>(null);
@@ -47,7 +40,7 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
                     graphOptimizationLevel: 'all',
                 });
 
-                const [targetHeight, targetWidth] = [384, 384];
+                const [targetHeight, targetWidth] = [256, 256];
 
                 if (deviceId !== '') {
                     constraints = {
@@ -88,20 +81,20 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
                         const resultPlusAlpha = new Float32Array(originLength);
 
                         feeds[session.inputNames[1]] = new Tensor(
-                            new Float32Array(1 * 20 * 24 * 24),
-                            [1, 20, 24, 24],
+                            new Float32Array(1 * 20 * 16 * 16),
+                            [1, 20, 16, 16],
                         );
                         feeds[session.inputNames[2]] = new Tensor(
-                            new Float32Array(1 * 16 * 48 * 48),
-                            [1, 16, 48, 48],
+                            new Float32Array(1 * 16 * 32 * 32),
+                            [1, 16, 32, 32],
                         );
                         feeds[session.inputNames[3]] = new Tensor(
-                            new Float32Array(1 * 12 * 96 * 96),
-                            [1, 12, 96, 96],
+                            new Float32Array(1 * 12 * 64 * 64),
+                            [1, 12, 64, 64],
                         );
                         feeds[session.inputNames[4]] = new Tensor(
-                            new Float32Array(1 * 10 * 192 * 192),
-                            [1, 10, 192, 192],
+                            new Float32Array(1 * 10 * 128 * 128),
+                            [1, 10, 128, 128],
                         );
 
                         const drawCanvas = async () => {
@@ -284,8 +277,10 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
                         id="AcceptConditions"
                         className="peer sr-only"
                     />
-                    <span className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                    <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                    <span
+                        className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                    <span
+                        className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
             <div className="mt-6 grid items-center justify-center md:justify-self-end">
@@ -321,7 +316,7 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
                     />
                 </label>
             </div>
-            {loading ? <Loading /> : null}
+            {loading ? <Loading/> : null}
             <div className="flex items-center justify-center">
                 <video
                     ref={videoRef}
@@ -335,8 +330,8 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
                 />
                 <canvas
                     ref={canvasInferenceRef}
-                    height="384"
-                    width="384"
+                    height="256"
+                    width="256"
                     style={{
                         display: 'none',
                         transform: 'scaleX(-1)',

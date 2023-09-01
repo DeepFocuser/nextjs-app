@@ -45,7 +45,7 @@ export default function Home() {
             </div>);
     }`;
     return (
-        <div className="mb-36 mt-7">
+        <div className="mb-36 mt-8">
             <div className="mx-auto max-w-lg text-center">
                 <h2 className="text-3xl font-bold sm:text-4xl">SWR Example Code</h2>
                 <Link href="/practice" className="btn-primary btn-sm btn mt-7">

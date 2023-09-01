@@ -47,7 +47,7 @@ function HumanmattingBetterONNX({ modelPath }: { modelPath: string }) {
                     graphOptimizationLevel: 'all',
                 });
 
-                const [targetHeight, targetWidth] = [384, 384];
+                const [targetHeight, targetWidth] = [256, 256];
 
                 if (deviceId !== '') {
                     constraints = {
@@ -88,20 +88,20 @@ function HumanmattingBetterONNX({ modelPath }: { modelPath: string }) {
                         const resultPlusAlpha = new Float32Array(originLength);
 
                         feeds[session.inputNames[1]] = new Tensor(
-                            new Float32Array(1 * 64 * 24 * 24),
-                            [1, 64, 24, 24],
+                            new Float32Array(1 * 64 * 16 * 16),
+                            [1, 64, 16, 16],
                         );
                         feeds[session.inputNames[2]] = new Tensor(
-                            new Float32Array(1 * 40 * 48 * 48),
-                            [1, 40, 48, 48],
+                            new Float32Array(1 * 40 * 32 * 32),
+                            [1, 40, 32, 32],
                         );
                         feeds[session.inputNames[3]] = new Tensor(
-                            new Float32Array(1 * 20 * 96 * 96),
-                            [1, 20, 96, 96],
+                            new Float32Array(1 * 20 * 64 * 64),
+                            [1, 20, 64, 64],
                         );
                         feeds[session.inputNames[4]] = new Tensor(
-                            new Float32Array(1 * 16 * 192 * 192),
-                            [1, 16, 192, 192],
+                            new Float32Array(1 * 16 * 128 * 128),
+                            [1, 16, 128, 128],
                         );
 
                         const drawCanvas = async () => {
@@ -335,8 +335,8 @@ function HumanmattingBetterONNX({ modelPath }: { modelPath: string }) {
                 />
                 <canvas
                     ref={canvasInferenceRef}
-                    height="384"
-                    width="384"
+                    height="256"
+                    width="256"
                     style={{
                         display: 'none',
                         transform: 'scaleX(-1)',
