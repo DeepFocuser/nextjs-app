@@ -198,7 +198,7 @@ function FacedetectionONNX({ modelPath }: { modelPath: string }) {
 
     useEffect(() => {
         const windowResizeListener = () => {
-            canvasResultRef.current.width = Math.floor(window.innerWidth * 0.7);
+            canvasResultRef.current.width = Math.floor(window.innerWidth * 0.5);
             canvasResultRef.current.height = Math.floor(
                 window.innerHeight * 0.5,
             );

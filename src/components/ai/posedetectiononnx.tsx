@@ -1,17 +1,10 @@
 'use client';
-
-import {
-    memo,
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from 'react';
-import { InferenceSession, Tensor } from 'onnxruntime-web';
+// 참고하기 https://github.com/natmlx/movenet-unity/tree/main/Packages/ai.natml.vision.movenet/Runtime
+import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
+import {InferenceSession, Tensor} from 'onnxruntime-web';
 import Loading from '@/components/structure/loading';
 
-function PosedetectionONNX({ modelPath }: { modelPath: string }) {
+function PosedetectionONNX({modelPath}: { modelPath: string }) {
     const [playing, setPlaying] = useState<boolean>(false);
     const canvasInferenceRef = useRef<any>(null);
     const canvasResultRef = useRef<any>(null);
@@ -47,7 +40,7 @@ function PosedetectionONNX({ modelPath }: { modelPath: string }) {
                     graphOptimizationLevel: 'all',
                 });
 
-                const [targetHeight, targetWidth] = [192, 192];
+                const [targetHeight, targetWidth] = [256, 256];
 
                 if (deviceId !== '') {
                     constraints = {
@@ -85,6 +78,9 @@ function PosedetectionONNX({ modelPath }: { modelPath: string }) {
                             new Array<number>(),
                         ];
                         const inputArray = new Int32Array(rgbLength);
+                        const positionNumber = 17 * 3;
+                        const resultPose = new Float32Array(positionNumber);
+                        const threshold = 0.3;
 
                         const drawCanvas = async () => {
                             if (inferenceRef.current) {
@@ -131,57 +127,136 @@ function PosedetectionONNX({ modelPath }: { modelPath: string }) {
                                 blueArray.length = 0;
 
                                 for (let i = 0; i < rgbLength; i++) {
-                                    inputArray[i] = rgbArray[i] / 255.0; // convert to float
+                                    inputArray[i] = rgbArray[i]; // convert to float
                                 }
 
                                 feeds[session.inputNames[0]] = new Tensor(
                                     inputArray,
-                                    [1, targetHeight, targetWidth, 3],
+                                    [1, 3, targetHeight, targetWidth],
                                 );
                                 const outputData = await session.run(feeds);
-                                console.log(outputData);
-                                // const id: any = outputData[session.outputNames[0]].data;
-                                // const score: any = outputData[session.outputNames[1]].data;
-                                // const bbox: any =
-                                //     outputData[session.outputNames[2]].data;
-                                // const landmark: any =
-                                //     outputData[session.outputNames[3]].data;
-                                // infernceContext.fillStyle =
-                                //     'rgba(255, 121, 121, 0.33)';
-                                // infernceContext.fillRect(
-                                //     bbox[0],
-                                //     bbox[1],
-                                //     bbox[2] - bbox[0],
-                                //     bbox[3] - bbox[1],
-                                // );
-                                //
-                                // infernceContext.strokeStyle =
-                                //     'rgba(33, 255, 33, 1)';
-                                // for (let i = 0; i < landmark.length; i += 2) {
-                                //     infernceContext.beginPath();
-                                //     infernceContext.arc(
-                                //         landmark[i],
-                                //         landmark[i + 1],
-                                //         1,
-                                //         0,
-                                //         2 * Math.PI,
-                                //     );
-                                //     infernceContext.stroke();
-                                // }
-                                //
-                                // resultContext.clearRect(
-                                //     0,
-                                //     0,
-                                //     targetCanvasWidth,
-                                //     targetCanvasHeight,
-                                // );
-                                // resultContext.drawImage(
-                                //     canvasInferenceRef.current,
-                                //     0,
-                                //     0,
-                                //     targetCanvasWidth,
-                                //     targetCanvasHeight,
-                                // );
+                                const poseData: any = outputData[session.outputNames[0]].data;
+
+                                // [y,x...]
+                                for (let i = 0; i < positionNumber; i += 3) {
+                                    resultPose[i] =
+                                        poseData[i] * targetHeight;
+                                    resultPose[i + 1] =
+                                        poseData[i + 1] * targetWidth;
+                                    resultPose[i + 2] =
+                                        poseData[i + 2];
+                                }
+                                infernceContext.strokeStyle =
+                                    'rgba(255, 30, 30, 1)';
+
+                                // face
+                                // nose-left eye
+                                if (resultPose[2] > threshold && resultPose[5] > threshold) {
+                                    infernceContext.beginPath();
+                                    infernceContext.moveTo(resultPose[1], resultPose[0]);
+                                    infernceContext.lineTo(resultPose[4], resultPose[3]);
+                                    infernceContext.stroke();
+                                }
+
+                                // nose-right eye
+                                if (resultPose[2] > threshold && resultPose[8] > threshold) {
+                                    infernceContext.beginPath();
+                                    infernceContext.moveTo(resultPose[1], resultPose[0]);
+                                    infernceContext.lineTo(resultPose[7], resultPose[6]);
+                                    infernceContext.stroke();
+                                }
+
+                                // left-eye-left_ear
+                                if (resultPose[5] > threshold && resultPose[11] > threshold) {
+                                    infernceContext.beginPath();
+                                    infernceContext.moveTo(resultPose[4], resultPose[3]);
+                                    infernceContext.lineTo(resultPose[10], resultPose[9]);
+                                    infernceContext.stroke();
+                                }
+
+                                // right-eye-right-ear
+                                if (resultPose[8] > threshold && resultPose[14] > threshold) {
+                                    infernceContext.beginPath();
+                                    infernceContext.moveTo(resultPose[7], resultPose[6]);
+                                    infernceContext.lineTo(resultPose[13], resultPose[12]);
+                                    infernceContext.stroke();
+                                }
+
+                                infernceContext.strokeStyle =
+                                    'rgba(30, 30, 255, 1)';
+                                // left-ear-left-shoulder
+                                if (resultPose[11] > threshold && resultPose[17] > threshold) {
+                                    infernceContext.beginPath();
+                                    infernceContext.moveTo(resultPose[10], resultPose[9]);
+                                    infernceContext.lineTo(resultPose[16], resultPose[15]);
+                                    infernceContext.stroke();
+                                }
+
+                                // right-ear-right-shoulder
+                                if (resultPose[14] > threshold && resultPose[20] > threshold) {
+                                    infernceContext.beginPath();
+                                    infernceContext.moveTo(resultPose[13], resultPose[12]);
+                                    infernceContext.lineTo(resultPose[19], resultPose[18]);
+                                    infernceContext.stroke();
+                                }
+
+                                // uppoer body
+                                infernceContext.strokeStyle =
+                                    'rgba(30, 255, 30, 1)';
+
+                                // left-shoulder-right-shoulder
+                                if (resultPose[17] > threshold && resultPose[20] > threshold) {
+                                    infernceContext.beginPath();
+                                    infernceContext.moveTo(resultPose[16], resultPose[15]);
+                                    infernceContext.lineTo(resultPose[19], resultPose[18]);
+                                    infernceContext.stroke();
+                                }
+
+                                // left-shoulder-left-elbow
+                                if (resultPose[17] > threshold && resultPose[23] > threshold) {
+                                    infernceContext.beginPath();
+                                    infernceContext.moveTo(resultPose[16], resultPose[15]);
+                                    infernceContext.lineTo(resultPose[22], resultPose[21]);
+                                    infernceContext.stroke();
+                                }
+
+                                // right-shoulder-right-elbow
+                                if (resultPose[20] > threshold && resultPose[26] > threshold) {
+                                    infernceContext.beginPath();
+                                    infernceContext.moveTo(resultPose[19], resultPose[18]);
+                                    infernceContext.lineTo(resultPose[25], resultPose[24]);
+                                    infernceContext.stroke();
+                                }
+
+                                // left-elbow-left-wrist
+                                if (resultPose[23] > threshold && resultPose[29] > threshold) {
+                                    infernceContext.beginPath();
+                                    infernceContext.moveTo(resultPose[22], resultPose[21]);
+                                    infernceContext.lineTo(resultPose[28], resultPose[27]);
+                                    infernceContext.stroke();
+                                }
+
+                                // right-elbow-right-wrist
+                                if (resultPose[26] > threshold && resultPose[32] > threshold) {
+                                    infernceContext.beginPath();
+                                    infernceContext.moveTo(resultPose[25], resultPose[24]);
+                                    infernceContext.lineTo(resultPose[31], resultPose[30]);
+                                    infernceContext.stroke();
+                                }
+
+                                resultContext.clearRect(
+                                    0,
+                                    0,
+                                    targetCanvasWidth,
+                                    targetCanvasHeight,
+                                );
+                                resultContext.drawImage(
+                                    canvasInferenceRef.current,
+                                    0,
+                                    0,
+                                    targetCanvasWidth,
+                                    targetCanvasHeight,
+                                );
 
                                 requestAnimationFrame(drawCanvas);
                             } else if (canvasResultRef.current !== null)
@@ -199,7 +274,7 @@ function PosedetectionONNX({ modelPath }: { modelPath: string }) {
 
     useEffect(() => {
         const windowResizeListener = () => {
-            canvasResultRef.current.width = Math.floor(window.innerWidth * 0.7);
+            canvasResultRef.current.width = Math.floor(window.innerWidth * 0.5);
             canvasResultRef.current.height = Math.floor(
                 window.innerHeight * 0.5,
             );
@@ -258,8 +333,10 @@ function PosedetectionONNX({ modelPath }: { modelPath: string }) {
                         id="AcceptConditions"
                         className="peer sr-only"
                     />
-                    <span className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                    <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                    <span
+                        className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                    <span
+                        className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
             <div className="mt-6 grid items-center justify-center md:justify-self-end">
@@ -295,7 +372,7 @@ function PosedetectionONNX({ modelPath }: { modelPath: string }) {
                     />
                 </label>
             </div>
-            {loading ? <Loading /> : null}
+            {loading ? <Loading/> : null}
             <div className="flex items-center justify-center">
                 <video
                     ref={videoRef}
@@ -309,8 +386,8 @@ function PosedetectionONNX({ modelPath }: { modelPath: string }) {
                 />
                 <canvas
                     ref={canvasInferenceRef}
-                    height="384"
-                    width="384"
+                    height="256"
+                    width="256"
                     style={{
                         display: 'none',
                         transform: 'scaleX(-1)',
