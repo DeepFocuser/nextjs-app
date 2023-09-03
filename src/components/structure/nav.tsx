@@ -101,7 +101,7 @@ function Nav() {
                             </Link>
                         </li>
                         <li>
-                            <div className="dropdown p-0">
+                            <div className="dropdown cursor-pointer p-0">
                                 <details>
                                     <summary className="flex rounded-xl border border-green-300/10 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:shadow-green-300">
                                         AI &nbsp;

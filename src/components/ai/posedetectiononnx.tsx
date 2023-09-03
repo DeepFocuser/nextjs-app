@@ -370,7 +370,8 @@ function PosedetectionONNX({modelPath}: { modelPath: string }) {
                                     canvasResultRef.current?.height,
                                 );
                                 if (canvasResultRef.current !== null)
-                                    canvasResultRef.current.style.backgroundColor = 'black';
+                                    canvasResultRef.current.style.backgroundColor =
+                                        'black';
                             }
                         };
                         await drawCanvas();
