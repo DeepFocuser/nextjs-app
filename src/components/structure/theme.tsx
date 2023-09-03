@@ -1,13 +1,13 @@
 'use client';
 
 // https://github.com/xiaotiandada/blog/issues/94 - 참고
-import { ChangeEvent, memo, useEffect, useState } from 'react';
-import { useTheme } from 'next-themes';
+import {ChangeEvent, memo, useEffect, useState} from 'react';
+import {useTheme} from 'next-themes';
 // 동적으로 tailwind 사용하자
 // https://velog.io/@arthur/Tailwind-CSS-%EC%97%90%EC%84%9C-%EB%8F%99%EC%A0%81%EC%9C%BC%EB%A1%9C-%ED%81%B4%EB%9E%98%EC%8A%A4-%ED%95%A0%EB%8B%B9%ED%95%98%EA%B8%B0
 function ThemeSwitch() {
     const [mounted, setMounted] = useState<boolean>(false);
-    const { theme, themes, setTheme } = useTheme();
+    const {theme, themes, setTheme} = useTheme();
 
     useEffect(() => {
         setMounted(true);
@@ -16,7 +16,7 @@ function ThemeSwitch() {
     // shift됨
     if (!mounted) {
         return (
-            <div className="mr-3 grid">
+            <div className="mr-4 grid">
                 <label htmlFor="HeadlineAct" className="text-center">
                     <span className="badge badge-ghost">themes</span>
                 </label>
@@ -24,7 +24,7 @@ function ThemeSwitch() {
                 <select
                     name="HeadlineAct"
                     id="HeadlineAct"
-                    className="block w-24 rounded-lg bg-slate-900 p-0.5 text-sm text-purple-50"
+                    className="mt-1 block w-28 rounded-lg bg-slate-800 p-1 text-sm text-purple-50"
                 >
                     <option className="text-center font-bold">
                         {/*Loading!*/}

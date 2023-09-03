@@ -19,7 +19,6 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
 
     const inference = useCallback<(modelPath: string, select: boolean) => void>(
         async (modelPath, select) => {
-            canvasResultRef.current.style.display = 'block';
 
             // 카메라 1개만 선택하기
             let deviceId = '';
@@ -176,8 +175,7 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
                                 );
 
                                 requestAnimationFrame(drawCanvas);
-                            } else if (canvasResultRef.current !== null)
-                                canvasResultRef.current.style.display = 'none';
+                            }
                         };
                         await drawCanvas();
                     }
@@ -195,9 +193,22 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
             canvasResultRef.current.height = Math.floor(
                 window.innerHeight * 0.5,
             );
+
+            const resultContext =
+                canvasResultRef.current?.getContext('2d');
+            resultContext.fillStyle =
+                'rgba(0, 0, 0, 1)';
+            resultContext.fillRect(
+                0,
+                0,
+                canvasResultRef.current.width,
+                canvasResultRef.current.height,
+            );
         };
+
         windowResizeListener();
         window.addEventListener('resize', windowResizeListener);
+
         return () => {
             window.removeEventListener('resize', windowResizeListener);
         };
@@ -205,6 +216,7 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
 
     // useLayoutEffect을 사용해야 한다.
     useLayoutEffect(() => {
+
         if (playing) {
             setLoading(true);
             inferenceRef.current = true;
@@ -310,13 +322,13 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
                         display: 'none',
                         transform: 'scaleX(-1)',
                     }}
-                ></canvas>
+                />
                 <canvas
                     ref={canvasResultRef}
                     style={{
                         transform: 'scaleX(-1)',
                     }}
-                ></canvas>
+                />
             </div>
         </div>
     );

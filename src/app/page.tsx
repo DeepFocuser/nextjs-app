@@ -97,31 +97,31 @@ export default function Home() {
 
                         <Link
                             href="/humanmatting"
-                            className="bg-red-500 text-white btn-xs btn mr-2 mt-2 normal-case"
+                            className="btn-xs btn mr-2 mt-2 bg-red-500 normal-case text-white"
                         >
                             HumanMatting
                         </Link>
                         <Link
                             href="/humanmattingbetter"
-                            className="bg-orange-500 text-white btn-xs btn mr-2 mt-2 normal-case"
+                            className="btn-xs btn mr-2 mt-2 bg-orange-500 normal-case text-white"
                         >
                             HumanMatting Better
                         </Link>
                         <Link
                             href="/facedetection"
-                            className="bg-green-500 text-white btn-xs btn mr-2 mt-2 normal-case"
+                            className="btn-xs btn mr-2 mt-2 bg-green-500 normal-case text-white"
                         >
                             Face Detection
                         </Link>
                         <Link
                             href="/vad"
-                            className="bg-blue-500 text-white btn-xs btn mr-2 mt-2 normal-case"
+                            className="btn-xs btn mr-2 mt-2 bg-blue-500 normal-case text-white"
                         >
                             Voice Activity Detection
                         </Link>
                         <Link
                             href="/posedetection"
-                            className="bg-purple-500 text-white btn-xs btn mr-2 mt-2 normal-case"
+                            className="btn-xs btn mr-2 mt-2 bg-purple-500 normal-case text-white"
                         >
                             Pose Detection
                         </Link>
