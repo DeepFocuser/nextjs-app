@@ -1,9 +1,16 @@
 'use client';
 
-import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
-import {InferenceSession, Tensor} from 'onnxruntime-web';
+import {
+    memo,
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from 'react';
+import { InferenceSession, Tensor } from 'onnxruntime-web';
 
-function HumanmattingBetterONNX({modelPath}: { modelPath: string }) {
+function HumanmattingBetterONNX({ modelPath }: { modelPath: string }) {
     const [playing, setPlaying] = useState<boolean>(false);
     const canvasInferenceRef = useRef<any>(null);
     const canvasResultRef = useRef<any>(null);
@@ -215,8 +222,8 @@ function HumanmattingBetterONNX({modelPath}: { modelPath: string }) {
                                     canvasResultRef.current?.width,
                                     canvasResultRef.current?.height,
                                 );
-                                canvasResultRef.current.style.backgroundColor =
-                                    'black';
+                                if (canvasResultRef.current !== null)
+                                    canvasResultRef.current.style.backgroundColor = 'black';
                             }
                         };
                         await drawCanvas();
@@ -298,10 +305,8 @@ function HumanmattingBetterONNX({modelPath}: { modelPath: string }) {
                         id="AcceptConditions"
                         className="peer sr-only"
                     />
-                    <span
-                        className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                    <span
-                        className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                    <span className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                    <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
             <div className="mt-6 grid items-center justify-center md:justify-self-end">
@@ -381,7 +386,11 @@ function HumanmattingBetterONNX({modelPath}: { modelPath: string }) {
                 </div>
             ) : (
                 <div className="mt-4 grid items-center justify-center md:justify-self-end">
-                    {mounted ? <div className="badge badge-warning">😿Deactivated😿</div> : null}
+                    {mounted ? (
+                        <div className="badge badge-warning">
+                            😿Deactivated😿
+                        </div>
+                    ) : null}
                 </div>
             )}
         </div>

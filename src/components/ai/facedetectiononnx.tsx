@@ -187,8 +187,8 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
                                     canvasResultRef.current?.width,
                                     canvasResultRef.current?.height,
                                 );
-                                canvasResultRef.current.style.backgroundColor =
-                                    'black';
+                                if (canvasResultRef.current !== null)
+                                    canvasResultRef.current.style.backgroundColor = 'black';
                             }
                         };
                         await drawCanvas();
@@ -349,7 +349,11 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
                 </div>
             ) : (
                 <div className="mt-4 grid items-center justify-center md:justify-self-end">
-                    {mounted ? <div className="badge badge-warning">😿Deactivated😿</div> : null}
+                    {mounted ? (
+                        <div className="badge badge-warning">
+                            😿Deactivated😿
+                        </div>
+                    ) : null}
                 </div>
             )}
         </div>
