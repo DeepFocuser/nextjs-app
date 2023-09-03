@@ -2,7 +2,6 @@
 
 import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
 import {InferenceSession, Tensor} from 'onnxruntime-web';
-import Loading from '@/components/structure/loading';
 
 function FacedetectionONNX({modelPath}: { modelPath: string }) {
     const [playing, setPlaying] = useState<boolean>(false);
@@ -80,7 +79,6 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
                         let firstFrame = true; // 깜빡임 방지
                         const drawCanvas = async () => {
                             if (inferenceRef.current) {
-
                                 const targetCanvasHeight =
                                     canvasResultRef.current?.height;
                                 const targetCanvasWidth =
@@ -223,7 +221,6 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
 
     // useLayoutEffect을 사용해야 한다.
     useLayoutEffect(() => {
-
         if (playing) {
             setLoading(true);
             inferenceRef.current = true;
@@ -308,7 +305,7 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
                     />
                 </label>
             </div>
-            {loading ? <Loading/> : null}
+            {/*{loading ? <Loading /> : null}*/}
             <div className="flex items-center justify-center">
                 <video
                     ref={videoRef}
@@ -337,6 +334,24 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
                     }}
                 />
             </div>
+            {loading ? (
+                <div className="mt-4 grid items-center justify-center md:justify-self-end">
+                    <div className="badge badge-info">
+                        😿Loading😿
+                    </div>
+                </div>
+            ) : null}
+            {playing ? (
+                <div className="mt-4 grid items-center justify-center md:justify-self-end">
+                    <div className="badge badge-success">
+                        😿Playing😿
+                    </div>
+                </div>
+            ) : <div className="mt-4 grid items-center justify-center md:justify-self-end">
+                <div className="badge badge-warning">
+                    😿Deactivated😿
+                </div>
+            </div>}
         </div>
     );
 }

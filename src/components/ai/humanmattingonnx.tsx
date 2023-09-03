@@ -2,7 +2,6 @@
 
 import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
 import {InferenceSession, Tensor} from 'onnxruntime-web';
-import Loading from '@/components/structure/loading';
 
 function HumanmattingONNX({modelPath}: { modelPath: string }) {
     const [playing, setPlaying] = useState<boolean>(false);
@@ -335,7 +334,7 @@ function HumanmattingONNX({modelPath}: { modelPath: string }) {
                     />
                 </label>
             </div>
-            {loading ? <Loading/> : null}
+            {/*{loading ? <Loading/> : null}*/}
             <div className="flex items-center justify-center">
                 <video
                     ref={videoRef}
@@ -364,6 +363,24 @@ function HumanmattingONNX({modelPath}: { modelPath: string }) {
                     }}
                 />
             </div>
+            {loading ? (
+                <div className="mt-4 grid items-center justify-center md:justify-self-end">
+                    <div className="badge badge-info">
+                        😿Loading😿
+                    </div>
+                </div>
+            ) : null}
+            {playing ? (
+                <div className="mt-4 grid items-center justify-center md:justify-self-end">
+                    <div className="badge badge-success">
+                        😿Playing😿
+                    </div>
+                </div>
+            ) : <div className="mt-4 grid items-center justify-center md:justify-self-end">
+                <div className="badge badge-warning">
+                    😿Deactivated😿
+                </div>
+            </div>}
         </div>
     );
 }

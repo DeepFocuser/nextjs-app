@@ -98,7 +98,6 @@ function HumanmattingBetterONNX({modelPath}: { modelPath: string }) {
                         let firstFrame = true; // 깜빡임 방지
                         const drawCanvas = async () => {
                             if (inferenceRef.current) {
-
                                 const targetCanvasHeight =
                                     canvasResultRef.current?.height;
                                 const targetCanvasWidth =
@@ -310,7 +309,7 @@ function HumanmattingBetterONNX({modelPath}: { modelPath: string }) {
                     Onnxruntime(wasm)
                 </div>
             </div>
-            <div className="mb-1 mt-4 grid items-center justify-center md:justify-self-end">
+            <div className="mb-3 mt-4 grid items-center justify-center md:justify-self-end">
                 <label className="label cursor-pointer">
                     <span className="label-text mr-3 text-red-700">
                         Front Camera
@@ -337,7 +336,7 @@ function HumanmattingBetterONNX({modelPath}: { modelPath: string }) {
                     />
                 </label>
             </div>
-            {loading ? <Loading/> : null}
+            {/*{loading ? <Loading/> : null}*/}
             <div className="flex items-center justify-center">
                 <video
                     ref={videoRef}
@@ -366,13 +365,24 @@ function HumanmattingBetterONNX({modelPath}: { modelPath: string }) {
                     }}
                 />
             </div>
-            {playing && (
+            {loading ? (
                 <div className="mt-4 grid items-center justify-center md:justify-self-end">
-                    <div className="badge badge-warning">
-                        😿Inference is quite slow😿
+                    <div className="badge badge-info">
+                        😿Loading - The inference speed is a little slow😿
                     </div>
                 </div>
-            )}
+            ) : null}
+            {playing ? (
+                <div className="mt-4 grid items-center justify-center md:justify-self-end">
+                    <div className="badge badge-success">
+                        😿Playing - The inference speed is a little slow😿
+                    </div>
+                </div>
+            ) : <div className="mt-4 grid items-center justify-center md:justify-self-end">
+                <div className="badge badge-warning">
+                    😿Deactivated😿
+                </div>
+            </div>}
         </div>
     );
 }
