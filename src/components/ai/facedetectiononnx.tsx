@@ -174,6 +174,14 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
                                 );
 
                                 requestAnimationFrame(drawCanvas);
+                            } else {
+                                resultContext.clearRect(
+                                    0,
+                                    0,
+                                    canvasResultRef.current?.width,
+                                    canvasResultRef.current?.height
+                                );
+                                canvasResultRef.current.style.backgroundColor = "black";
                             }
                         };
                         await drawCanvas();
@@ -194,7 +202,6 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
             );
 
             const resultContext = canvasResultRef.current?.getContext('2d');
-            resultContext.fillStyle = 'rgba(0, 0, 0, 1)';
             resultContext.fillRect(
                 0,
                 0,

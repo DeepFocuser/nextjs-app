@@ -208,6 +208,14 @@ function HumanmattingBetterONNX({ modelPath }: { modelPath: string }) {
                                 );
 
                                 requestAnimationFrame(drawCanvas);
+                            } else {
+                                resultContext.clearRect(
+                                    0,
+                                    0,
+                                    canvasResultRef.current?.width,
+                                    canvasResultRef.current?.height
+                                );
+                                canvasResultRef.current.style.backgroundColor = "black";
                             }
                         };
                         await drawCanvas();
