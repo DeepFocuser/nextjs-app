@@ -19,7 +19,6 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
 
     const inference = useCallback<(modelPath: string, select: boolean) => void>(
         async (modelPath, select) => {
-
             // 카메라 1개만 선택하기
             let deviceId = '';
             let cameraCount = 0; // deviceId가 안나오는 경우도 있다.
@@ -194,10 +193,8 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
                 window.innerHeight * 0.5,
             );
 
-            const resultContext =
-                canvasResultRef.current?.getContext('2d');
-            resultContext.fillStyle =
-                'rgba(0, 0, 0, 1)';
+            const resultContext = canvasResultRef.current?.getContext('2d');
+            resultContext.fillStyle = 'rgba(0, 0, 0, 1)';
             resultContext.fillRect(
                 0,
                 0,
@@ -216,7 +213,6 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
 
     // useLayoutEffect을 사용해야 한다.
     useLayoutEffect(() => {
-
         if (playing) {
             setLoading(true);
             inferenceRef.current = true;
