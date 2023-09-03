@@ -80,8 +80,10 @@ function PosedetectionONNX({modelPath}: { modelPath: string }) {
                         const resultPose = new Float32Array(positionNumber);
                         const threshold = 0.3;
 
+                        let firstFrame = true; // 깜빡임 방지
                         const drawCanvas = async () => {
                             if (inferenceRef.current) {
+
                                 const targetCanvasHeight =
                                     canvasResultRef.current?.height;
                                 const targetCanvasWidth =
@@ -340,12 +342,15 @@ function PosedetectionONNX({modelPath}: { modelPath: string }) {
                                     infernceContext.stroke();
                                 }
 
-                                resultContext.clearRect(
-                                    0,
-                                    0,
-                                    targetCanvasWidth,
-                                    targetCanvasHeight,
-                                );
+                                if (!firstFrame) {
+                                    resultContext.clearRect(
+                                        0,
+                                        0,
+                                        targetCanvasWidth,
+                                        targetCanvasHeight,
+                                    );
+                                    firstFrame = false;
+                                }
                                 resultContext.drawImage(
                                     canvasInferenceRef.current,
                                     0,
@@ -360,9 +365,10 @@ function PosedetectionONNX({modelPath}: { modelPath: string }) {
                                     0,
                                     0,
                                     canvasResultRef.current?.width,
-                                    canvasResultRef.current?.height
+                                    canvasResultRef.current?.height,
                                 );
-                                canvasResultRef.current.style.backgroundColor = "black";
+                                canvasResultRef.current.style.backgroundColor =
+                                    'black';
                             }
                         };
                         await drawCanvas();
@@ -381,17 +387,19 @@ function PosedetectionONNX({modelPath}: { modelPath: string }) {
             canvasResultRef.current.height = Math.floor(
                 window.innerHeight * 0.5,
             );
-            const resultContext = canvasResultRef.current?.getContext('2d');
-            resultContext.fillStyle = 'rgba(0, 0, 0, 1)';
-            resultContext.fillRect(
-                0,
-                0,
-                canvasResultRef.current.width,
-                canvasResultRef.current.height,
-            );
         };
         windowResizeListener();
         window.addEventListener('resize', windowResizeListener);
+
+        const resultContext = canvasResultRef.current?.getContext('2d');
+        resultContext.fillStyle = 'rgba(0, 0, 0, 1)';
+        resultContext.fillRect(
+            0,
+            0,
+            canvasResultRef.current.width,
+            canvasResultRef.current.height,
+        );
+
         return () => {
             window.removeEventListener('resize', windowResizeListener);
         };

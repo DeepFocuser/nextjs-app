@@ -77,8 +77,10 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
                         ];
                         const inputArray = new Float32Array(rgbLength);
 
+                        let firstFrame = true; // 깜빡임 방지
                         const drawCanvas = async () => {
                             if (inferenceRef.current) {
+
                                 const targetCanvasHeight =
                                     canvasResultRef.current?.height;
                                 const targetCanvasWidth =
@@ -158,13 +160,15 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
                                     );
                                     infernceContext.stroke();
                                 }
-
-                                resultContext.clearRect(
-                                    0,
-                                    0,
-                                    targetCanvasWidth,
-                                    targetCanvasHeight,
-                                );
+                                if (!firstFrame) {
+                                    resultContext.clearRect(
+                                        0,
+                                        0,
+                                        targetCanvasWidth,
+                                        targetCanvasHeight,
+                                    );
+                                    firstFrame = false;
+                                }
                                 resultContext.drawImage(
                                     canvasInferenceRef.current,
                                     0,
@@ -172,16 +176,16 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
                                     targetCanvasWidth,
                                     targetCanvasHeight,
                                 );
-
                                 requestAnimationFrame(drawCanvas);
                             } else {
                                 resultContext.clearRect(
                                     0,
                                     0,
                                     canvasResultRef.current?.width,
-                                    canvasResultRef.current?.height
+                                    canvasResultRef.current?.height,
                                 );
-                                canvasResultRef.current.style.backgroundColor = "black";
+                                canvasResultRef.current.style.backgroundColor =
+                                    'black';
                             }
                         };
                         await drawCanvas();
@@ -200,18 +204,17 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
             canvasResultRef.current.height = Math.floor(
                 window.innerHeight * 0.5,
             );
-
-            const resultContext = canvasResultRef.current?.getContext('2d');
-            resultContext.fillRect(
-                0,
-                0,
-                canvasResultRef.current.width,
-                canvasResultRef.current.height,
-            );
         };
-
         windowResizeListener();
         window.addEventListener('resize', windowResizeListener);
+
+        const resultContext = canvasResultRef.current?.getContext('2d');
+        resultContext.fillRect(
+            0,
+            0,
+            canvasResultRef.current.width,
+            canvasResultRef.current.height,
+        );
 
         return () => {
             window.removeEventListener('resize', windowResizeListener);
@@ -220,6 +223,7 @@ function FacedetectionONNX({modelPath}: { modelPath: string }) {
 
     // useLayoutEffect을 사용해야 한다.
     useLayoutEffect(() => {
+
         if (playing) {
             setLoading(true);
             inferenceRef.current = true;

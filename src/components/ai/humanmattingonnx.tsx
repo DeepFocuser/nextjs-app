@@ -1,17 +1,10 @@
 'use client';
 
-import {
-    memo,
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from 'react';
-import { InferenceSession, Tensor } from 'onnxruntime-web';
+import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
+import {InferenceSession, Tensor} from 'onnxruntime-web';
 import Loading from '@/components/structure/loading';
 
-function HumanmattingONNX({ modelPath }: { modelPath: string }) {
+function HumanmattingONNX({modelPath}: { modelPath: string }) {
     const [playing, setPlaying] = useState<boolean>(false);
     const canvasInferenceRef = useRef<any>(null);
     const canvasResultRef = useRef<any>(null);
@@ -102,6 +95,7 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
                             [1, 10, 128, 128],
                         );
 
+                        let firstFrame = true; // 깜빡임 방지
                         const drawCanvas = async () => {
                             if (inferenceRef.current) {
                                 const targetCanvasHeight =
@@ -193,12 +187,15 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
                                 );
                                 infernceContext.putImageData(imageData, 0, 0);
 
-                                resultContext.clearRect(
-                                    0,
-                                    0,
-                                    targetCanvasWidth,
-                                    targetCanvasHeight,
-                                );
+                                if (!firstFrame) {
+                                    resultContext.clearRect(
+                                        0,
+                                        0,
+                                        targetCanvasWidth,
+                                        targetCanvasHeight,
+                                    );
+                                    firstFrame = false;
+                                }
                                 resultContext.drawImage(
                                     canvasInferenceRef.current,
                                     0,
@@ -213,9 +210,10 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
                                     0,
                                     0,
                                     canvasResultRef.current?.width,
-                                    canvasResultRef.current?.height
+                                    canvasResultRef.current?.height,
                                 );
-                                canvasResultRef.current.style.backgroundColor = "black";
+                                canvasResultRef.current.style.backgroundColor =
+                                    'black';
                             }
                         };
                         await drawCanvas();
@@ -234,16 +232,18 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
             canvasResultRef.current.height = Math.floor(
                 window.innerHeight * 0.5,
             );
-            const resultContext = canvasResultRef.current?.getContext('2d');
-            resultContext.fillRect(
-                0,
-                0,
-                canvasResultRef.current.width,
-                canvasResultRef.current.height,
-            );
         };
         windowResizeListener();
         window.addEventListener('resize', windowResizeListener);
+
+        const resultContext = canvasResultRef.current?.getContext('2d');
+        resultContext.fillRect(
+            0,
+            0,
+            canvasResultRef.current.width,
+            canvasResultRef.current.height,
+        );
+
         return () => {
             window.removeEventListener('resize', windowResizeListener);
         };
@@ -296,8 +296,10 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
                         id="AcceptConditions"
                         className="peer sr-only"
                     />
-                    <span className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                    <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                    <span
+                        className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                    <span
+                        className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
             <div className="mt-6 grid items-center justify-center md:justify-self-end">
@@ -333,7 +335,7 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
                     />
                 </label>
             </div>
-            {loading ? <Loading /> : null}
+            {loading ? <Loading/> : null}
             <div className="flex items-center justify-center">
                 <video
                     ref={videoRef}
