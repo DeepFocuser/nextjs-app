@@ -1,8 +1,7 @@
 import Link from 'next/link';
 
 export default function Home() {
-    return (
-        <div className="mx-auto mb-36 max-w-screen-xl px-4 py-8 sm:px-6 sm:py-8 lg:px-8 lg:py-8">
+    return (<div className="mx-auto mb-36 max-w-screen-xl px-4 py-8 sm:px-6 sm:py-8 lg:px-8 lg:py-8">
             <div className="mx-auto max-w-lg text-center">
                 <h2 className="text-3xl font-bold sm:text-4xl">
                     React / Next Feature Study
@@ -11,7 +10,7 @@ export default function Home() {
 
             <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                 <Link
-                    className="block rounded-xl border border-pink-300/10 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
+                    className="block rounded-xl border border-1 border-pink-300 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
                     href="/practice/swr"
                 >
                     <svg
@@ -38,7 +37,7 @@ export default function Home() {
                 </Link>
 
                 <Link
-                    className="block rounded-xl border border-pink-300/10 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
+                    className="block rounded-xl border border-1 border-pink-300 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
                     href="/practice/reactquery"
                 >
                     <svg
@@ -73,6 +72,5 @@ export default function Home() {
             {/*        Get Started Today*/}
             {/*    </a>*/}
             {/*</div>*/}
-        </div>
-    );
+        </div>);
 }

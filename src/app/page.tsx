@@ -16,7 +16,7 @@ export default function Home() {
 
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-1 md:gap-12 lg:grid-cols-1">
                     <Link
-                        className="block rounded-xl border border-blue-300/10 p-8 shadow-xl shadow-blue-300/10 transition hover:shadow-blue-300"
+                        className="block rounded-xl border border-1 border-blue-300 p-8 shadow-xl shadow-blue-300/10 transition hover:shadow-blue-300"
                         href="/about"
                     >
                         <span className="inline-block rounded-lg p-3">
@@ -45,7 +45,7 @@ export default function Home() {
                     </Link>
 
                     <Link
-                        className="block rounded-xl border border-pink-300/10 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
+                        className="block rounded-xl border border-1 border-pink-300 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
                         href="/practice"
                     >
                         <span className="inline-block rounded-lg p-3">
@@ -73,7 +73,7 @@ export default function Home() {
                         </p>
                     </Link>
 
-                    <div className="block rounded-xl border border-green-300/10 p-8 shadow-xl shadow-green-300/10 transition hover:shadow-green-300">
+                    <div className="block rounded-xl border border-1 border-green-300 p-8 shadow-xl shadow-green-300/10 transition hover:shadow-green-300">
                         <span className="inline-block rounded-lg p-3">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
