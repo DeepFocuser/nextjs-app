@@ -1,16 +1,9 @@
 'use client';
 // 참고하기 https://github.com/natmlx/movenet-unity/tree/main/Packages/ai.natml.vision.movenet/Runtime
-import {
-    memo,
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from 'react';
-import { InferenceSession, Tensor } from 'onnxruntime-web';
+import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
+import {InferenceSession, Tensor} from 'onnxruntime-web';
 
-function PosedetectionONNX({ modelPath }: { modelPath: string }) {
+function PosedetectionONNX({modelPath}: { modelPath: string }) {
     const [playing, setPlaying] = useState<boolean>(false);
     const canvasInferenceRef = useRef<any>(null);
     const canvasResultRef = useRef<any>(null);
@@ -22,6 +15,10 @@ function PosedetectionONNX({ modelPath }: { modelPath: string }) {
     const inferenceRef = useRef<boolean>(false);
     const videoRef = useRef<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const [mounted, setMounted] = useState<boolean>(false);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const inference = useCallback<(modelPath: string, select: boolean) => void>(
         async (modelPath, select) => {
@@ -392,19 +389,17 @@ function PosedetectionONNX({ modelPath }: { modelPath: string }) {
             canvasResultRef.current.height = Math.floor(
                 window.innerHeight * 0.5,
             );
+            const resultContext = canvasResultRef.current?.getContext('2d');
+            resultContext.fillStyle = 'rgba(0, 0, 0, 1)';
+            resultContext.fillRect(
+                0,
+                0,
+                canvasResultRef.current.width,
+                canvasResultRef.current.height,
+            );
         };
         windowResizeListener();
         window.addEventListener('resize', windowResizeListener);
-
-        const resultContext = canvasResultRef.current?.getContext('2d');
-        resultContext.fillStyle = 'rgba(0, 0, 0, 1)';
-        resultContext.fillRect(
-            0,
-            0,
-            canvasResultRef.current.width,
-            canvasResultRef.current.height,
-        );
-
         return () => {
             window.removeEventListener('resize', windowResizeListener);
         };
@@ -457,8 +452,10 @@ function PosedetectionONNX({ modelPath }: { modelPath: string }) {
                         id="AcceptConditions"
                         className="peer sr-only"
                     />
-                    <span className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                    <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                    <span
+                        className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                    <span
+                        className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
             <div className="mt-6 grid items-center justify-center md:justify-self-end">
@@ -534,7 +531,7 @@ function PosedetectionONNX({ modelPath }: { modelPath: string }) {
                 </div>
             ) : (
                 <div className="mt-4 grid items-center justify-center md:justify-self-end">
-                    <div className="badge badge-warning">😿Deactivated😿</div>
+                    {mounted ? <div className="badge badge-warning">😿Deactivated😿</div> : null}
                 </div>
             )}
         </div>

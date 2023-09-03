@@ -10,7 +10,7 @@ export default function Home() {
                         Welcome to DeepFocuser Home
                     </h1>
                     <p className="mt-1.5 text-sm text-gray-400">
-                        Welcome to my world! 🎉
+                        🎉 Welcome to DeepFocuser world 🎉
                     </p>
                 </div>
 
@@ -79,7 +79,7 @@ export default function Home() {
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-10 w-10 text-green-500"
                                 viewBox="0 0 24 24"
-                                fill="rgb(34, 197, 94, 1)"
+                                // fill="rgb(34, 197, 94, 1)"
                                 stroke="currentColor"
                             >
                                 <path
