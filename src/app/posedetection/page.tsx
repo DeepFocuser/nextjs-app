@@ -5,6 +5,6 @@ import PosedetectionONNX from '@/components/ai/posedetectiononnx';
 
 export default function Home() {
     return (
-        <PosedetectionONNX modelPath="/models/posedetectiononnx/model.onnx"/>
+        <PosedetectionONNX modelPath="/models/posedetectiononnx/model.onnx" />
     );
 }
