@@ -6,13 +6,13 @@ import ThemeSwitch from './theme';
 // const ThemeSwitch = dynamic(() => import('@/components/theme'), {ssr: true})
 
 function Nav() {
-    return (
-        <nav className="border-b-2">
+    return (<nav className="border-b-2">
             <div className="navbar bg-base-100">
                 <div className="navbar-start lg:hidden">
                     {/*<div className="dropdown p-0">*/}
                     <details className="dropdown">
-                        <summary className="border-1 btn mx-2 rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:text-green-700 hover:shadow-green-300">
+                        <summary
+                            className="btn mx-2 rounded-xl border border-1 border-green-200 hover:border hover:border-1 hover:border-green-200 bg-base-100 hover:bg-base-100 p-3 font-bold text-green-500 shadow-green-300/10 transition shadow-xl active:text-green-700 active:shadow-green-300">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"
@@ -77,7 +77,7 @@ function Nav() {
                         <li>
                             <Link
                                 href="/"
-                                className="border-1 btn mx-2 flex rounded-xl border border-gray-200 bg-base-100 p-3 font-bold text-gray-500 shadow-xl shadow-gray-300/10 transition hover:text-gray-700 hover:shadow-gray-300"
+                                className="border-1 btn mx-2 flex rounded-xl border border-gray-200 hover:border hover:border-1 hover:border-gray-200 bg-base-100 hover:bg-base-100 p-3 font-bold text-gray-500 shadow-xl shadow-gray-300/10 transition active:text-gray-700 active:shadow-gray-300"
                             >
                                 Home
                             </Link>
@@ -85,7 +85,7 @@ function Nav() {
                         <li>
                             <Link
                                 href="/about"
-                                className="border-1 btn flex rounded-xl border border-blue-200 bg-base-100 p-3 font-bold text-blue-500 shadow-xl shadow-blue-300/10 transition hover:text-blue-700 hover:shadow-blue-300"
+                                className="border-1 btn flex rounded-xl border border-blue-200 hover:border hover:border-1 hover:border-blue-200 bg-base-100 hover:bg-base-100 p-3 font-bold text-blue-500 shadow-xl shadow-blue-300/10 transition active:text-blue-700 active:shadow-blue-300"
                             >
                                 Portfolio
                             </Link>
@@ -93,14 +93,15 @@ function Nav() {
                         <li>
                             <Link
                                 href="/practice"
-                                className="border-1 btn mx-2 flex rounded-xl border border-pink-200 bg-base-100 p-3 font-bold text-pink-500 shadow-xl shadow-pink-300/10 transition hover:text-pink-700 hover:shadow-pink-300"
+                                className="border-1 btn mx-2 flex rounded-xl border border-pink-200 hover:border hover:border-1 hover:border-pink-200 bg-base-100 hover:bg-base-100 p-3 font-bold text-pink-500 shadow-xl shadow-pink-300/10 transition active:text-pink-700 active:shadow-pink-300"
                             >
                                 Help For Develop
                             </Link>
                         </li>
                         <li>
                             <details className="dropdown cursor-pointer">
-                                <summary className="border-1 btn flex rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:shadow-green-300">
+                                <summary
+                                    className="border-1 btn flex rounded-xl border border-green-200 hover:border hover:border-1 hover:border-green-200 bg-base-100 hover:bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition active:text-green-700 active:shadow-green-300">
                                     AI&nbsp;
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -154,7 +155,7 @@ function Nav() {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <ThemeSwitch />
+                    <ThemeSwitch/>
                     <div className="avatar w-16 sm:block">
                         <div className="mask mask-squircle w-full">
                             <Image
@@ -170,8 +171,7 @@ function Nav() {
                     </div>
                 </div>
             </div>
-        </nav>
-    );
+        </nav>);
 }
 
 export default Nav;
