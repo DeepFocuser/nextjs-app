@@ -4,27 +4,26 @@
 https://hoon1994.tistory.com/80
 */
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import {ocean} from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { ocean } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import Loading from '@/components/structure/loading';
 import Link from 'next/link';
-import {useRef} from 'react';
-import {useQuery} from '@tanstack/react-query';
+import { useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home() {
-    const {isLoading, isError, data, error} = useQuery({
+    const { isLoading, isError, data, error } = useQuery({
         queryKey: ['sample'],
         queryFn: () => fetcher('/api/data'),
     });
     const modalRef = useRef<any>();
 
     if (isError) return null;
-    if (!data) return <Loading/>;
-    if (isLoading) return <Loading/>;
+    if (!data) return <Loading />;
+    if (isLoading) return <Loading />;
 
-    const codeString = `
-    'use client'
+    const codeString = `    'use client'
     import useSWR from 'swr'
     import Loading from "@/components/structure/loading";
     
@@ -57,7 +56,11 @@ export default function Home() {
             </div>
             <div className="flex items-center justify-center">
                 <div className="w-2/3 rounded-lg p-4 shadow-lg">
-                    <SyntaxHighlighter language="javascript" style={ocean} showLineNumbers={true}>
+                    <SyntaxHighlighter
+                        language="javascript"
+                        style={ocean}
+                        showLineNumbers={true}
+                    >
                         {codeString}
                     </SyntaxHighlighter>
                 </div>
