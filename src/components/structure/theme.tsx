@@ -1,13 +1,13 @@
 'use client';
 
 // https://github.com/xiaotiandada/blog/issues/94 - 참고
-import {memo, useEffect, useState} from 'react';
-import {useTheme} from 'next-themes';
+import { memo, useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
 // 동적으로 tailwind 사용하자
 // https://velog.io/@arthur/Tailwind-CSS-%EC%97%90%EC%84%9C-%EB%8F%99%EC%A0%81%EC%9C%BC%EB%A1%9C-%ED%81%B4%EB%9E%98%EC%8A%A4-%ED%95%A0%EB%8B%B9%ED%95%98%EA%B8%B0
 function ThemeSwitch() {
     const [mounted, setMounted] = useState<boolean>(false);
-    const {theme, themes, setTheme} = useTheme();
+    const { theme, themes, setTheme } = useTheme();
 
     useEffect(() => {
         setMounted(true);
@@ -16,8 +16,7 @@ function ThemeSwitch() {
     return (
         <div className="mr-4">
             <details className="dropdown">
-                <summary
-                    className="p-0 border-1 btn w-28 rounded-xl border border-orange-200 hover:border hover:border-1 hover:border-orange-200 bg-base-100 hover:bg-base-100 font-bold normal-case text-orange-500 shadow-xl shadow-orange-300/10 transition active:text-orange-700 active:shadow-orange-300">
+                <summary className="border-1 hover:border-1 btn w-28 rounded-xl border border-orange-200 bg-base-100 p-0 font-bold normal-case text-orange-500 shadow-xl shadow-orange-300/10 transition hover:border hover:border-orange-200 hover:bg-base-100 active:text-orange-700 active:shadow-orange-300">
                     themes
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
