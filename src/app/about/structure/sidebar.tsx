@@ -1,10 +1,10 @@
 'use client';
 
-import {BsGeoAltFill} from "react-icons/bs";
-import Image from "next/image";
+import { BsGeoAltFill } from 'react-icons/bs';
+import Image from 'next/image';
 import Link from 'next/link';
-import {Besley, Karla} from 'next/font/google';
-import {memo, useEffect, useState} from "react";
+import { Besley, Karla } from 'next/font/google';
+import { memo, useEffect, useState } from 'react';
 
 const nameFont = Besley({
     weight: ['800'],
@@ -21,7 +21,6 @@ const mailFont = Karla({
 });
 
 const Sidebar = () => {
-
     const [email, setEmail] = useState<boolean>(false);
 
     useEffect(() => {
@@ -34,7 +33,7 @@ const Sidebar = () => {
                 // 나중에 대체
                 src="https://avatars.githubusercontent.com/u/58889565?s=96&v=4"
                 alt="Picture of DeepFocuser"
-                className=" mx-auto border rounded-full "
+                className=" mx-auto rounded-full border "
                 width={192}
                 height={192}
                 quality={100}
@@ -42,19 +41,20 @@ const Sidebar = () => {
                 unoptimized={false}
             />
             <h3 className="mt-4 text-3xl font-medium tracking-wider">
-                <span className={`${nameFont.className} ${"text-blue-500"}`}>Jonggon</span>
-                <span className={`${nameFont.className} ${"text-blue-300"}`}> Kim</span>
+                <span className={`${nameFont.className} ${'text-blue-500'}`}>
+                    Jonggon
+                </span>
+                <span className={`${nameFont.className} ${'text-blue-300'}`}>
+                    {' '}
+                    Kim
+                </span>
             </h3>
-            <p className="py-0.5 mt-6">
-                <span
-                    className="text-xl text-transparent font-bold bg-clip-text bg-gradient-to-r from-orange-600 to-orange-300">
+            <p className="mt-6 py-0.5">
+                <span className="bg-gradient-to-r from-orange-600 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
                     AI
                 </span>
-                <span className="text-xl">
-                    &nbsp;/&nbsp;
-                </span>
-                <span
-                    className="text-xl text-transparent font-bold bg-clip-text bg-gradient-to-r from-orange-600 to-orange-300">
+                <span className="text-xl">&nbsp;/&nbsp;</span>
+                <span className="bg-gradient-to-r from-orange-600 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
                     Web Developer
                 </span>
             </p>
@@ -70,10 +70,12 @@ const Sidebar = () => {
             {/*</Link>*/}
 
             {/* Socials */}
-            <div className="flex justify-around w-9/12 mx-auto mt-6 md:w-full">
-                <Link href="https://github.com/DeepFocuser"
-                      target="_blank"
-                      className="transition hover:scale-110">
+            <div className="mx-auto mt-6 flex w-9/12 justify-around md:w-full">
+                <Link
+                    href="https://github.com/DeepFocuser"
+                    target="_blank"
+                    className="transition hover:scale-110"
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -107,23 +109,29 @@ const Sidebar = () => {
 
             {/* Contacts */}
             <div
-                className="px-2 py-0.5 mt-4"
+                className="mt-4 px-2 py-0.5"
                 // style={{marginLeft: "-1rem", marginRight: "-1rem"}}
             >
                 {/*나중에 지역표시도 하자*/}
-                <div className="py-0.5 flex items-center justify-center">
-                    <BsGeoAltFill className="mr-2"/>
+                <div className="flex items-center justify-center py-0.5">
+                    <BsGeoAltFill className="mr-2" />
                     <span>Seoul </span>
                 </div>
-                <p className={`${mailFont.className} ${"text-md"} ${"my-1"}`}> rlawhdrhs27@gmail.com </p>
+                <p className={`${mailFont.className} ${'text-md'} ${'my-1'}`}>
+                    {' '}
+                    rlawhdrhs27@gmail.com{' '}
+                </p>
             </div>
 
             {/* Email Button */}
 
             <button
-                className="mt-6 mb-2 w-32 px-5 py-1 text-white font-bold rounded-full cursor-pointer bg-gradient-to-r from-blue-500 to-purple-500 transition hover:scale-110"
-                onClick={email ? () => window.open("mailto:code.rlawhdrhs27@gmail.com") : () => {
-                }}
+                className="mb-2 mt-6 w-32 cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-500 px-5 py-1 font-bold text-white transition hover:scale-110"
+                onClick={
+                    email
+                        ? () => window.open('mailto:code.rlawhdrhs27@gmail.com')
+                        : () => {}
+                }
             >
                 Email me
             </button>
@@ -132,4 +140,3 @@ const Sidebar = () => {
 };
 
 export default memo(Sidebar);
-

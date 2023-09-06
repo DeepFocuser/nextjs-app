@@ -14,7 +14,7 @@ export default function Home() {
 
             <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                 <Link
-                    className="border-1 hover:scale-105 block rounded-xl border border-pink-300 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
+                    className="border-1 block rounded-xl border border-pink-300 p-8 shadow-xl shadow-pink-300/10 transition hover:scale-105 hover:shadow-pink-300"
                     href="/practice/swr"
                 >
                     <svg
@@ -41,7 +41,7 @@ export default function Home() {
                 </Link>
 
                 <Link
-                    className="border-1 hover:scale-105 block rounded-xl border border-pink-300 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
+                    className="border-1 block rounded-xl border border-pink-300 p-8 shadow-xl shadow-pink-300/10 transition hover:scale-105 hover:shadow-pink-300"
                     href="/practice/reactquery"
                 >
                     <svg
