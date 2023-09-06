@@ -12,7 +12,7 @@ function Nav() {
                 {/*<div className="dropdown p-0">*/}
                 <details className="dropdown">
                     <summary
-                        className="border-1 hover:scale-110 hover:border-1 btn mx-2 rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:border hover:border-green-200 hover:bg-base-100 active:text-green-700 active:shadow-green-300">
+                        className="border-1 hover:scale-110 hover:border-1 flex mx-2 rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:border hover:border-green-200 hover:bg-base-100 active:text-green-700 active:shadow-green-300">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-5 w-5"
@@ -77,7 +77,7 @@ function Nav() {
                     <li>
                         <Link
                             href="/"
-                            className="border-1 hover:scale-110 hover:border-1 btn mx-2 rounded-xl border border-gray-200 bg-base-100 p-3 font-bold text-gray-500 shadow-xl shadow-gray-300/10 transition hover:border hover:border-gray-200 hover:bg-base-100 active:text-gray-700 active:shadow-gray-300"
+                            className="flex border-1 hover:scale-110 hover:border-1 mx-4 rounded-xl border border-gray-200 bg-base-100 p-3 font-bold text-gray-500 shadow-xl shadow-gray-300/10 transition hover:border hover:border-gray-200 hover:bg-base-100 active:text-gray-700 active:shadow-gray-300"
                         >
                             Home
                         </Link>
@@ -85,7 +85,7 @@ function Nav() {
                     <li>
                         <Link
                             href="/about"
-                            className="border-1 hover:scale-110 hover:border-1 btn rounded-xl border border-blue-200 bg-base-100 p-3 font-bold text-blue-500 shadow-xl shadow-blue-300/10 transition hover:border hover:border-blue-200 hover:bg-base-100 active:text-blue-700 active:shadow-blue-300"
+                            className="flex border-1 hover:scale-110 hover:border-1 rounded-xl border border-blue-200 bg-base-100 p-3 font-bold text-blue-500 shadow-xl shadow-blue-300/10 transition hover:border hover:border-blue-200 hover:bg-base-100 active:text-blue-700 active:shadow-blue-300"
                         >
                             Portfolio
                         </Link>
@@ -93,7 +93,7 @@ function Nav() {
                     <li>
                         <Link
                             href="/practice"
-                            className="border-1 hover:scale-110 hover:border-1 btn mx-2 rounded-xl border border-pink-200 bg-base-100 p-3 font-bold text-pink-500 shadow-xl shadow-pink-300/10 transition hover:border hover:border-pink-200 hover:bg-base-100 active:text-pink-700 active:shadow-pink-300"
+                            className="flex border-1 hover:scale-110 hover:border-1 mx-4 rounded-xl border border-pink-200 bg-base-100 p-3 font-bold text-pink-500 shadow-xl shadow-pink-300/10 transition hover:border hover:border-pink-200 hover:bg-base-100 active:text-pink-700 active:shadow-pink-300"
                         >
                             Help For Develop
                         </Link>
@@ -101,7 +101,7 @@ function Nav() {
                     <li>
                         <details className="dropdown cursor-pointer">
                             <summary
-                                className="border-1 hover:scale-110 hover:border-1 btn rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:border hover:border-green-200 hover:bg-base-100 active:text-green-700 active:shadow-green-300">
+                                className="flex border-1 hover:scale-110 hover:border-1 rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:border hover:border-green-200 hover:bg-base-100 active:text-green-700 active:shadow-green-300">
                                 AI&nbsp;
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"

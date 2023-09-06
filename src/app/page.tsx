@@ -99,31 +99,31 @@ export default function Home() {
 
                         <Link
                             href="/humanmatting"
-                            className="btn-xs btn mr-2 mt-2 bg-red-500 normal-case text-white"
+                            className="inline-block rounded-2xl p-1 font-bold mr-3 mt-2 bg-red-500 normal-case text-white transition hover:scale-110"
                         >
                             HumanMatting
                         </Link>
                         <Link
                             href="/humanmattingbetter"
-                            className="btn-xs btn mr-2 mt-2 bg-orange-500 normal-case text-white"
+                            className="inline-block rounded-2xl p-1 font-bold mr-3 mt-2 bg-orange-500 normal-case text-white transition hover:scale-110"
                         >
                             HumanMatting Better
                         </Link>
                         <Link
                             href="/facedetection"
-                            className="btn-xs btn mr-2 mt-2 bg-green-500 normal-case text-white"
+                            className="inline-block rounded-2xl p-1 font-bold mr-3 mt-2 bg-green-500 normal-case text-white transition hover:scale-110"
                         >
                             Face Detection
                         </Link>
                         <Link
                             href="/vad"
-                            className="btn-xs btn mr-2 mt-2 bg-blue-500 normal-case text-white"
+                            className="inline-block rounded-2xl p-1 font-bold mr-3 mt-2 bg-blue-500 normal-case text-white transition hover:scale-110"
                         >
                             Voice Activity Detection
                         </Link>
                         <Link
                             href="/posedetection"
-                            className="btn-xs btn mr-2 mt-2 bg-purple-500 normal-case text-white"
+                            className="inline-block rounded-2xl p-1 font-bold mr-3 mt-2 bg-purple-500 normal-case text-white transition hover:scale-110"
                         >
                             Pose Detection
                         </Link>

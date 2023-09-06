@@ -9,12 +9,18 @@ const Navbar = () => {
     const pathname = usePathname();
     const [active, setActive] = useState<string>(() => {
         const currentPath = pathname.split("/").at(-1);
-        return currentPath.charAt(0).toUpperCase() + currentPath.slice(1);
+        if (currentPath)
+            return currentPath?.slice(0, 1).toUpperCase() + currentPath?.slice(1);
+        else
+            return "";
     });
 
     useEffect(() => {
         const currentPath = pathname.split("/").at(-1);
-        setActive(currentPath.charAt(0).toUpperCase() + currentPath.slice(1));
+        if (currentPath)
+            setActive(currentPath?.slice(0, 1).toUpperCase() + currentPath?.slice(1));
+        else
+            setActive("");
     }, [pathname])
 
     return (
@@ -23,30 +29,26 @@ const Navbar = () => {
             {active}
             </span>
             <div className='flex text-base font-bold md:text-xl'>
-                <div className="transition hover:text-blue-500 hover:scale-105">
+                <div className="transition hover:text-blue-500 hover:scale-125">
                     <Link
                         className='mx-2 cursor-pointer'
                         href='/about'>
                         About
                     </Link>
                 </div>
-                <div className="transition hover:text-blue-500 hover:scale-110">
-                    <div className="transition hover:text-blue-500 hover:scale-105">
-                        <Link
-                            className='mx-2 cursor-pointer'
-                            href='/about/skills'>
-                            Skills
-                        </Link>
-                    </div>
+                <div className="transition hover:text-blue-500 hover:scale-125">
+                    <Link
+                        className='mx-2 cursor-pointer'
+                        href='/about/skills'>
+                        Skills
+                    </Link>
                 </div>
-                <div className="transition hover:text-blue-500 hover:scale-110">
-                    <div className="transition hover:text-blue-500 hover:scale-105">
-                        <Link
-                            className='mx-2 cursor-pointer'
-                            href='/about/projects'>
-                            Projects
-                        </Link>
-                    </div>
+                <div className="transition hover:text-blue-500 hover:scale-125">
+                    <Link
+                        className='mx-2 cursor-pointer'
+                        href='/about/projects'>
+                        Projects
+                    </Link>
                 </div>
             </div>
         </div>

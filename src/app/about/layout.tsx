@@ -25,7 +25,8 @@ export default function Layout({children}: {
             <div
                 className="flex flex-col col-span-12 lg:col-span-9 overflow-hidden rounded-2xl border border-black shadow-lg shadow-blue-300">
                 {/* //!navbar */}
-                <Navbar>{children}</Navbar>
+                <Navbar/>
+                {children}
                 {/* //!about */}
             </div>
         </div>

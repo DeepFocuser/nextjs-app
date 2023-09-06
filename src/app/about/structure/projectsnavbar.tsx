@@ -1,7 +1,7 @@
 'use client';
 
 import { FunctionComponent } from "react";
-import { Category } from "types";
+import { Category } from "./types";
 
 export const NavItem: FunctionComponent<{
   value: Category | "all";

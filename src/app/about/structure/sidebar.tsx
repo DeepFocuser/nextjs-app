@@ -4,7 +4,7 @@ import {BsGeoAltFill} from "react-icons/bs";
 import Image from "next/image";
 import Link from 'next/link';
 import {Besley, Karla} from 'next/font/google';
-import {memo} from "react";
+import {memo, useEffect, useState} from "react";
 
 const nameFont = Besley({
     weight: ['800'],
@@ -22,12 +22,18 @@ const mailFont = Karla({
 
 const Sidebar = () => {
 
+    const [email, setEmail] = useState<boolean>(false);
+
+    useEffect(() => {
+        setEmail(true);
+    }, []);
+
     return (
         <>
             <Image
                 // 나중에 대체
                 src="https://avatars.githubusercontent.com/u/58889565?s=96&v=4"
-                alt="avatar"
+                alt="Picture of DeepFocuser"
                 className=" mx-auto border rounded-full "
                 width={192}
                 height={192}
@@ -36,7 +42,8 @@ const Sidebar = () => {
                 unoptimized={false}
             />
             <h3 className="mt-4 text-3xl font-medium tracking-wider">
-                <span className={`${nameFont.className} ${"text-blue-500"}`}>Jonggon</span> Kim
+                <span className={`${nameFont.className} ${"text-blue-500"}`}>Jonggon</span>
+                <span className={`${nameFont.className} ${"text-blue-300"}`}> Kim</span>
             </h3>
             <p className="py-0.5 mt-6">
                 <span
@@ -105,7 +112,8 @@ const Sidebar = () => {
             >
                 {/*나중에 지역표시도 하자*/}
                 <div className="py-0.5 flex items-center justify-center">
-                    <BsGeoAltFill className="mr-2"/> <span>Seoul </span>
+                    <BsGeoAltFill className="mr-2"/>
+                    <span>Seoul </span>
                 </div>
                 <p className={`${mailFont.className} ${"text-md"} ${"my-1"}`}> rlawhdrhs27@gmail.com </p>
             </div>
@@ -114,7 +122,8 @@ const Sidebar = () => {
 
             <button
                 className="mt-6 mb-2 w-32 px-5 py-1 text-white font-bold rounded-full cursor-pointer bg-gradient-to-r from-blue-500 to-purple-500 transition hover:scale-110"
-                onClick={() => window.open("mailto:code.rlawhdrhs27@gmail.com")}
+                onClick={email ? () => window.open("mailto:code.rlawhdrhs27@gmail.com") : () => {
+                }}
             >
                 Email me
             </button>
