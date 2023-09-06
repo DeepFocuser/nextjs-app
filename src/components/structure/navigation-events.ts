@@ -11,12 +11,12 @@ function NavigationEvents() {
     // const WebCamStateAtom = useRecoilValue(webCamStateAtom);
     //const searchParams = useSearchParams()
     console.log(pathname);
-    useEffect(() => {
-        // video가 켜있으면 끄기
-        if (pathname !== '/humanmattingtf') {
-            // console.log(WebCamStateAtom);
-        }
-    }, [pathname]);
+    // useEffect(() => {
+    //     // video가 켜있으면 끄기
+    //     // if (pathname !== '/humanmattingtf') {
+    //     //     // console.log(WebCamStateAtom);
+    //     // }
+    // }, [pathname]);
 
     return null;
 }

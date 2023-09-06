@@ -16,7 +16,7 @@ export default function Home() {
 
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-1 md:gap-12 lg:grid-cols-1">
                     <Link
-                        className="border-1 block rounded-xl border border-blue-300 p-8 shadow-xl shadow-blue-300/10 transition hover:shadow-blue-300"
+                        className="border-1 hover:scale-105 block rounded-xl border border-blue-300 p-8 shadow-xl shadow-blue-300/10 transition hover:shadow-blue-300"
                         href="/about"
                     >
                         <span className="inline-block rounded-lg p-3">
@@ -26,8 +26,9 @@ export default function Home() {
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
-                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                                <path
+                                    d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -45,7 +46,7 @@ export default function Home() {
                     </Link>
 
                     <Link
-                        className="border-1 block rounded-xl border border-pink-300 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
+                        className="border-1 hover:scale-105 block rounded-xl border border-pink-300 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
                         href="/practice"
                     >
                         <span className="inline-block rounded-lg p-3">
@@ -73,7 +74,8 @@ export default function Home() {
                         </p>
                     </Link>
 
-                    <div className="border-1 block rounded-xl border border-green-300 p-8 shadow-xl shadow-green-300/10 transition hover:shadow-green-300">
+                    <div
+                        className="border-1 block rounded-xl border border-green-300 p-8 shadow-xl shadow-green-300/10 transition hover:shadow-green-300 hover:scale-105">
                         <span className="inline-block rounded-lg p-3">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

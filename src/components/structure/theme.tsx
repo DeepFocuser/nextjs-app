@@ -16,7 +16,7 @@ function ThemeSwitch() {
     return (
         <div className="mr-4">
             <details className="dropdown">
-                <summary className="border-1 hover:border-1 btn w-28 rounded-xl border border-orange-200 bg-base-100 p-0 font-bold normal-case text-orange-500 shadow-xl shadow-orange-300/10 transition hover:border hover:border-orange-200 hover:bg-base-100 active:text-orange-700 active:shadow-orange-300">
+                <summary className="border-1 hover:scale-110 hover:border-1 btn w-28 rounded-xl border border-orange-200 bg-base-100 p-0 font-bold normal-case text-orange-500 shadow-xl shadow-orange-300/10 transition hover:border hover:border-orange-200 hover:bg-base-100 active:text-orange-700 active:shadow-orange-300">
                     themes
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

@@ -2,16 +2,19 @@ import Link from 'next/link';
 
 export default function Home() {
     return (
-        <div className="mx-auto mb-36 max-w-screen-xl px-4 py-8 sm:px-6 sm:py-8 lg:px-8 lg:py-8">
-            <div className="mx-auto max-w-lg text-center">
-                <h2 className="text-3xl font-bold sm:text-4xl">
-                    React / Next Feature Study
-                </h2>
+        <div className="mx-auto mb-36 px-4 py-8 sm:px-6 sm:py-8 lg:px-8 lg:py-8">
+            <div className="text-center lg:mx-0 ltr:lg:text-left rtl:lg:text-right">
+                <h1 className="text-2xl font-bold text-gray-300 sm:text-3xl">
+                    React / Next Study Zone
+                </h1>
+                <p className="mt-1.5 text-sm text-gray-400">
+                    🎉 Let`s Study! 🎉
+                </p>
             </div>
 
             <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                 <Link
-                    className="border-1 block rounded-xl border border-pink-300 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
+                    className="border-1 hover:scale-105 block rounded-xl border border-pink-300 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
                     href="/practice/swr"
                 >
                     <svg
@@ -38,7 +41,7 @@ export default function Home() {
                 </Link>
 
                 <Link
-                    className="border-1 block rounded-xl border border-pink-300 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
+                    className="border-1 hover:scale-105 block rounded-xl border border-pink-300 p-8 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300"
                     href="/practice/reactquery"
                 >
                     <svg

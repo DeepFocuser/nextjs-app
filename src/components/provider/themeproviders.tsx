@@ -7,7 +7,7 @@ function ThemeProviders({ children }: { children: ReactNode }) {
         <ThemeProvider
             disableTransitionOnChange
             defaultTheme="dark"
-            themes={['dark', 'forest', 'dracula', 'light', 'cupcake']}
+            themes={['dark', 'night', 'forest', 'dracula', 'business', 'cupcake']}
         >
             {children}
         </ThemeProvider>
