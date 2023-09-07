@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
-import Sidebar from '@/app/about/structure/sidebar';
-import Navbar from '@/app/about/structure/navbar';
+import Sidebar from '@/app/portfolio/structure/sidebar';
+import Navbar from "@/app/portfolio/structure/navbar";
 
 export default function Layout({children}: { children: ReactNode }) {
     return (<div className="mx-auto mb-36 px-4 py-8 sm:px-6 sm:py-8 lg:px-8">
@@ -12,21 +12,21 @@ export default function Layout({children}: { children: ReactNode }) {
                 🎉 Your efforts will never betray you 🎉
             </p>
         </div>
-        <div className="mt-8 grid grid-cols-12 gap-7 px-4">
+        <div className="mt-8 grid grid-cols-12 gap-4 px-4">
             {/* // do this div style later (after putting the content) */}
             <div
                 // rounded-xl border border-pink-300 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300
-                className="col-span-12 rounded-2xl border border-black p-4 text-center text-base shadow-lg shadow-blue-300 lg:col-span-3"
+                className="col-span-12 rounded-2xl border border-blue-300 p-4 text-center text-base shadow-lg shadow-blue-300 lg:col-span-3"
             >
                 {/* //!sidebar */}
                 <Sidebar/>
             </div>
             <div
-                className="col-span-12 flex flex-col overflow-hidden rounded-2xl border border-black shadow-lg shadow-blue-300 lg:col-span-9">
+                className="col-span-12 flex flex-col overflow-hidden rounded-2xl border border-blue-300 shadow-lg shadow-blue-300 lg:col-span-9">
                 {/* //!navbar */}
                 <Navbar/>
                 {children}
-                {/* //!about */}
+                {/* //!portfolio */}
             </div>
         </div>
     </div>);

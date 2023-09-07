@@ -99,31 +99,31 @@ export default function Home() {
 
                         <Link
                             href="/humanmatting"
-                            className="mr-3 mt-2 inline-block rounded-2xl bg-red-500 p-1 font-bold normal-case text-white transition hover:scale-110"
+                            className="text-sm mr-3 mt-2 inline-block rounded-2xl bg-red-500 p-1 font-bold normal-case text-white transition hover:scale-110"
                         >
                             HumanMatting
                         </Link>
                         <Link
                             href="/humanmattingbetter"
-                            className="mr-3 mt-2 inline-block rounded-2xl bg-orange-500 p-1 font-bold normal-case text-white transition hover:scale-110"
+                            className="text-sm mr-3 mt-2 inline-block rounded-2xl bg-orange-500 p-1 font-bold normal-case text-white transition hover:scale-110"
                         >
                             HumanMatting Better
                         </Link>
                         <Link
                             href="/facedetection"
-                            className="mr-3 mt-2 inline-block rounded-2xl bg-green-500 p-1 font-bold normal-case text-white transition hover:scale-110"
+                            className="text-sm mr-3 mt-2 inline-block rounded-2xl bg-green-500 p-1 font-bold normal-case text-white transition hover:scale-110"
                         >
                             Face Detection
                         </Link>
                         <Link
                             href="/vad"
-                            className="mr-3 mt-2 inline-block rounded-2xl bg-blue-500 p-1 font-bold normal-case text-white transition hover:scale-110"
+                            className="text-sm mr-3 mt-2 inline-block rounded-2xl bg-blue-500 p-1 font-bold normal-case text-white transition hover:scale-110"
                         >
                             Voice Activity Detection
                         </Link>
                         <Link
                             href="/posedetection"
-                            className="mr-3 mt-2 inline-block rounded-2xl bg-purple-500 p-1 font-bold normal-case text-white transition hover:scale-110"
+                            className="text-sm mr-3 mt-2 inline-block rounded-2xl bg-purple-500 p-1 font-bold normal-case text-white transition hover:scale-110"
                         >
                             Pose Detection
                         </Link>

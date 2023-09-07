@@ -33,7 +33,7 @@ function Nav() {
                                 <Link href="/">Home</Link>
                             </li>
                             <li>
-                                <Link href="/about">Portfolio</Link>
+                                <Link href="/portfolio">Portfolio</Link>
                             </li>
                             <li>
                                 <Link href="/practice">Help For Develop</Link>
@@ -84,7 +84,7 @@ function Nav() {
                         </li>
                         <li>
                             <Link
-                                href="/about"
+                                href="/portfolio"
                                 className="border-1 hover:border-1 flex rounded-xl border border-blue-200 bg-base-100 p-3 font-bold text-blue-500 shadow-xl shadow-blue-300/10 transition hover:scale-110 hover:border hover:border-blue-200 hover:bg-base-100 active:text-blue-700 active:shadow-blue-300"
                             >
                                 Portfolio
@@ -155,13 +155,13 @@ function Nav() {
                 </div>
                 <div className="navbar-end">
                     <ThemeSwitch />
-                    <div className="avatar w-16 sm:block">
+                    <div className="avatar w-14 sm:block">
                         <div className="mask mask-squircle w-full">
                             <Image
                                 src="https://avatars.githubusercontent.com/u/58889565?s=96&v=4"
                                 alt="Picture of DeepFocuser"
-                                width={320}
-                                height={320}
+                                width={256}
+                                height={256}
                                 quality={100}
                                 priority={true}
                                 unoptimized={false}

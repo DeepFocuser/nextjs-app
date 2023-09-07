@@ -1,22 +1,22 @@
 'use client';
 
-import { BsGeoAltFill } from 'react-icons/bs';
+import {BsGeoAltFill} from 'react-icons/bs';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Besley, Karla } from 'next/font/google';
-import { memo, useEffect, useState } from 'react';
+import {Karla, Slackey} from 'next/font/google';
+import {memo, useEffect, useState} from 'react';
 
-const nameFont = Besley({
-    weight: ['800'],
+const nameFont = Slackey({
+    weight: ['400'],
     subsets: ['latin'],
-    style: ['italic'],
+    // style: ['italic'],
     display: 'swap',
 });
 
 const mailFont = Karla({
-    weight: ['700'],
+    weight: ['500'],
     subsets: ['latin'],
-    style: ['italic'],
+    // style: ['italic'],
     display: 'swap',
 });
 
@@ -40,21 +40,23 @@ const Sidebar = () => {
                 priority={true}
                 unoptimized={false}
             />
-            <h3 className="mt-4 text-3xl font-medium tracking-wider">
-                <span className={`${nameFont.className} ${'text-blue-500'}`}>
+            <h3 className="mt-4 text-3xl tracking-wider">
+                <span className={`${nameFont.className} ${'text-blue-400'}`}>
                     Jonggon
                 </span>
-                <span className={`${nameFont.className} ${'text-blue-300'}`}>
+                <span className={`${nameFont.className} ${'text-blue-200'}`}>
                     {' '}
                     Kim
                 </span>
             </h3>
-            <p className="mt-6 py-0.5">
-                <span className="bg-gradient-to-r from-orange-600 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
+            <p className="mt-6 py-0.5 bg-base-300 -mr-4 -ml-4">
+                <span
+                    className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
                     AI
                 </span>
                 <span className="text-xl">&nbsp;/&nbsp;</span>
-                <span className="bg-gradient-to-r from-orange-600 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
+                <span
+                    className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
                     Web Developer
                 </span>
             </p>
@@ -70,7 +72,7 @@ const Sidebar = () => {
             {/*</Link>*/}
 
             {/* Socials */}
-            <div className="mx-auto mt-6 flex w-9/12 justify-around md:w-full">
+            <div className="flex mx-auto mt-6 flex w-9/12 justify-around md:w-full">
                 <Link
                     href="https://github.com/DeepFocuser"
                     target="_blank"
@@ -109,16 +111,14 @@ const Sidebar = () => {
 
             {/* Contacts */}
             <div
-                className="mt-4 px-2 py-0.5"
-                // style={{marginLeft: "-1rem", marginRight: "-1rem"}}
+                className="mt-4 px-2 py-0.5 bg-base-300 -mr-4 -ml-4"
             >
                 {/*나중에 지역표시도 하자*/}
                 <div className="flex items-center justify-center py-0.5">
-                    <BsGeoAltFill className="mr-2" />
+                    <BsGeoAltFill className="mr-2"/>
                     <span>Seoul </span>
                 </div>
-                <p className={`${mailFont.className} ${'text-md'} ${'my-1'}`}>
-                    {' '}
+                <p className={`${mailFont.className} ${'my-1'}`}>
                     rlawhdrhs27@gmail.com{' '}
                 </p>
             </div>
@@ -126,14 +126,15 @@ const Sidebar = () => {
             {/* Email Button */}
 
             <button
-                className="mb-2 mt-6 w-32 cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-500 px-5 py-1 font-bold text-white transition hover:scale-110"
+                className="mb-2 mt-6 px-2 w-6/12 cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-500 py-1 font-bold text-white transition hover:scale-110"
                 onClick={
                     email
                         ? () => window.open('mailto:code.rlawhdrhs27@gmail.com')
-                        : () => {}
+                        : () => {
+                        }
                 }
             >
-                Email me
+                <span className="text-base">Email me</span>
             </button>
         </>
     );

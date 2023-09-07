@@ -1,15 +1,8 @@
 'use client';
-import {
-    memo,
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from 'react';
-import type { ModelInfo } from '@/types';
+import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
+import type {ModelInfo} from '@/types';
 import * as tf from '@tensorflow/tfjs';
-import { Rank } from '@tensorflow/tfjs';
+import {Rank} from '@tensorflow/tfjs';
 import Loading from '@/components/structure/loading';
 import '@tensorflow/tfjs-backend-wasm';
 // import '@tensorflow/tfjs-backend-webgpu';
@@ -23,7 +16,7 @@ useEffect는 return 동작 안함
 둘다 다른 페이지로 넘어가는 경우 현재 페이지에서 null이 나올수 있는 값들에 대해서는 null처리(?처리) 해줘야함.
  */
 
-function HumanmattingTF({ backendName, modelPath }: ModelInfo) {
+function HumanmattingTF({backendName, modelPath}: ModelInfo) {
     const [playing, setPlaying] = useState<boolean>(false);
     // false : front camera / true : rear camera whene mobile
     const [cameraSelect, setCameraSelect] = useState<boolean>(false);
@@ -44,15 +37,13 @@ function HumanmattingTF({ backendName, modelPath }: ModelInfo) {
     };
 
     // 비동기 처리2 - canvas에 그리기  하기
-    const drawResult = useCallback<
-        (
-            image: tf.Tensor,
-            alpha: tf.Tensor,
-            background: tf.Tensor,
-            canvasHeight: number,
-            canvasWidth: number,
-        ) => void
-    >(async (image, alpha, background, canvasHeight, canvasWidth) => {
+    const drawResult = useCallback<(
+        image: tf.Tensor,
+        alpha: tf.Tensor,
+        background: tf.Tensor,
+        canvasHeight: number,
+        canvasWidth: number,
+    ) => void>(async (image, alpha, background, canvasHeight, canvasWidth) => {
         const result: tf.Tensor<Rank>[] = tf.tidy(() => {
             const pha = alpha.squeeze().expandDims(2); //float32
             const pha255 = tf.mul(pha, 255);
@@ -103,9 +94,7 @@ function HumanmattingTF({ backendName, modelPath }: ModelInfo) {
     }, []);
 
     // 비동기 처리3 - 배경이미지 로딩하기
-    const loadImageAsync = useCallback<
-        (path: string) => Promise<tf.Tensor<Rank>>
-    >((path) => {
+    const loadImageAsync = useCallback<(path: string) => Promise<tf.Tensor<Rank>>>((path) => {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.src = path;
@@ -187,7 +176,7 @@ function HumanmattingTF({ backendName, modelPath }: ModelInfo) {
                         }
                         const input = tf.tidy(() => img.expandDims(0).div(255)); // normalize input
                         const [output, ho1, ho2, ho3, ho4] = model.execute(
-                            { input, hi1, hi2, hi3, hi4 }, // provide inputs
+                            {input, hi1, hi2, hi3, hi4}, // provide inputs
                             ['output', 'ho1', 'ho2', 'ho3', 'ho4'], // select outputs
                         ) as tf.Tensor<Rank>[];
 
@@ -283,8 +272,10 @@ function HumanmattingTF({ backendName, modelPath }: ModelInfo) {
                         id="AcceptConditions"
                         className="peer sr-only"
                     />
-                    <span className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                    <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                    <span
+                        className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                    <span
+                        className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
             <div className="mt-6 grid items-center justify-center md:justify-self-end">
@@ -295,32 +286,29 @@ function HumanmattingTF({ backendName, modelPath }: ModelInfo) {
             </div>
             <div className="mb-3 mt-4 grid items-center justify-center md:justify-self-end">
                 <label className="label cursor-pointer">
-                    <span className="label-text mr-3 text-red-700">
+                    <span className="label-text mr-10 text-red-700">
                         Front Camera
                     </span>
                     <input
                         ref={cameraFrontRef}
                         onChange={useCallback(() => setCameraSelect(false), [])}
                         type="radio"
-                        name="radio-10"
-                        className="radio checked:bg-red-500"
-                        defaultChecked
-                    />
+                        className="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-red-700 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-red-700 checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-red-700 checked:after:bg-red-700 checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] checked:focus:border-red-700 checked:focus:before:scale-100"
+                        defaultChecked/>
                 </label>
                 <label className="label cursor-pointer">
-                    <span className="label-text mr-3 text-blue-700">
+                    <span className="label-text mr-10 text-blue-700">
                         Rear Camera
                     </span>
                     <input
                         ref={cameraRearRef}
                         onChange={useCallback(() => setCameraSelect(true), [])}
                         type="radio"
-                        name="radio-10"
-                        className="radio checked:bg-blue-500"
+                        className="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-blue-700 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-blue-700 checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-blue-700 checked:after:bg-blue-700 checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] checked:focus:border-blue-700 checked:focus:before:scale-100"
                     />
                 </label>
             </div>
-            {loading ? <Loading /> : null}
+            {loading ? <Loading/> : null}
             <div className="flex items-center justify-center">
                 <canvas
                     ref={canvasRef1}

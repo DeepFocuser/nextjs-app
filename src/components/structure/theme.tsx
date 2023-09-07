@@ -14,7 +14,7 @@ function ThemeSwitch() {
     }, []);
 
     return (
-        <div className="mr-4">
+        <div className="mr-1.5">
             <details className="dropdown">
                 <summary className="border-1 hover:border-1 flex w-28 items-center justify-center rounded-xl border border-orange-200 bg-base-100 p-0 py-2.5 font-bold normal-case text-orange-500 shadow-xl shadow-orange-300/10 transition hover:scale-110 hover:border hover:border-orange-200 hover:bg-base-100 active:text-orange-700 active:shadow-orange-300">
                     themes&nbsp;
