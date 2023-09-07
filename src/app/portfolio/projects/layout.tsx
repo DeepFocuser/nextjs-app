@@ -1,8 +1,5 @@
-import {ReactNode} from 'react';
+import { ReactNode } from 'react';
 
-export default function Layout({children}: { children: ReactNode }) {
-    return (
-        <div className="">
-        </div>
-    );
+export default function Layout({ children }: { children: ReactNode }) {
+    return <div className=""></div>;
 }

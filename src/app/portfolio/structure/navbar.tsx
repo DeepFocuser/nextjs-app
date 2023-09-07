@@ -1,8 +1,8 @@
 'use client';
 
-import {memo, useEffect, useState} from 'react';
+import { memo, useEffect, useState } from 'react';
 import Link from 'next/link';
-import {usePathname} from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
     const pathname = usePathname();

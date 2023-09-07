@@ -1,15 +1,15 @@
-import { IconType } from 'react-icons';
+import {IconType} from 'react-icons';
 
 export interface Service {
-    Icon: IconType;
-    title: string;
-    about: string;
+    Icon?: IconType | any;
+    title?: string;
+    about?: string;
 }
 
 export interface Skill {
-    Icon: IconType;
-    name: string;
-    level: string;
+    Icon?: IconType | any;
+    name?: string;
+    level?: string;
 }
 
 export interface IProject {

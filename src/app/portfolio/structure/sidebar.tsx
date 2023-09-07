@@ -122,7 +122,7 @@ const Sidebar = () => {
             {/* Email Button */}
 
             <button
-                className="mb-2 mt-6 w-6/12 cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-500 px-2 py-1 font-bold text-white transition hover:scale-110"
+                className="mb-2 mt-8 w-6/12 cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-500 px-2 py-1 font-bold text-white transition hover:scale-110"
                 onClick={
                     email
                         ? () => window.open('mailto:code.rlawhdrhs27@gmail.com')
