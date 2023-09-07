@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
+import {ReactNode} from 'react';
 import Sidebar from '@/app/portfolio/structure/sidebar';
 import Navbar from '@/app/portfolio/structure/navbar';
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default function Layout({children}: { children: ReactNode }) {
     return (
         <div className="mx-auto mb-36 px-4 py-8 sm:px-6 sm:py-8 lg:px-8">
             <div className="text-center lg:mx-0 ltr:lg:text-left rtl:lg:text-right">
@@ -20,11 +20,12 @@ export default function Layout({ children }: { children: ReactNode }) {
                     className="col-span-12 rounded-2xl border border-blue-300 p-4 text-center text-base shadow-lg shadow-blue-300 lg:col-span-3"
                 >
                     {/* //!sidebar */}
-                    <Sidebar />
+                    <Sidebar/>
                 </div>
-                <div className="col-span-12 flex flex-col overflow-hidden rounded-2xl border border-blue-300 shadow-lg shadow-blue-300 lg:col-span-9">
+                <div
+                    className="col-span-12 flex flex-col overflow-hidden rounded-2xl border border-blue-300 shadow-lg shadow-blue-300 lg:col-span-9">
                     {/* //!navbar */}
-                    <Navbar />
+                    <Navbar/>
                     {children}
                     {/* //!portfolio */}
                 </div>

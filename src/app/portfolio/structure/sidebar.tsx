@@ -1,10 +1,10 @@
 'use client';
 
-import { BsGeoAltFill } from 'react-icons/bs';
+import {BsGeoAltFill} from 'react-icons/bs';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Karla, Slackey } from 'next/font/google';
-import { memo, useEffect, useState } from 'react';
+import {Karla, Slackey} from 'next/font/google';
+import {memo, useEffect, useState} from 'react';
 
 const nameFont = Slackey({
     weight: ['400'],
@@ -40,7 +40,7 @@ const Sidebar = () => {
                 priority={true}
                 unoptimized={false}
             />
-            <h3 className="mt-4 text-3xl tracking-wider">
+            <h3 className="mt-6 text-3xl tracking-wider">
                 <span className={`${nameFont.className} ${'text-blue-400'}`}>
                     Jonggon
                 </span>
@@ -49,12 +49,14 @@ const Sidebar = () => {
                     Kim
                 </span>
             </h3>
-            <p className="-ml-4 -mr-4 mt-6 bg-base-300 py-0.5">
-                <span className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
+            <p className="-ml-4 -mr-4 mt-4 bg-base-300 py-0.5">
+                <span
+                    className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
                     AI
                 </span>
                 <span className="text-xl">&nbsp;/&nbsp;</span>
-                <span className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
+                <span
+                    className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
                     Web Developer
                 </span>
             </p>
@@ -108,10 +110,10 @@ const Sidebar = () => {
             </div>
 
             {/* Contacts */}
-            <div className="-ml-4 -mr-4 mt-4 bg-base-300 px-2 py-0.5">
+            <div className="-ml-4 -mr-4 mt-6 bg-base-300 px-2 py-0.5">
                 {/*나중에 지역표시도 하자*/}
                 <div className="flex items-center justify-center py-0.5">
-                    <BsGeoAltFill className="mr-2" />
+                    <BsGeoAltFill className="mr-2"/>
                     <span>Seoul </span>
                 </div>
                 <p className={`${mailFont.className} ${'my-1'}`}>
@@ -122,11 +124,12 @@ const Sidebar = () => {
             {/* Email Button */}
 
             <button
-                className="mb-2 mt-8 w-6/12 cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-500 px-2 py-1 font-bold text-white transition hover:scale-110"
+                className="mt-7 w-6/12 cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-500 px-2 py-1 font-bold text-white transition hover:scale-110"
                 onClick={
                     email
                         ? () => window.open('mailto:code.rlawhdrhs27@gmail.com')
-                        : () => {}
+                        : () => {
+                        }
                 }
             >
                 <span className="text-base">Email me</span>
