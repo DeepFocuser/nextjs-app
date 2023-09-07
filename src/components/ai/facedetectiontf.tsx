@@ -1,12 +1,19 @@
 'use client';
-import {memo, useCallback, useEffect, useLayoutEffect, useRef, useState,} from 'react';
-import type {ModelInfo} from '@/types';
+import {
+    memo,
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from 'react';
+import type { ModelInfo } from '@/types';
 import * as tf from '@tensorflow/tfjs';
-import {Rank} from '@tensorflow/tfjs';
+import { Rank } from '@tensorflow/tfjs';
 import Loading from '@/components/structure/loading';
 import '@tensorflow/tfjs-backend-wasm';
 
-function FacedetectionTF({backendName, modelPath}: ModelInfo) {
+function FacedetectionTF({ backendName, modelPath }: ModelInfo) {
     const [playing, setPlaying] = useState<boolean>(false);
     // false : front camera / true : rear camera whene mobile
     const [cameraSelect, setCameraSelect] = useState<boolean>(false);
@@ -26,13 +33,15 @@ function FacedetectionTF({backendName, modelPath}: ModelInfo) {
     };
 
     // 비동기 처리2 - canvas에 그리기  하기
-    const drawResult = useCallback<(
-        image: tf.Tensor,
-        score: tf.Tensor,
-        bbox: tf.Tensor,
-        canvasHeight: number,
-        canvasWidth: number,
-    ) => void>(async (image, score, bbox, canvasHeight, canvasWidth) => {
+    const drawResult = useCallback<
+        (
+            image: tf.Tensor,
+            score: tf.Tensor,
+            bbox: tf.Tensor,
+            canvasHeight: number,
+            canvasWidth: number,
+        ) => void
+    >(async (image, score, bbox, canvasHeight, canvasWidth) => {
         const imageAlpha: tf.Tensor<Rank> = tf.tidy(() => {
             const [height, width, _] = image.shape;
             const opacity = tf.ones([height, width, 1]).mul(255);
@@ -126,7 +135,7 @@ function FacedetectionTF({backendName, modelPath}: ModelInfo) {
                         }
                         const input = tf.tidy(() => img.expandDims(0).div(255)); // normalize input
                         const [ids, scores, bboxes] = (await model.executeAsync(
-                            {input}, // provide inputs
+                            { input }, // provide inputs
                             ['Identity_1:0', 'Identity_2:0', 'bboxes'], // select outputs
                         )) as tf.Tensor<Rank>[];
 
@@ -212,10 +221,8 @@ function FacedetectionTF({backendName, modelPath}: ModelInfo) {
                         id="AcceptConditions"
                         className="peer sr-only"
                     />
-                    <span
-                        className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
-                    <span
-                        className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                    <span className="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-red-500"></span>
+                    <span className="absolute inset-y-0 start-0 m-1 h-6 w-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
                 </label>
             </div>
             <div className="mt-6 grid items-center justify-center md:justify-self-end">
@@ -234,7 +241,8 @@ function FacedetectionTF({backendName, modelPath}: ModelInfo) {
                         onChange={useCallback(() => setCameraSelect(false), [])}
                         type="radio"
                         className="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-red-700 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-red-700 checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-red-700 checked:after:bg-red-700 checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] checked:focus:border-red-700 checked:focus:before:scale-100"
-                        defaultChecked/>
+                        defaultChecked
+                    />
                 </label>
                 <label className="label cursor-pointer">
                     <span className="label-text mr-10 text-blue-700">
@@ -248,7 +256,7 @@ function FacedetectionTF({backendName, modelPath}: ModelInfo) {
                     />
                 </label>
             </div>
-            {loading ? <Loading/> : null}
+            {loading ? <Loading /> : null}
             <div className="flex items-center justify-center">
                 <canvas
                     ref={canvasRef}

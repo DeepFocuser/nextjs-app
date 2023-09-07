@@ -17,7 +17,7 @@ export default function Home() {
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-1 md:gap-12 lg:grid-cols-1">
                     <Link
                         className="border-1 block rounded-xl border border-blue-300 p-8 shadow-xl shadow-blue-300/10 transition hover:scale-105 hover:shadow-blue-300"
-                        href="/about"
+                        href="/portfolio/about"
                     >
                         <span className="inline-block rounded-lg p-3">
                             <svg
@@ -26,9 +26,8 @@ export default function Home() {
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
-                                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
-                                <path
-                                    d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -74,8 +73,7 @@ export default function Home() {
                         </p>
                     </Link>
 
-                    <div
-                        className="border-1 block rounded-xl border border-green-300 p-8 shadow-xl shadow-green-300/10 transition hover:scale-105 hover:shadow-green-300">
+                    <div className="border-1 block rounded-xl border border-green-300 p-8 shadow-xl shadow-green-300/10 transition hover:scale-105 hover:shadow-green-300">
                         <span className="inline-block rounded-lg p-3">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -99,31 +97,31 @@ export default function Home() {
 
                         <Link
                             href="/humanmatting"
-                            className="text-sm mr-3 mt-2 inline-block rounded-2xl bg-red-500 p-1 font-bold normal-case text-white transition hover:scale-110"
+                            className="mr-3 mt-2 inline-block rounded-2xl bg-red-500 p-1 text-sm font-bold normal-case text-white transition hover:scale-110"
                         >
                             HumanMatting
                         </Link>
                         <Link
                             href="/humanmattingbetter"
-                            className="text-sm mr-3 mt-2 inline-block rounded-2xl bg-orange-500 p-1 font-bold normal-case text-white transition hover:scale-110"
+                            className="mr-3 mt-2 inline-block rounded-2xl bg-orange-500 p-1 text-sm font-bold normal-case text-white transition hover:scale-110"
                         >
                             HumanMatting Better
                         </Link>
                         <Link
                             href="/facedetection"
-                            className="text-sm mr-3 mt-2 inline-block rounded-2xl bg-green-500 p-1 font-bold normal-case text-white transition hover:scale-110"
+                            className="mr-3 mt-2 inline-block rounded-2xl bg-green-500 p-1 text-sm font-bold normal-case text-white transition hover:scale-110"
                         >
                             Face Detection
                         </Link>
                         <Link
                             href="/vad"
-                            className="text-sm mr-3 mt-2 inline-block rounded-2xl bg-blue-500 p-1 font-bold normal-case text-white transition hover:scale-110"
+                            className="mr-3 mt-2 inline-block rounded-2xl bg-blue-500 p-1 text-sm font-bold normal-case text-white transition hover:scale-110"
                         >
                             Voice Activity Detection
                         </Link>
                         <Link
                             href="/posedetection"
-                            className="text-sm mr-3 mt-2 inline-block rounded-2xl bg-purple-500 p-1 font-bold normal-case text-white transition hover:scale-110"
+                            className="mr-3 mt-2 inline-block rounded-2xl bg-purple-500 p-1 text-sm font-bold normal-case text-white transition hover:scale-110"
                         >
                             Pose Detection
                         </Link>

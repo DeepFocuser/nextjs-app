@@ -33,7 +33,7 @@ function Nav() {
                                 <Link href="/">Home</Link>
                             </li>
                             <li>
-                                <Link href="/portfolio">Portfolio</Link>
+                                <Link href="/portfolio/about">Portfolio</Link>
                             </li>
                             <li>
                                 <Link href="/practice">Help For Develop</Link>
@@ -84,7 +84,7 @@ function Nav() {
                         </li>
                         <li>
                             <Link
-                                href="/portfolio"
+                                href="/portfolio/about"
                                 className="border-1 hover:border-1 flex rounded-xl border border-blue-200 bg-base-100 p-3 font-bold text-blue-500 shadow-xl shadow-blue-300/10 transition hover:scale-110 hover:border hover:border-blue-200 hover:bg-base-100 active:text-blue-700 active:shadow-blue-300"
                             >
                                 Portfolio
