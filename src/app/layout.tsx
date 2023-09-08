@@ -59,7 +59,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 />
             )}
             {/*<body className="container mx-auto">*/}
-            <body className="container mx-auto">
+            <body className="container mx-auto cursor-default">
                 {/*<RecoilProviders>*/}
                 <ThemeProviders>
                     <header>
