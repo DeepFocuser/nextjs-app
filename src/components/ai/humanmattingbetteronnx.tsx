@@ -354,6 +354,7 @@ function HumanmattingBetterONNX({ modelPath }: { modelPath: string }) {
                         transform: 'scaleX(-1)',
                     }}
                     autoPlay
+                    muted
                     playsInline
                 />
                 <canvas

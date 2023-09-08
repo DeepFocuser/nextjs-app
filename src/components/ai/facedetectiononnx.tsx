@@ -326,6 +326,7 @@ function FacedetectionONNX({ modelPath }: { modelPath: string }) {
                         transform: 'scaleX(-1)',
                     }}
                     autoPlay
+                    muted
                     playsInline
                 />
                 <canvas

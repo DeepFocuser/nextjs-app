@@ -6,8 +6,6 @@ const nextConfig = {
     images: {
         domains: [
             'avatars.githubusercontent.com',
-            'api.dicebear.com',
-            'images.unsplash.com',
         ],
         dangerouslyAllowSVG: true,
         contentDispositionType: 'attachment',
