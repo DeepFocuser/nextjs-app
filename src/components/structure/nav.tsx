@@ -77,7 +77,7 @@ function Nav() {
                         <li>
                             <Link
                                 href="/"
-                                className="border-1 hover:border-1 mx-4 flex rounded-xl border border-gray-200 bg-base-100 p-3 font-bold text-gray-400 shadow-xl shadow-gray-300/10 transition hover:scale-110 hover:border hover:border-gray-200 hover:bg-base-100 active:text-gray-700 active:shadow-gray-300"
+                                className="border-1 hover:border-1 mx-4 flex rounded-xl border border-gray-200 bg-base-100 p-3 font-bold text-gray-500 shadow-xl shadow-gray-300/10 transition hover:scale-110 hover:border hover:border-gray-200 hover:bg-base-100 active:text-gray-700 active:shadow-gray-300"
                             >
                                 Home
                             </Link>
