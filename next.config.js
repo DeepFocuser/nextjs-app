@@ -4,9 +4,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 const nextConfig = {
     images: {
-        domains: [
-            'avatars.githubusercontent.com',
-        ],
+        domains: ['avatars.githubusercontent.com'],
         dangerouslyAllowSVG: true,
         contentDispositionType: 'attachment',
         contentSecurityPolicy:

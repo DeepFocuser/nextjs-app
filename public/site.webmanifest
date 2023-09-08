@@ -1,10 +1,10 @@
 {
-    "name": "Next.js First App",
-    "short_name": "Next.js App",
+    "name": "DeepFocuser Next.js App",
+    "short_name": "DeepFocuser App",
     "icons": [
         {
             "src": "/images/me.jpg",
-            "sizes": "413x531",
+            "sizes": "512x512",
             "type": "image/jpg"
         }
     ],
