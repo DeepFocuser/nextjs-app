@@ -4,7 +4,7 @@ export default function Home() {
     return (
         <div className="mx-auto mb-36 px-4 py-8 sm:px-6 sm:py-8 lg:px-8 lg:py-8">
             <div className="text-center lg:mx-0 ltr:lg:text-left rtl:lg:text-right">
-                <h1 className="text-2xl font-bold text-gray-300 sm:text-3xl">
+                <h1 className="text-2xl font-bold sm:text-3xl">
                     React / Next Study Zone
                 </h1>
                 <p className="mt-1.5 text-sm text-gray-400">

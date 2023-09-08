@@ -4,16 +4,16 @@
 https://hoon1994.tistory.com/80
 */
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { ocean } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import {ocean} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import Loading from '@/components/structure/loading';
 import Link from 'next/link';
-import { useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import {useRef} from 'react';
+import {useQuery} from '@tanstack/react-query';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Home() {
-    const { isLoading, isError, data, error } = useQuery({
+    const {isLoading, isError, data, error} = useQuery({
         queryKey: ['sample'],
         queryFn: () => fetcher('/api/data'),
     });
@@ -23,7 +23,7 @@ export default function Home() {
         return (
             <div className="mb-36 mt-8">
                 <div className="mx-auto max-w-lg text-center">
-                    <h2 className="text-2xl font-bold text-gray-300 sm:text-3xl">
+                    <h2 className="text-2xl font-bold sm:text-3xl">
                         ReactQuery Example Code
                     </h2>
                     <Link
@@ -40,7 +40,7 @@ export default function Home() {
             <>
                 <div className="mb-36 mt-8">
                     <div className="mx-auto max-w-lg text-center">
-                        <h2 className="text-2xl font-bold text-gray-300 sm:text-3xl">
+                        <h2 className="text-2xl font-bold sm:text-3xl">
                             ReactQuery Example Code
                         </h2>
                         <Link
@@ -51,7 +51,7 @@ export default function Home() {
                         </Link>
                     </div>
                 </div>
-                <Loading />
+                <Loading/>
             </>
         );
     if (isLoading)
@@ -59,7 +59,7 @@ export default function Home() {
             <>
                 <div className="mb-36 mt-8">
                     <div className="mx-auto max-w-lg text-center">
-                        <h2 className="text-2xl font-bold text-gray-300 sm:text-3xl">
+                        <h2 className="text-2xl font-bold sm:text-3xl">
                             ReactQuery Example Code
                         </h2>
                         <Link
@@ -70,7 +70,7 @@ export default function Home() {
                         </Link>
                     </div>
                 </div>
-                <Loading />
+                <Loading/>
             </>
         );
 
@@ -98,7 +98,7 @@ export default function Home() {
     return (
         <div className="mb-36 mt-8">
             <div className="mx-auto max-w-lg text-center">
-                <h2 className="text-2xl font-bold text-gray-300 sm:text-3xl">
+                <h2 className="text-2xl font-bold sm:text-3xl">
                     ReactQuery Example Code
                 </h2>
                 <Link
@@ -137,7 +137,8 @@ export default function Home() {
                         <p className="py-4">{data.message}</p>
                         <div className="modal-action">
                             {/* if there is a button in form, it will close the modal */}
-                            <button className="rounded-2xl bg-pink-700 p-4 font-bold normal-case text-white transition hover:scale-110">
+                            <button
+                                className="rounded-2xl bg-pink-700 p-4 font-bold normal-case text-white transition hover:scale-110">
                                 Close
                             </button>
                         </div>

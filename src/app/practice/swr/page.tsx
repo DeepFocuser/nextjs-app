@@ -23,7 +23,7 @@ export default function Home() {
         return (
             <div className="mb-36 mt-8">
                 <div className="mx-auto max-w-lg text-center">
-                    <h2 className="text-2xl font-bold text-gray-300 sm:text-3xl">
+                    <h2 className="text-2xl font-bold sm:text-3xl">
                         SWR Example Code
                     </h2>
                     <Link
@@ -40,7 +40,7 @@ export default function Home() {
             <>
                 <div className="mb-36 mt-8">
                     <div className="mx-auto max-w-lg text-center">
-                        <h2 className="text-2xl font-bold text-gray-300 sm:text-3xl">
+                        <h2 className="text-2xl font-bold sm:text-3xl">
                             SWR Example Code
                         </h2>
                         <Link
@@ -59,7 +59,7 @@ export default function Home() {
             <>
                 <div className="mb-36 mt-8">
                     <div className="mx-auto max-w-lg text-center">
-                        <h2 className="text-2xl font-bold text-gray-300 sm:text-3xl">
+                        <h2 className="text-2xl font-bold sm:text-3xl">
                             SWR Example Code
                         </h2>
                         <Link
@@ -97,7 +97,7 @@ export default function Home() {
     return (
         <div className="mb-36 mt-8">
             <div className="mx-auto max-w-lg text-center">
-                <h2 className="text-2xl font-bold text-gray-300 sm:text-3xl">
+                <h2 className="text-2xl font-bold sm:text-3xl">
                     SWR Example Code
                 </h2>
                 <Link
