@@ -3,7 +3,7 @@ import {IconType} from 'react-icons';
 export interface Service {
     Icon?: IconType | any;
     title?: string;
-    about?: string;
+    about: string;
 }
 
 export interface Skill {

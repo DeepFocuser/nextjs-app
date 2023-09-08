@@ -40,7 +40,8 @@ const Sidebar = () => {
                 priority={true}
                 unoptimized={false}
             />
-            <h3 className="mt-6 text-3xl tracking-wider">
+
+            <h3 className="mt-6 text-4xl/10">
                 <span className={`${nameFont.className} ${'text-blue-400'}`}>
                     Jonggon
                 </span>
@@ -49,7 +50,7 @@ const Sidebar = () => {
                     Kim
                 </span>
             </h3>
-            <p className="-ml-4 -mr-4 mt-4 bg-base-300 py-0.5">
+            <p className="-ml-4 -mr-4 mt-6 bg-base-300 py-0.5">
                 <span
                     className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
                     AI
@@ -124,7 +125,7 @@ const Sidebar = () => {
             {/* Email Button */}
 
             <button
-                className="mt-7 w-6/12 cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-500 px-2 py-1 font-bold text-white transition hover:scale-110"
+                className="mt-3.5 max-[1024px]:mt-4 max-[1280px]:mt-14 max-[1535px]:mt-8 w-6/12 cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-500 px-2 py-1 font-bold text-white transition hover:scale-110"
                 onClick={
                     email
                         ? () => window.open('mailto:code.rlawhdrhs27@gmail.com')

@@ -6,19 +6,19 @@ import {FcGlobe, FcReading, FcTemplate} from "react-icons/fc";
 export const services: Service[] = [{
     Icon: SiSmartthings,
     title: "AI Development",
-    about: "I can develop and apply various <strong>AI (vision, natural language processing, voice) algorithms</strong>, and apply them to services."
+    about: "I can develop and apply various <strong class='text-blue-400'>AI (vision, natural language processing, voice) algorithms</strong>, and apply them to services."
 }, {
     Icon: FcGlobe,
     title: "Frontend Development",
-    about: "I can create a web page that the user requests, I'm thinking about how to create a stable and optimized web page.",
+    about: "I can create a web page that the user requests, I'm thinking about how to create <strong class='text-blue-400'>a stable and optimized web page.</strong>"
 }, {
     Icon: FcTemplate,
     title: "Interested in UI/UX",
-    about: "I think, \"How can you deliver the end of everything well to others?\" So I am studying UX/UI little by little.",
+    about: "I think, \"How can you deliver the end of everything well to others?\" <strong class='text-blue-400'>So I am studying UX/UI little by little.</strong>",
 }, {
     Icon: FcReading,
-    title: "A Passionate person",
-    about: "To make tomorrow's me better than today's me, I never stop learning. I learn everything passionately.",
+    title: "A Passionate Person",
+    about: "To make tomorrow's me better than today's me, I never stop learning. <strong class='text-blue-400'>I learn everything passionately.</strong>",
 },];
 
 export const languages: Skill[] = [{
