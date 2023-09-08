@@ -1,9 +1,17 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
 // http://www.tcpschool.com/html-tags/intro
 export default function Layout({ children }: { children: ReactNode }) {
     return (
-        <div className="flex flex-grow flex-col px-4 ">
-            <div className="mb-3 mt-2 text-base font-medium">
+        <div className="flex flex-grow flex-col px-4">
+            <motion.div
+                className="mb-3 mt-2 text-base font-medium"
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.821 }}
+            >
                 I am Kim Jong Gon, who is developing hard every day based on the
                 idea that people who stick their butt for a long time are good.
                 I have about 6 years of experience in{' '}
@@ -19,7 +27,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                     {' '}
                     I work hard and do well no matter what I do.
                 </span>
-            </div>
+            </motion.div>
             <div className="-ml-4 -mr-4 flex flex-grow flex-col bg-base-300 px-4 py-2.5">
                 <div className="text-lg font-bold tracking-wide">
                     <span className="border-b-4 border-gray-400">

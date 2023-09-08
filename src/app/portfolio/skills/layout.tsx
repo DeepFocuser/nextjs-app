@@ -1,3 +1,5 @@
+'use client';
+
 import { ReactNode } from 'react';
 // http://www.tcpschool.com/html-tags/intro
 export default function Layout({ children }: { children: ReactNode }) {

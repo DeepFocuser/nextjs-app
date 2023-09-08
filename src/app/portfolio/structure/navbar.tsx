@@ -1,8 +1,8 @@
 'use client';
 
-import {memo, useEffect, useState} from 'react';
+import { memo, useEffect, useState } from 'react';
 import Link from 'next/link';
-import {usePathname} from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
     const pathname = usePathname();
@@ -51,7 +51,7 @@ const Navbar = () => {
             <div className="my-3 flex items-center justify-center min-[430px]:hidden">
                 <div className="flex text-base text-lg font-bold">
                     {active === 'About' ? (
-                        <div className="transition active:scale-105">
+                        <div>
                             <Link
                                 className="mx-2 border-b-4 border-blue-500 max-[300px]:mx-1"
                                 href="/portfolio/about"
@@ -60,7 +60,7 @@ const Navbar = () => {
                             </Link>
                         </div>
                     ) : (
-                        <div className="transition active:scale-105">
+                        <div>
                             <Link
                                 className="mx-2 max-[300px]:mx-1"
                                 href="/portfolio/about"
@@ -70,7 +70,7 @@ const Navbar = () => {
                         </div>
                     )}
                     {active === 'Skills' ? (
-                        <div className="transition active:scale-105">
+                        <div>
                             <Link
                                 className="mx-2 border-b-4 border-blue-500 max-[300px]:mx-1"
                                 href="/portfolio/skills"
@@ -79,7 +79,7 @@ const Navbar = () => {
                             </Link>
                         </div>
                     ) : (
-                        <div className="transition active:scale-105">
+                        <div>
                             <Link
                                 className="mx-2 max-[300px]:mx-1"
                                 href="/portfolio/skills"
@@ -89,7 +89,7 @@ const Navbar = () => {
                         </div>
                     )}
                     {active === 'Projects' ? (
-                        <div className="transition active:scale-105">
+                        <div>
                             <Link
                                 className="mx-2 border-b-4 border-blue-500 max-[300px]:mx-1"
                                 href="/portfolio/projects"
@@ -98,7 +98,7 @@ const Navbar = () => {
                             </Link>
                         </div>
                     ) : (
-                        <div className="transition active:scale-105">
+                        <div>
                             <Link
                                 className="mx-2 max-[300px]:mx-1"
                                 href="/portfolio/projects"
