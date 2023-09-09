@@ -383,9 +383,8 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
                         <div className="badge badge-success">😿Playing😿</div>
                     </div>
                     <div className="mt-4 grid items-center justify-center md:justify-self-end">
-                        <div className="badge badge-error">
-                            😿if not Working, Press F5 and Wait for about 3
-                            seconds😿
+                        <div className="bg-red-400 rounded-2xl text-black text-sm p-1">
+                            😿if not Working, Press F5 and Wait for about 3 seconds😿
                         </div>
                     </div>
                 </>

@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import ThemeSwitch from './theme';
+import Menubar from './menu';
+
 // import dynamic from 'next/dynamic'
 // const Provider = dynamic(() => import('../themeproviders'), {ssr: true})
 // const ThemeSwitch = dynamic(() => import('@/components/theme'), {ssr: true})
@@ -11,9 +13,10 @@ function Nav() {
         <div className="navbar bg-base-100">
             <div className="navbar-start min-[640px]:hidden">
                 {/*<div className="dropdown p-0">*/}
+                {/*<Menubar/>*/}
                 <details className="dropdown">
                     <summary
-                        className="border-1 hover:border-1 mx-1 flex rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:scale-110 hover:border hover:border-green-200 hover:bg-base-100 active:text-green-700 active:shadow-green-300">
+                        className="border-1 hover:border-1 mx-0.5 flex rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:scale-110 hover:border hover:border-green-200 hover:bg-base-100 active:text-green-700 active:shadow-green-300">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-5 w-5"
@@ -76,7 +79,7 @@ function Nav() {
                 {/*</div>*/}
                 <Link
                     href="/"
-                    className="border-1 hover:border-1 mx-2 flex rounded-xl border border-gray-200 bg-base-100 p-2 font-bold text-gray-500 shadow-xl shadow-gray-300/10 transition hover:scale-110 hover:border hover:border-gray-200 hover:bg-base-100 active:text-gray-700 active:shadow-gray-300"
+                    className="border-1 hover:border-1 flex rounded-xl border border-gray-200 bg-base-100 p-1 font-bold text-gray-500 shadow-xl shadow-gray-300/10 transition hover:scale-110 hover:border hover:border-gray-200 hover:bg-base-100 active:text-gray-700 active:shadow-gray-300"
                 >
                     Home
                 </Link>
