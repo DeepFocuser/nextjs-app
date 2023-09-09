@@ -1,8 +1,8 @@
 'use client';
 
-import {memo, useEffect, useState} from 'react';
+import { memo, useEffect, useState } from 'react';
 import Link from 'next/link';
-import {usePathname} from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
     const pathname = usePathname();
@@ -37,12 +37,20 @@ const Navbar = () => {
                         </Link>
                     </div>
                     <div className="transition hover:scale-105 hover:text-blue-500">
-                        <Link className="mx-2" href="/about/skills" scroll={false}>
+                        <Link
+                            className="mx-2"
+                            href="/about/skills"
+                            scroll={false}
+                        >
                             Skills
                         </Link>
                     </div>
                     <div className="transition hover:scale-105 hover:text-blue-500">
-                        <Link className="mx-2" href="/about/projects" scroll={false}>
+                        <Link
+                            className="mx-2"
+                            href="/about/projects"
+                            scroll={false}
+                        >
                             Projects
                         </Link>
                     </div>
