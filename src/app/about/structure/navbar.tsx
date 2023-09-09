@@ -32,17 +32,17 @@ const Navbar = () => {
                 </div>
                 <div className="flex justify-end text-base text-xl font-bold">
                     <div className="transition hover:scale-105 hover:text-blue-500">
-                        <Link className="mx-2" href="/about">
+                        <Link className="mx-2" href="/about" scroll={false}>
                             About
                         </Link>
                     </div>
                     <div className="transition hover:scale-105 hover:text-blue-500">
-                        <Link className="mx-2" href="/about/skills">
+                        <Link className="mx-2" href="/about/skills" scroll={false}>
                             Skills
                         </Link>
                     </div>
                     <div className="transition hover:scale-105 hover:text-blue-500">
-                        <Link className="mx-2" href="/about/projects">
+                        <Link className="mx-2" href="/about/projects" scroll={false}>
                             Projects
                         </Link>
                     </div>
@@ -55,6 +55,7 @@ const Navbar = () => {
                             <Link
                                 className="mx-2 border-b-4 border-blue-500 max-[300px]:mx-1"
                                 href="/about"
+                                scroll={false}
                             >
                                 About
                             </Link>
@@ -64,6 +65,7 @@ const Navbar = () => {
                             <Link
                                 className="mx-2 max-[300px]:mx-1"
                                 href="/about"
+                                scroll={false}
                             >
                                 About
                             </Link>
@@ -74,6 +76,7 @@ const Navbar = () => {
                             <Link
                                 className="mx-2 border-b-4 border-blue-500 max-[300px]:mx-1"
                                 href="/about/skills"
+                                scroll={false}
                             >
                                 Skills
                             </Link>
@@ -83,6 +86,7 @@ const Navbar = () => {
                             <Link
                                 className="mx-2 max-[300px]:mx-1"
                                 href="/about/skills"
+                                scroll={false}
                             >
                                 Skills
                             </Link>
@@ -93,6 +97,7 @@ const Navbar = () => {
                             <Link
                                 className="mx-2 border-b-4 border-blue-500 max-[300px]:mx-1"
                                 href="/about/projects"
+                                scroll={false}
                             >
                                 Projects
                             </Link>
@@ -102,6 +107,7 @@ const Navbar = () => {
                             <Link
                                 className="mx-2 max-[300px]:mx-1"
                                 href="/about/projects"
+                                scroll={false}
                             >
                                 Projects
                             </Link>
