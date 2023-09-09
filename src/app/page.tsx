@@ -17,7 +17,8 @@ export default function Home() {
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-1 md:gap-12 lg:grid-cols-1">
                     <Link
                         className="border-1 block rounded-xl border border-blue-300 p-8 shadow-xl shadow-blue-300/10 transition hover:scale-105 hover:shadow-blue-300"
-                        href="/portfolio/about"
+                        href="/about"
+                        scroll={false}
                     >
                         <span className="inline-block rounded-lg p-3">
                             <svg

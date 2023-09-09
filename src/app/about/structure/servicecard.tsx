@@ -1,7 +1,7 @@
 'use client'; // 사실 about/page에서 했으므로 안해도 됨
 
 import { Wendy_One } from 'next/font/google';
-import { Service } from '@/app/portfolio/structure/types';
+import { Service } from '@/app/about/structure/types';
 
 const titleFont = Wendy_One({
     weight: ['400'],

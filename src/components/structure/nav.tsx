@@ -6,13 +6,13 @@ import ThemeSwitch from './theme';
 // const ThemeSwitch = dynamic(() => import('@/components/theme'), {ssr: true})
 
 function Nav() {
-    return (
-        <nav className="border-b-2">
+    return (<nav className="border-b-2">
             <div className="navbar bg-base-100">
                 <div className="navbar-start lg:hidden">
                     {/*<div className="dropdown p-0">*/}
                     <details className="dropdown">
-                        <summary className="border-1 hover:border-1 mx-2 flex rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:scale-110 hover:border hover:border-green-200 hover:bg-base-100 active:text-green-700 active:shadow-green-300">
+                        <summary
+                            className="border-1 hover:border-1 mx-2 flex rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:scale-110 hover:border hover:border-green-200 hover:bg-base-100 active:text-green-700 active:shadow-green-300">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"
@@ -33,7 +33,7 @@ function Nav() {
                                 <Link href="/">Home</Link>
                             </li>
                             <li>
-                                <Link href="/portfolio/about">Portfolio</Link>
+                                <Link href="/about" scroll={false}>Portfolio</Link>
                             </li>
                             <li>
                                 <Link href="/practice">Help For Develop</Link>
@@ -84,7 +84,8 @@ function Nav() {
                         </li>
                         <li>
                             <Link
-                                href="/portfolio/about"
+                                href="/about"
+                                scroll={false}
                                 className="border-1 hover:border-1 flex rounded-xl border border-blue-200 bg-base-100 p-3 font-bold text-blue-500 shadow-xl shadow-blue-300/10 transition hover:scale-110 hover:border hover:border-blue-200 hover:bg-base-100 active:text-blue-700 active:shadow-blue-300"
                             >
                                 Portfolio
@@ -100,7 +101,8 @@ function Nav() {
                         </li>
                         <li>
                             <details className="dropdown cursor-pointer">
-                                <summary className="border-1 hover:border-1 flex rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:scale-110 hover:border hover:border-green-200 hover:bg-base-100 active:text-green-700 active:shadow-green-300">
+                                <summary
+                                    className="border-1 hover:border-1 flex rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:scale-110 hover:border hover:border-green-200 hover:bg-base-100 active:text-green-700 active:shadow-green-300">
                                     AI&nbsp;
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -154,7 +156,7 @@ function Nav() {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <ThemeSwitch />
+                    <ThemeSwitch/>
                     <div className="avatar w-14 sm:block">
                         <div className="mask mask-squircle w-full">
                             <Image
@@ -172,8 +174,7 @@ function Nav() {
                     </div>
                 </div>
             </div>
-        </nav>
-    );
+        </nav>);
 }
 
 export default Nav;

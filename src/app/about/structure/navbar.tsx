@@ -1,8 +1,8 @@
 'use client';
 
-import { memo, useEffect, useState } from 'react';
+import {memo, useEffect, useState} from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import {usePathname} from 'next/navigation';
 
 const Navbar = () => {
     const pathname = usePathname();
@@ -31,18 +31,18 @@ const Navbar = () => {
                     {active}
                 </div>
                 <div className="flex justify-end text-base text-xl font-bold">
-                    <div className="transition hover:scale-105 hover:text-blue-500 active:text-blue-500">
-                        <Link className="mx-2" href="/portfolio/about">
+                    <div className="transition hover:scale-105 hover:text-blue-500">
+                        <Link className="mx-2" href="/about">
                             About
                         </Link>
                     </div>
-                    <div className="transition hover:scale-105 hover:text-blue-500 active:text-blue-500">
-                        <Link className="mx-2" href="/portfolio/skills">
+                    <div className="transition hover:scale-105 hover:text-blue-500">
+                        <Link className="mx-2" href="/about/skills">
                             Skills
                         </Link>
                     </div>
-                    <div className="transition hover:scale-105 hover:text-blue-500 active:text-blue-500">
-                        <Link className="mx-2" href="/portfolio/projects">
+                    <div className="transition hover:scale-105 hover:text-blue-500">
+                        <Link className="mx-2" href="/about/projects">
                             Projects
                         </Link>
                     </div>
@@ -54,7 +54,7 @@ const Navbar = () => {
                         <div>
                             <Link
                                 className="mx-2 border-b-4 border-blue-500 max-[300px]:mx-1"
-                                href="/portfolio/about"
+                                href="/about"
                             >
                                 About
                             </Link>
@@ -63,7 +63,7 @@ const Navbar = () => {
                         <div>
                             <Link
                                 className="mx-2 max-[300px]:mx-1"
-                                href="/portfolio/about"
+                                href="/about"
                             >
                                 About
                             </Link>
@@ -73,7 +73,7 @@ const Navbar = () => {
                         <div>
                             <Link
                                 className="mx-2 border-b-4 border-blue-500 max-[300px]:mx-1"
-                                href="/portfolio/skills"
+                                href="/about/skills"
                             >
                                 Skills
                             </Link>
@@ -82,7 +82,7 @@ const Navbar = () => {
                         <div>
                             <Link
                                 className="mx-2 max-[300px]:mx-1"
-                                href="/portfolio/skills"
+                                href="/about/skills"
                             >
                                 Skills
                             </Link>
@@ -92,7 +92,7 @@ const Navbar = () => {
                         <div>
                             <Link
                                 className="mx-2 border-b-4 border-blue-500 max-[300px]:mx-1"
-                                href="/portfolio/projects"
+                                href="/about/projects"
                             >
                                 Projects
                             </Link>
@@ -101,7 +101,7 @@ const Navbar = () => {
                         <div>
                             <Link
                                 className="mx-2 max-[300px]:mx-1"
-                                href="/portfolio/projects"
+                                href="/about/projects"
                             >
                                 Projects
                             </Link>

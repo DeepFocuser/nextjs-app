@@ -4,7 +4,7 @@ import { FunctionComponent } from 'react';
 
 import { Skill } from './types';
 
-const Bar: FunctionComponent<{ value: Skill }> = ({
+const Bar: ({value: {Icon, level, name}}: { value: { Icon: any; level: any; name: any } }) => JSX.Element = ({
     value: { Icon, level, name },
 }) => {
     const bar_width = `${level}%`;
