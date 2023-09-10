@@ -165,7 +165,7 @@ function VadONNX({ modelPath }: { modelPath: string }) {
                     ))}
             </div>
             <div className="mt-4 grid items-center justify-center">
-                <div className="bg-red-400 rounded-2xl text-black text-sm p-1">
+                <div className="rounded-2xl bg-red-400 p-1 text-sm text-black">
                     😿if not Working, Press F5 and Wait for about 3 seconds😿
                 </div>
             </div>
