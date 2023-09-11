@@ -1,63 +1,140 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { services } from '@/app/about/data';
-import { Service } from '@/app/about/structure/types';
-import Servicecard from '@/app/about/structure/servicecard';
+import {Roboto_Condensed} from "next/font/google";
+import {memo} from "react";
 
-export default function Home() {
+const thesisFont = Roboto_Condensed({
+    weight: ['700'],
+    subsets: ['latin'],
+    // style: ['italic'],
+    display: 'swap',
+});
+
+function Home() {
     return (
-        <>
-            <motion.div
-                className="mb-3 mt-2 text-base font-medium"
-                initial={{ opacity: 0, scale: 0.7 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.821 }}
-            >
-                I am Kim Jong Gon, who is developing hard every day based on the
-                idea that people who stick their butt for a long time are good.
-                I have about 6 years of experience in{' '}
-                <span className="font-bold text-error">
-                    AI Research / Development
-                </span>{' '}
-                and I am a{' '}
-                <span className="font-bold text-success">
-                    FrontEnd developer
-                </span>{' '}
-                with 1+ year of experience.
-                <span className="font-bold text-warning">
-                    {' '}
-                    I work hard and do well no matter what I do.
+        <div className="grid gap-6 md:grid-cols-2 px-4">
+            <div>
+                <h5 className="mb-1 mt-1 text-xl font-bold">Education</h5>
+                <p className="mt-2 text-sm"> 🔵 period : 2010 ~ 2016 / a bachelor of Robotics(Intelligent system
+                    control)
+                    at <span className="font-bold text-warning">Kwangwoon University</span></p>
+                <p className={`${thesisFont.className} ${'my-1'} ${'text-sm'} ${'font-bold'}`}>
+                    &nbsp;&nbsp;a bachelor&apos;s thesis : Development of a realistic telepresence system using a first
+                    person view (FPV)
+                    drone
+                </p>
+                <p className="mt-3 text-sm"> 🔵 period : 2016 ~ 2018 / a master of Robotics(Machine Learning) at <span
+                    className="font-bold text-warning">Kwangwoon University</span></p>
+                <p className={`${thesisFont.className} ${'my-1'} ${'text-sm'} ${'font-bold'}`}>
+                    &nbsp;&nbsp;a master&apos;s thesis : Recurrent neural network-based motion prediction
+                </p>
+            </div>
+            <div>
+                <h5 className="mb-1 mt-1 text-xl font-bold">Experience</h5>
+                <div className="my-1">
+                <span
+                    className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-md font-bold text-transparent">
+                    AI
                 </span>
-            </motion.div>
-            <div className="-ml-4 -mr-4 flex flex-grow flex-col bg-base-300 px-4 py-2.5">
-                <div className="text-lg font-bold tracking-wide">
-                    <span className="border-b-4 border-gray-400">
-                        What I can do
-                    </span>
+                    <span className="text-md">&nbsp;/&nbsp;</span>
+                    <span
+                        className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-md font-bold text-transparent">
+                    Web Developer
+                </span>
                 </div>
-                <div className="mt-1">
-                    {/* children's initial and animate property should be same as the parent during a stagger effect  */}
-                    {services.map((service: Service, index) => (
-                        <motion.div
-                            className="mb-1.5 mt-3 rounded-lg bg-base-100 p-1.5"
-                            key={service.title}
-                            initial={{ opacity: 0.1, scale: 0.95 }}
-                            animate={{
-                                opacity: [0.1, 0.5, 1],
-                                scale: [1, 1.03, 1],
-                                rotate: [0, 90 + index * 30, 0],
-                                borderRadius: ['7%', '21%', '7%'],
-                            }}
-                            transition={{
-                                duration: Math.min(index / 5 + 0.1, 1),
-                            }}
-                        >
-                            <Servicecard {...service} />
-                        </motion.div>
-                    ))}
+                <div>
+                    <table className="divide-y-2 text-xs">
+                        <thead className="ltr:text-left rtl:text-right">
+                        <tr>
+                            <th className="px-2 py-2">
+                                Company
+                            </th>
+                            <th className="px-2 py-2">
+                                Period
+                            </th>
+                            <th className="px-2 py-2">
+                                Role
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody className="divide-y divide-gray-200">
+                        <tr>
+                            <td className="px-2 py-1.5">
+                                Koyoung Technology
+                            </td>
+                            <td className="px-2 py-1.5">24/05/1995</td>
+                            <td className="px-2 py-1.5">AI Researcher / Developer</td>
+                        </tr>
+
+                        <tr>
+                            <td className="px-2 py-1.5">
+                                Alchera
+                            </td>
+                            <td className="px-2 py-1.5">04/11/1980</td>
+                            <td className="px-2 py-1.5">AI Researcher / Developer</td>
+                        </tr>
+
+                        <tr>
+                            <td className="px-2 py-1.5">
+                                Hyundai Autoever
+                            </td>
+                            <td className="px-2 py-1.5">24/05/1995</td>
+                            <td className="px-2 py-1.5">AI Researcher / Developer</td>
+                        </tr>
+                        <tr>
+                            <td className="px-2 py-1.5">
+                                Com2verse
+                            </td>
+                            <td className="px-2 py-1.5">24/05/1995</td>
+                            <td className="px-2 py-1.5">AI Researcher / Developer</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </>
-    );
+        </div>);
 }
+
+{/*Languages & Tools */
+}
+{/*<div className="grid gap-9 md:grid-cols-2">*/
+}
+{/*    <div>*/
+}
+{/*        <h5 className="my-3 text-2xl font-bold">Language & Framework</h5>*/
+}
+{/*        <div className="my-2">*/
+}
+{/*            /!*{languages.map((language, i) => (*!/*/
+}
+{/*            /!*    <Bar value={language} key={i}/>*!/*/
+}
+{/*            /!*))}*!/*/
+}
+{/*        </div>*/
+}
+{/*    </div>*/
+}
+
+{/*    <div>*/
+}
+{/*        <h5 className="my-3 text-2xl font-bold">Tools & Softwares</h5>*/
+}
+{/*        <div className="my-2">*/
+}
+{/*            {tools.map((tool, i) => (*/
+}
+{/*                <Bar value={tool} key={i}/>*/
+}
+{/*            ))}*/
+}
+{/*        </div>*/
+}
+{/*    </div>*/
+}
+{/*</div>*/
+}
+
+export default memo(Home);
+

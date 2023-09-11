@@ -1,14 +1,9 @@
 'use client';
 
-import { FunctionComponent } from 'react';
+import {Skill} from '@/app/about/structure/types';
+import {memo} from "react";
 
-import { Skill } from './types';
-
-const Bar: ({
-    value: { Icon, level, name },
-}: {
-    value: { Icon: any; level: any; name: any };
-}) => JSX.Element = ({ value: { Icon, level, name } }) => {
+const Bar = ({Icon, name, level}: Skill) => {
     const bar_width = `${level}%`;
     return (
         <div className="dark:bg-dark-300 dark:bg-black-500 my-2 rounded-full bg-gray-300 text-white">
@@ -18,9 +13,9 @@ const Bar: ({
                     width: bar_width,
                 }}
             >
-                <Icon className="mr-3" /> {name}
+                <Icon className="mr-3"/> {name}
             </div>
         </div>
     );
 };
-export default Bar;
+export default memo(Bar);

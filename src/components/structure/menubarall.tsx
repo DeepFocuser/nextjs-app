@@ -1,10 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 function MenubarAll() {
-    const [isOpen, setIsOpen] = useState(false);
+
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const menuRef = useRef<any>(null);
     const buttonRef = useRef<any>(null);
     const svgRef = useRef<any>(null);

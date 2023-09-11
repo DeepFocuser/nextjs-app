@@ -4,8 +4,7 @@ import Link from 'next/link';
 import React, {useEffect, useRef, useState} from 'react';
 
 function MenubarAi() {
-    const [isOpen, setIsOpen] = useState(false);
-
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const menuRef = useRef<any>(null);
     const buttonRef = useRef<any>(null);
     const svgRef = useRef<any>(null);
@@ -32,7 +31,6 @@ function MenubarAi() {
                 setIsOpen(false);
             }
         }
-
         // 이벤트 리스너를 추가
         document.addEventListener('click', handleClickOutside);
         // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
