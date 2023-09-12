@@ -1,11 +1,14 @@
 'use client';
 
 import {memo, useState} from "react";
-import Projectcard from "@/app/about/structure/projectcard";
 import ProjectsNavbar from "../structure/projectsnavbar";
+// import Projectcards from "@/app/about/structure/projectcards";
 import {projects as projectsData} from "../data";
 import {Category, IProject} from "../structure/types";
-import {motion} from "framer-motion";
+
+import dynamic from "next/dynamic";
+
+const Projectcards = dynamic(() => import("@/app/about/structure/projectcards"), {ssr: false})
 
 function Home() {
 
@@ -29,22 +32,7 @@ function Home() {
             handlerFilterCategory={handlerFilterCategory}
             active={active}
         />
-        <div className="relative grid grid-cols-12 gap-6 my-3">
-            {projects.map((project, index) => (
-                <motion.div
-                    className="col-span-12 p-1 bg-base-300 rounded-lg sm:col-span-6 lg:col-span-4 max-[1279px]:my-0.5 border"
-                    key={project.name}
-                    initial={{opacity: 0.0, scale: 0.7}}
-                    animate={{
-                        scale: [1, 1, 1],
-                        opacity: [0.0, 0.0, 1],
-                        y: [70, 0],
-                    }}
-                    transition={{type: 'spring', duration: 0.5 + index / projects.length,}}
-                >
-                    <Projectcard {...project}/>
-                </motion.div>))}
-        </div>
+        <Projectcards contents={projects}/>
     </div>);
 }
 

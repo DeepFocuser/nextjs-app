@@ -61,7 +61,7 @@ export const projects: IProject[] = [{
     deployed_url: 'https://deepfocuser.vercel.app/',
     github_url: 'https://github.com/DeepFocuser/nextjs-app',
     category: ['NextJS'],
-    key_techs: ['React', 'NextJS', 'DaisyUI', 'Onnxruntime web', 'AI', 'Framer Motion'],
+    key_techs: ['AI', 'Vision', 'Sound', 'React', 'NextJS', 'DaisyUI', 'Framer Motion', 'Onnxruntime web',],
 }, {
     name: 'POWER JG',
     description: 'This page is the first page created by DeepFocuser using Next.js and shows the results of operating self-made AI models on the web and also shows DeepFocuser\'s career.',
@@ -70,4 +70,12 @@ export const projects: IProject[] = [{
     github_url: 'https://github.com/DeepFocuser/nextjs-app',
     category: ['AI'],
     key_techs: ['React', 'NextJS', 'DaisyUI', 'Onnxruntime web', 'AI', 'Framer Motion'],
+}, {
+    name: 'Dummy JG',
+    description: 'This page is the first page created by DeepFocuser using Next.js and shows the results of operating self-made AI models on the web and also shows DeepFocuser\'s career.',
+    image_path: '/images/projects/portfolio.png',
+    deployed_url: 'https://deepfocuser.vercel.app/',
+    github_url: 'https://github.com/DeepFocuser/nextjs-app',
+    category: ['AI'],
+    key_techs: ['React', 'NextJS', 'DaisyUI', 'Onnxruntime web', 'AI', 'Framer Motion', 'Computer Vision', 'go'],
 }];

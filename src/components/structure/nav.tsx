@@ -53,7 +53,7 @@ function Nav() {
                 </ul>
             </div>
             {/*z index 우선순위 높임*/}
-            <div className="navbar-end z-21">
+            <div className="navbar-end">
                 <ThemeSwitch/>
                 <div className="avatar w-14 sm:block">
                     <div className="mask mask-squircle w-full">

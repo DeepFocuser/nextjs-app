@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 function MenubarAi() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -19,7 +19,7 @@ function MenubarAi() {
     };
 
     useEffect(() => {
-        // 메뉴 판 외부를 클릭했을 때 메뉴를 숨깁니다.
+        // 메뉴 판 외부를 클릭했을 때 메뉴를 숨기자
         function handleClickOutside(event: MouseEvent) {
             if (
                 menuRef.current &&
@@ -31,6 +31,7 @@ function MenubarAi() {
                 setIsOpen(false);
             }
         }
+
         // 이벤트 리스너를 추가
         document.addEventListener('click', handleClickOutside);
         // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
@@ -40,11 +41,11 @@ function MenubarAi() {
     }, []);
 
     return (
-        <div className="relative text-left">
+        <div className="relative z-[21]">
             <div
                 ref={buttonRef}
                 onClick={toggleDropdown}
-                className="border-1 hover:border-1 flex cursor-pointer rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:scale-110 hover:border hover:border-green-200 hover:bg-base-100 active:text-green-700 active:shadow-green-300"
+                className="border-1 hover:border-1 flex cursor-pointer items-center justify-center rounded-xl border border-green-200 bg-base-100 p-3 font-bold text-green-500 shadow-xl shadow-green-300/10 transition hover:scale-110 hover:border hover:border-green-200 hover:bg-base-100 active:text-green-700 active:shadow-green-300"
             >
                 AI&nbsp;
                 <svg
@@ -66,7 +67,7 @@ function MenubarAi() {
             </div>
             <div className="absolute" ref={menuRef}>
                 {isOpen && (
-                    <ul className="menu rounded-box menu-sm z-[1] mt-3 w-56 border-green-300 bg-base-100 p-1 font-bold shadow-xl shadow-green-300">
+                    <ul className="menu rounded-box menu-sm z-[21] mt-3 w-56 border-green-300 bg-base-100 p-1 font-bold shadow-xl shadow-green-300">
                         <li>
                             <Link href="/humanmatting" onClick={closeDropdown}>
                                 <p className="text-left">🔴</p>
