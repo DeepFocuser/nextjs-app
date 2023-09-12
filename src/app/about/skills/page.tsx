@@ -121,11 +121,12 @@ function Home() {
                 </motion.div>
             </div>
         </div>
-        <div className="grid gap-6 md:grid-cols-2 px-4 pb-3.5">
+        <div
+            className="grid gap-6 md:grid-cols-2 px-4 pb-3.5 max-[1535px]:py-0.5 max-[1535px]:pb-4 max-[1535px]:mb-12 max-[1280px]:mb-6">
             <div>
 
                 <h5 className="mt-3 text-2xl font-bold">Language</h5>
-                <motion.div className="mt-3 ml-1"
+                <motion.div className="mt-2 ml-1"
                             initial={{opacity: 0.0, scale: 0.7}}
                             animate={{
                                 scale: [1, 1, 1], opacity: [0.0, 0.0, 1], y: [9, 0]
@@ -138,7 +139,7 @@ function Home() {
 
             <div>
                 <h5 className="mt-3 text-2xl font-bold">Library & Framework</h5>
-                <motion.div className="mt-3 ml-1"
+                <motion.div className="mt-2 ml-1"
                             initial={{opacity: 0.0, scale: 0.7}}
                             animate={{
                                 scale: [1, 1, 1], opacity: [0.0, 0.0, 1], y: [12, 0]
