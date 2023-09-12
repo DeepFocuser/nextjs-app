@@ -32,7 +32,7 @@ const Sidebar = () => {
             <Image
                 src="/images/me.jpg"
                 alt="Picture of DeepFocuser"
-                className="mx-auto rounded-2xl"
+                className="mx-auto rounded-3xl"
                 width={192}
                 height={192}
                 quality={100}
@@ -40,7 +40,7 @@ const Sidebar = () => {
                 unoptimized={false}
             />
 
-            <h3 className="mt-6 text-4xl/10 max-[1280px]:mt-8">
+            <h3 className="mt-6 text-4xl/10 max-[1279px]:mt-8">
                 <span className={`${nameFont.className} ${'text-blue-400'}`}>
                     Jonggon
                 </span>
@@ -72,7 +72,7 @@ const Sidebar = () => {
             {/*</Link>*/}
 
             {/* Socials */}
-            <div className="mx-auto mt-6 flex flex w-9/12 justify-around max-[1280px]:mt-8 md:w-full">
+            <div className="mx-auto mt-6 flex flex w-9/12 justify-around max-[1279px]:mt-8 md:w-full">
                 <Link
                     href="https://github.com/DeepFocuser"
                     target="_blank"
@@ -110,7 +110,7 @@ const Sidebar = () => {
             </div>
 
             {/* Contacts */}
-            <div className="-ml-4 -mr-4 mt-6 bg-base-300 px-2 py-0.5 max-[1280px]:mt-8">
+            <div className="-ml-4 -mr-4 mt-6 bg-base-300 px-2 py-0.5 max-[1279px]:mt-8">
                 {/*나중에 지역표시도 하자*/}
                 <div className="flex items-center justify-center py-0.5">
                     <BsGeoAltFill className="mr-2"/>
@@ -124,7 +124,7 @@ const Sidebar = () => {
             {/* Email Button */}
 
             <button
-                className="mt-3.5 w-6/12 cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-500 px-2 py-1 font-bold text-white transition hover:scale-110 max-[1535px]:mt-7 max-[1280px]:mt-10 max-[1024px]:mt-3"
+                className="mt-3.5 w-6/12 cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-500 px-2 py-1 font-bold text-white transition hover:scale-110 max-[1535px]:mt-7 max-[1279px]:mt-10 max-[1023px]:mt-3"
                 onClick={
                     email
                         ? () => window.open('mailto:code.rlawhdrhs27@gmail.com')

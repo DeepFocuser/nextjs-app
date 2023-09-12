@@ -51,3 +51,21 @@ https://www.daleseo.com/tailwind-preflight/
     /*background-image: #A6A6A6 !*linear-gradient(red, yellow);*! !* 슬라이더 배경색 *!*/
     border-radius: 3px; /* 슬라이더 모서리 둥글게 처리 */
 }
+
+/* 웹킷 브라우저용 스크롤바 스타일링 */
+/* 세로 스크롤바만 숨김 */
+.projects-scrollbar::-webkit-scrollbar {
+    width: 6px; /* 가로 스크롤바 너비 0으로 설정 */
+    height: 6px; /* 스크롤바 높이 지정 (세로 스크롤바) */
+}
+
+/* 스크롤바 트랙 스타일 */
+.projects-scrollbar::-webkit-scrollbar-track {
+    background-color: transparent; /* 트랙 배경색 */
+}
+
+/* 스크롤바 슬라이더 스타일 */
+.projects-scrollbar::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(dodgerblue, mediumpurple); /* 슬라이더 배경색 */
+    border-radius: 3px; /* 슬라이더 모서리 둥글게 처리 */
+}

@@ -1,74 +1,51 @@
 'use client';
-import Servicecard from '@/app/about/structure/servicecard';
-import {services} from '@/app/about/data';
-import {Service} from '@/app/about/structure/types';
-import {motion} from 'framer-motion';
-import {memo} from "react";
+
+import {memo, useState} from "react";
+import Projectcard from "@/app/about/structure/projectcard";
+import ProjectsNavbar from "../structure/projectsnavbar";
+import {projects as projectsData} from "../data";
+import {Category, IProject} from "../structure/types";
+import {motion} from "framer-motion";
 
 function Home() {
-    return (
-        <div className="flex flex-grow flex-col px-4">
-            <motion.div
-                className="mb-3 mt-2 text-base font-medium"
-                // initial={{opacity: 0, scale: 0.7}}
-                // animate={{opacity: 1, scale: 1}}
-                // transition={{duration: 0.821}}
-                initial={{opacity: 0, scale: 0.1}}
-                animate={{
-                    opacity: [0.1, 0.3, 1],
-                    scale: [1, 1.03, 1],
-                    // rotate: [0, 121, 71, 0],
-                }}
-                transition={{
-                    duration: 0.721,
-                }}
-            >
-                I am Kim Jong Gon, who is developing hard every day based on the
-                idea that people who stick their butt for a long time are good.
-                I have about 6 years of experience in{' '}
-                <span className="font-bold text-error">
-                    AI Research / Development
-                </span>{' '}
-                and I am a{' '}
-                <span className="font-bold text-success">
-                    FrontEnd developer
-                </span>{' '}
-                with 1+ year of experience.
-                <span className="font-bold text-warning">
-                    {' '}
-                    I work hard and do well no matter what I do.
-                </span>
-            </motion.div>
-            <div className="-ml-4 -mr-4 flex flex-grow flex-col bg-base-300 px-4 py-2.5">
-                <div className="text-lg font-bold tracking-wide">
-                    <span className="border-b-4 border-gray-400">
-                        What I can do
-                    </span>
-                </div>
-                <div>
-                    {/* children's initial and animate property should be same as the parent during a stagger effect  */}
-                    {services.map((service: Service, index) => (
-                        <motion.div
-                            className="mb-1.5 mt-3 rounded-lg bg-base-100 p-1.5"
-                            key={service.title}
-                            initial={{opacity: 0.0, scale: 0.1}}
-                            animate={{
-                                opacity: [0.1, 0.3, 1],
-                                scale: [1, 1.03, 1],
-                                // rotate: [0, 90 + index * 30, 0],
-                                borderRadius: ['7%', '21%', '7%'],
-                            }}
-                            transition={{
-                                duration: Math.min(0.721 + index / 5, 1),
-                            }}
-                        >
-                            <Servicecard {...service} />
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
+
+    const [projects, setProjects] = useState<IProject[]>(projectsData);
+    const [active, setActive] = useState<string>("All");
+
+    const handlerFilterCategory = (category: Category | "All") => {
+        if (category === "All") {
+            setProjects(projectsData);
+            setActive(category);
+            return;
+        }
+        const newArray = projectsData.filter((project) => project.category.includes(category));
+        setProjects(newArray);
+        setActive(category);
+    };
+    // projects-scrollbar는 custom class globals.css 보면됨
+    return (<div
+        className="projects-scrollbar px-4 py-2 overflow-y-scroll h-[28rem] max-[1535px]:h-[33rem] max-[1535px]:mt-2.5 max-[1279px]:mb-12">
+        <ProjectsNavbar
+            handlerFilterCategory={handlerFilterCategory}
+            active={active}
+        />
+        <div className="relative grid grid-cols-12 gap-6 my-3">
+            {projects.map((project, index) => (
+                <motion.div
+                    className="col-span-12 p-1 bg-base-300 rounded-lg sm:col-span-6 lg:col-span-4 max-[1279px]:my-0.5 border"
+                    key={project.name}
+                    initial={{opacity: 0.0, scale: 0.7}}
+                    animate={{
+                        scale: [1, 1, 1],
+                        opacity: [0.0, 0.0, 1],
+                        y: [70, 0],
+                    }}
+                    transition={{type: 'spring', duration: 0.5 + index / projects.length,}}
+                >
+                    <Projectcard {...project}/>
+                </motion.div>))}
         </div>
-    );
+    </div>);
 }
 
 export default memo(Home);

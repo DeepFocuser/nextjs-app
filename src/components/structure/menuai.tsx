@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 function MenubarAi() {
     const [isOpen, setIsOpen] = useState<boolean>(false);

@@ -2,6 +2,7 @@
 
 import { Wendy_One } from 'next/font/google';
 import { Service } from '@/app/about/structure/types';
+import {memo} from "react";
 
 const titleFont = Wendy_One({
     weight: ['400'],
@@ -31,4 +32,4 @@ const Servicecard = ({ Icon, title, about }: Service) => {
     );
 };
 
-export default Servicecard;
+export default memo(Servicecard);

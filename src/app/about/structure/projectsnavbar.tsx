@@ -1,36 +1,26 @@
 'use client';
 
-import { FunctionComponent } from 'react';
-import { Category } from './types';
+import {memo} from 'react';
+import {Category} from './types';
 
-export const NavItem: FunctionComponent<{
-    value: Category | 'all';
-    handlerFilterCategory: Function;
-    active: string;
-}> = ({ value, handlerFilterCategory, active }) => {
-    let className = 'capitalize cursor-pointer hover:text-green';
-    if (active === value) className += ' text-green';
-
-    return (
-        <li className={className} onClick={() => handlerFilterCategory(value)}>
+const NavItem = ({value, handlerFilterCategory, active}: {
+    value: Category | 'All'; handlerFilterCategory: Function; active: string;
+}) => {
+    let className = 'capitalize cursor-pointer';
+    if (active === value) className += ' text-blue-500';
+    return (<li className={className} onClick={() => handlerFilterCategory(value)}>
             {value}
-        </li>
-    );
+        </li>);
 };
 
-const Projectsnavbar: FunctionComponent<{
-    handlerFilterCategory: Function;
-    active: string;
-}> = (props) => {
-    return (
-        <div className="flex list-none space-x-3 overflow-x-auto px-3 py-2">
-            <NavItem value="all" {...props} />
-            <NavItem value="react" {...props} />
-            <NavItem value="mongo" {...props} />
-            <NavItem value="django" {...props} />
-            <NavItem value="node" {...props} />
-        </div>
-    );
+const Projectsnavbar = (props: {
+    handlerFilterCategory: Function; active: string;
+}) => {
+    return (<div className="flex list-none space-x-3 overflow-x-auto px-3 py-2 font-bold text-xl">
+            <NavItem value="All" {...props} />
+            <NavItem value="NextJS" {...props} />
+            <NavItem value="AI" {...props} />
+        </div>);
 };
 
-export default Projectsnavbar;
+export default memo(Projectsnavbar);

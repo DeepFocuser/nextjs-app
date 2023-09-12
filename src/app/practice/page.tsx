@@ -1,8 +1,7 @@
 import Link from 'next/link';
 
 export default function Home() {
-    return (
-        <div className="mx-auto mb-36 px-4 py-8 sm:px-6 sm:py-8 lg:px-8 lg:py-8">
+    return (<div className="mx-auto mb-36 px-4 py-8 sm:px-6 sm:py-8 lg:px-8 lg:py-8">
             <div className="text-center lg:mx-0 ltr:lg:text-left rtl:lg:text-right">
                 <h1 className="text-2xl font-bold sm:text-3xl">
                     React / Next Study Zone
@@ -67,15 +66,5 @@ export default function Home() {
                     </p>
                 </Link>
             </div>
-
-            {/*<div className="mt-12 text-center">*/}
-            {/*    <a*/}
-            {/*        href="#"*/}
-            {/*        className="inline-block rounded bg-pink-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-pink-700 focus:outline-none focus:ring focus:ring-yellow-400"*/}
-            {/*    >*/}
-            {/*        Get Started Today*/}
-            {/*    </a>*/}
-            {/*</div>*/}
-        </div>
-    );
+        </div>);
 }
