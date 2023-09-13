@@ -265,7 +265,7 @@ function FacedetectionONNX({ modelPath }: { modelPath: string }) {
     }, [playing, cameraSelect]);
 
     return (
-        <div className="mb-36">
+        <div className="mb-28">
             <div className="mt-7 grid items-center justify-center md:justify-self-end">
                 <label
                     htmlFor="AcceptConditions"

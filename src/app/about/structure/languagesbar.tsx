@@ -6,7 +6,7 @@ import { memo } from 'react';
 const Languagebar = ({ Icon, name, level }: Skill) => {
     const bar_width = `${level}%`;
     return (
-        <div className="mt-2 rounded-full text-white">
+        <div className="mt-3 rounded-full text-white">
             <div
                 className="flex items-center rounded-2xl bg-gradient-to-r from-blue-400 to-purple-400 px-2"
                 style={{

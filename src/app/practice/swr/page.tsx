@@ -21,7 +21,7 @@ export default function Home() {
 
     if (error)
         return (
-            <div className="mb-36 mt-8">
+            <div className="mb-28 mt-8">
                 <div className="mx-auto max-w-lg text-center">
                     <h2 className="text-2xl font-bold sm:text-3xl">
                         SWR Example Code
@@ -38,7 +38,7 @@ export default function Home() {
     if (!data)
         return (
             <>
-                <div className="mb-36 mt-8">
+                <div className="mb-28 mt-8">
                     <div className="mx-auto max-w-lg text-center">
                         <h2 className="text-2xl font-bold sm:text-3xl">
                             SWR Example Code
@@ -57,7 +57,7 @@ export default function Home() {
     if (isLoading)
         return (
             <>
-                <div className="mb-36 mt-8">
+                <div className="mb-28 mt-8">
                     <div className="mx-auto max-w-lg text-center">
                         <h2 className="text-2xl font-bold sm:text-3xl">
                             SWR Example Code
@@ -95,7 +95,7 @@ export default function Home() {
             </div>);
     }`;
     return (
-        <div className="mb-36 mt-8">
+        <div className="mb-28 mt-8">
             <div className="mx-auto max-w-lg text-center">
                 <h2 className="text-2xl font-bold sm:text-3xl">
                     SWR Example Code

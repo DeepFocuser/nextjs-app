@@ -1,10 +1,10 @@
 'use client';
 
-import { BsGeoAltFill } from 'react-icons/bs';
+import {BsGeoAltFill} from 'react-icons/bs';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Karla, Slackey } from 'next/font/google';
-import { memo, useEffect, useState } from 'react';
+import {Karla, Slackey} from 'next/font/google';
+import {memo, useEffect, useState} from 'react';
 
 const nameFont = Slackey({
     weight: ['400'],
@@ -40,7 +40,7 @@ const Sidebar = () => {
                 unoptimized={false}
             />
 
-            <h3 className="mt-6 text-4xl/10 max-[1279px]:mt-8">
+            <h3 className="mt-6 text-4xl/10">
                 <span className={`${nameFont.className} ${'text-blue-400'}`}>
                     Jonggon
                 </span>
@@ -50,11 +50,13 @@ const Sidebar = () => {
                 </span>
             </h3>
             <p className="-ml-4 -mr-4 mt-6 bg-base-300 py-0.5">
-                <span className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
+                <span
+                    className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
                     AI
                 </span>
                 <span className="text-xl font-bold">&nbsp;/&nbsp;</span>
-                <span className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
+                <span
+                    className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
                     Web Developer
                 </span>
             </p>
@@ -70,7 +72,7 @@ const Sidebar = () => {
             {/*</Link>*/}
 
             {/* Socials */}
-            <div className="mx-auto mt-6 flex flex w-9/12 justify-around max-[1279px]:mt-8 md:w-full">
+            <div className="mx-auto mt-6 flex flex w-9/12 justify-around md:w-full">
                 <Link
                     href="https://github.com/DeepFocuser"
                     target="_blank"
@@ -108,29 +110,31 @@ const Sidebar = () => {
             </div>
 
             {/* Contacts */}
-            <div className="-ml-4 -mr-4 mt-6 bg-base-300 px-2 py-0.5 max-[1279px]:mt-8">
+            <div className="-ml-4 -mr-4 mt-6 bg-base-300 px-2 py-0.5">
                 {/*나중에 지역표시도 하자*/}
                 <div className="flex items-center justify-center py-0.5">
-                    <BsGeoAltFill className="mr-2" />
+                    <BsGeoAltFill className="mr-2"/>
                     <span>Seoul </span>
                 </div>
-                <p className={`${mailFont.className} ${'my-1'}`}>
+                <p className={`${mailFont.className} ${'my-2'}`}>
                     rlawhdrhs27@gmail.com{' '}
                 </p>
             </div>
 
             {/* Email Button */}
-
-            <button
-                className="mt-3.5 w-6/12 cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-500 px-2 py-1 font-bold text-white transition hover:scale-110 max-[1535px]:mt-7 max-[1279px]:mt-10 max-[1023px]:mt-3"
-                onClick={
-                    email
-                        ? () => window.open('mailto:code.rlawhdrhs27@gmail.com')
-                        : () => {}
-                }
-            >
-                <span className="text-base">Email me</span>
-            </button>
+            <div className="relative h-[8rem]">
+                <button
+                    className="absolute w-6/12 inset-x-1/4 inset-y-1/3  cursor-pointer rounded-full bg-gradient-to-r from-blue-500 to-purple-500 font-bold text-white transition hover:scale-110"
+                    onClick={
+                        email
+                            ? () => window.open('mailto:code.rlawhdrhs27@gmail.com')
+                            : () => {
+                            }
+                    }
+                >
+                    <span className="text-base">Email me</span>
+                </button>
+            </div>
         </>
     );
 };

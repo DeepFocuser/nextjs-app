@@ -68,9 +68,9 @@ const Projectcard = ({
         </div>
         {/*z index는 큰걸로 해놓자*/}
         {showDetail && (
-            <div className="fixed inset-0 z-[21] h-full w-full bg-gray-700 bg-opacity-50" ref={divRef}/>)}
+            <div className="fixed inset-0 z-[998] h-full w-full bg-gray-700 bg-opacity-50" ref={divRef}/>)}
         {showDetail && (<motion.div
-            className="body-scrollbar fixed left-[calc(100%/6)] top-[20%] z-[22] grid max-h-[32rem] w-8/12 gap-x-12 overflow-y-scroll rounded-2xl bg-gradient-to-r from-blue-200 to-purple-300 p-3 text-black max-[639px]:top-[12%] md:grid-cols-2"
+            className="body-scrollbar fixed left-[calc(100%/6)] top-[20%] z-[999] grid max-h-[32rem] w-8/12 gap-x-12 overflow-y-scroll rounded-2xl bg-gradient-to-r from-blue-200 to-purple-300 p-3 text-black max-[639px]:top-[12%] md:grid-cols-2"
             initial={{opacity: 0.0, scale: 0.7}}
             animate={{
                 scale: [0.5, 0.75, 1], opacity: [0.0, 0.5, 1], y: [210, 0],

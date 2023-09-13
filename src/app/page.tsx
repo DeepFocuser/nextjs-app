@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Home() {
     return (
-        <div className="mx-auto mb-36 px-4 py-8 sm:px-6 sm:py-8 lg:px-8 lg:py-8">
+        <div className="mx-auto mb-28 px-4 py-8 sm:px-6 sm:py-8 lg:px-8 lg:py-8">
             <div className="grid gap-y-8 lg:gap-x-16">
                 <div className="text-center lg:mx-0 ltr:lg:text-left rtl:lg:text-right">
                     <h1 className="text-2xl font-bold sm:text-3xl">
@@ -27,8 +27,9 @@ export default function Home() {
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
-                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                                <path
+                                    d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -74,7 +75,8 @@ export default function Home() {
                         </p>
                     </Link>
 
-                    <div className="border-1 block rounded-xl border border-green-300 p-8 shadow-xl shadow-green-300/10 transition hover:scale-105 hover:shadow-green-300">
+                    <div
+                        className="border-1 block rounded-xl border border-green-300 p-8 shadow-xl shadow-green-300/10 transition hover:scale-105 hover:shadow-green-300">
                         <span className="inline-block rounded-lg p-3">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +100,7 @@ export default function Home() {
 
                         <Link
                             href="/humanmatting"
-                            className="mr-3 mt-2 inline-block rounded-2xl bg-red-500 px-3 py-1 text-sm font-bold normal-case text-white transition hover:scale-110"
+                            className="mr-3 mt-2 text-center inline-block rounded-2xl bg-red-500 px-3 py-1 text-sm font-bold normal-case text-white transition hover:scale-110"
                         >
                             HumanMatting
                         </Link>
@@ -110,7 +112,7 @@ export default function Home() {
                         </Link>
                         <Link
                             href="/facedetection"
-                            className="mr-3 mt-2 inline-block rounded-2xl bg-green-500 px-3 py-1 text-sm font-bold normal-case text-white transition hover:scale-110"
+                            className="mr-3 mt-2 text-center inline-block rounded-2xl bg-green-500 px-3 py-1 text-sm font-bold normal-case text-white transition hover:scale-110"
                         >
                             Face Detection
                         </Link>
@@ -118,11 +120,11 @@ export default function Home() {
                             href="/vad"
                             className="mr-3 mt-2 inline-block rounded-2xl bg-blue-500 px-3 py-1 text-sm font-bold normal-case text-white transition hover:scale-110"
                         >
-                            Voice Activity Detection
+                            <span>Voice Activity Detection</span>
                         </Link>
                         <Link
                             href="/posedetection"
-                            className="mr-3 mt-2 inline-block rounded-2xl bg-purple-500 px-3 py-1 text-sm font-bold normal-case text-white transition hover:scale-110"
+                            className="mr-3 mt-2 text-center inline-block rounded-2xl bg-purple-500 px-3 py-1 text-sm font-bold normal-case text-white transition hover:scale-110"
                         >
                             Pose Detection
                         </Link>
