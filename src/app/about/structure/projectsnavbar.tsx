@@ -16,7 +16,7 @@ const NavItem = ({value, handlerFilterCategory, active}: {
 const Projectsnavbar = (props: {
     handlerFilterCategory: Function; active: string;
 }) => {
-    return (<div className="flex list-none space-x-3 overflow-x-auto px-3 py-2 font-bold text-xl">
+    return (<div className="flex list-none space-x-3 px-3 py-2 font-bold text-xl">
             <NavItem value="All" {...props} />
             <NavItem value="NextJS" {...props} />
             <NavItem value="AI" {...props} />

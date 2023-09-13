@@ -12,36 +12,34 @@ import {Frank_Ruhl_Libre} from "next/font/google";
 import {IoMdCloseCircle} from "react-icons/io";
 
 const nameFont = Frank_Ruhl_Libre({
-    weight: ['500'],
-    subsets: ['latin'],
-    // style: ['italic'],
+    weight: ['500'], subsets: ['latin'], // style: ['italic'],
     display: 'swap',
 });
 
 const cardFont = Frank_Ruhl_Libre({
-    weight: ['900'],
-    subsets: ['latin'],
-    // style: ['italic'],
+    weight: ['900'], subsets: ['latin'], // style: ['italic'],
     display: 'swap',
 });
 
 
-const Projectcard = (
-    {name, image_path, deployed_url, description, github_url, key_techs}: IProject) => {
+const Projectcard = ({name, image_path, deployed_url, description, github_url, key_techs}: IProject) => {
     const [showDetail, setShowDetail] = useState(false);
 
     useEffect(() => {
-        // 메뉴 판 외부를 클릭했을 때 메뉴를 숨깁니다.
-        function handleClickOutside(event: KeyboardEvent) {
-            if (event.key === "Escape")
-                setShowDetail(false);
+        // 메뉴 판 외부 및 x표시  메뉴를 숨깁니다.
+        function handleClickOutside(event: KeyboardEvent | MouseEvent) {
+
+            console.log(event.target);
+            if ("key" in event && event.key === "Escape") setShowDetail(false);
         }
 
         // 이벤트 리스너를 추가
         document.addEventListener('keydown', handleClickOutside);
+        document.addEventListener('mousedown', handleClickOutside);
         // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
         return () => {
             document.removeEventListener('keydown', handleClickOutside);
+            document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
 
@@ -49,12 +47,12 @@ const Projectcard = (
         <Image
             src={image_path}
             alt={name}
-            className="cursor-pointer mx-auto"
+            className="cursor-pointer mx-auto rounded-2xl"
             onClick={() => setShowDetail(true)}
             placeholder="blur"
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOUk2OtBwABZQDCADJyswAAAABJRU5ErkJggg=="
-            width={320}
-            height={240}
+            width={640}
+            height={480}
             quality={100}
             priority={true}
             unoptimized={false}
@@ -62,17 +60,17 @@ const Projectcard = (
         {/*${'bg-gradient-to-r'} ${'from-orange-500'} ${'to-orange-300'} {bg-clip-text*/}
         <div
             onClick={() => setShowDetail(true)}
-            className={`${'text-center'} ${'pt-2.5'} ${'font-bold'} ${'text-sm'} ${'text-white'} ${'overflow-x-scroll'} ${nameFont.className}`}>
+            className={`${'text-center'} ${'pt-1'} ${'font-bold'} ${'text-md'} ${'text-white'} ${nameFont.className}`}>
             {name}
         </div>
         {/*z index는 큰걸로 해놓자*/}
-        {showDetail && (<motion.div
-            className="absolute left-0 top-0 z-[21] grid w-full gap-x-12 rounded-2xl p-3 text-black md:grid-cols-2 bg-gradient-to-r from-blue-200 to-purple-300"
+        {showDetail && (<div className="fixed w-full h-full inset-0 z-[21] bg-gray-700 bg-opacity-50"/>)}
+        {showDetail && (
+            <motion.div
+            className="fixed body-scrollbar left-[calc(100%/6)] max-h-[32rem] top-[20%] max-[639px]:top-[12%] overflow-y-scroll z-[22] grid w-8/12 gap-x-12 rounded-2xl p-3 text-black md:grid-cols-2 bg-gradient-to-r from-blue-200 to-purple-300"
             initial={{opacity: 0.0, scale: 0.7}}
             animate={{
-                scale: [0.5, 0.75, 1],
-                opacity: [0.0, 0.5, 1],
-                y: [210, 0],
+                scale: [0.5, 0.75, 1], opacity: [0.0, 0.5, 1], y: [210, 0],
             }}
             transition={{type: 'spring', duration: 1}}
         >
@@ -93,14 +91,14 @@ const Projectcard = (
                     <Link
                         href={github_url}
                         target="_blank"
-                        className="flex items-center space-x-2 p-2 mt-4 rounded-2xl mr-6 text-sm text-white font-bold bg-gradient-to-r from-blue-400 to-purple-400 max-[340px]:text-xs max-[340px]:p-0.5 max-[340px]:mr-3"
+                        className="flex items-center space-x-2 p-2 mt-4 rounded-2xl mr-6 text-sm text-white font-bold bg-gradient-to-r from-blue-400 to-purple-400 max-[340px]:text-xs max-[340px]:p-1 max-[340px]:mr-3"
                     >
                         <VscGithubInverted/> <span>Github</span>
                     </Link>
                     <Link
                         href={deployed_url}
                         target="_blank"
-                        className="flex items-center space-x-2 p-2 mt-4 rounded-2xl text-sm text-white font-bold bg-gradient-to-r from-blue-400 to-purple-400 max-[340px]:text-xs max-[340px]:p-0.5"
+                        className="flex items-center space-x-2 p-2 mt-4 rounded-2xl text-sm text-white font-bold bg-gradient-to-r from-blue-400 to-purple-400 max-[340px]:text-xs max-[340px]:p-1"
                     >
                         <IoLogoVercel/> <span>Deployed</span>
                     </Link>

@@ -54,7 +54,7 @@ const Sidebar = () => {
                     className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
                     AI
                 </span>
-                <span className="text-xl">&nbsp;/&nbsp;</span>
+                <span className="text-xl font-bold">&nbsp;/&nbsp;</span>
                 <span
                     className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
                     Web Developer
