@@ -40,7 +40,7 @@ function ThemeSwitch() {
     }, []);
 
     return (
-        <div className="relative text-left mr-2.5 z-[21]">
+        <div className="relative z-[21] mr-2.5 text-left">
             <div
                 ref={buttonRef}
                 onClick={toggleDropdown}

@@ -64,7 +64,10 @@ https://www.daleseo.com/tailwind-preflight/
 /* 스크롤바 슬라이더 스타일 */
 .body-scrollbar::-webkit-scrollbar-thumb {
     /*background-color: #747474;*/
-    background-image: linear-gradient(dodgerblue, mediumpurple); /* 슬라이더 배경색 */
+    background-image: linear-gradient(
+        dodgerblue,
+        mediumpurple
+    ); /* 슬라이더 배경색 */
     border-radius: 3px; /* 슬라이더 모서리 둥글게 처리 */
 }
 
@@ -81,6 +84,9 @@ https://www.daleseo.com/tailwind-preflight/
 
 /* 스크롤바 슬라이더 스타일 */
 .projects-scrollbar::-webkit-scrollbar-thumb {
-    background-image: linear-gradient(dodgerblue, mediumpurple); /* 슬라이더 배경색 */
+    background-image: linear-gradient(
+        dodgerblue,
+        mediumpurple
+    ); /* 슬라이더 배경색 */
     border-radius: 3px; /* 슬라이더 모서리 둥글게 처리 */
 }
