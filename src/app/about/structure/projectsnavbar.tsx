@@ -26,7 +26,7 @@ const Projectsnavbar = (props: {
     active: string;
 }) => {
     return (
-        <div className="flex list-none space-x-3 px-3 py-2 text-xl font-bold">
+        <div className="flex list-none space-x-3 py-3 text-lg font-bold">
             <NavItem value="All" {...props} />
             <NavItem value="NextJS" {...props} />
             <NavItem value="AI" {...props} />

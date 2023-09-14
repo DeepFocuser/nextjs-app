@@ -1,16 +1,16 @@
 'use client';
 import Servicecard from '@/app/about/structure/servicecard';
-import {services} from '@/app/about/data';
-import {Service} from '@/app/about/structure/types';
-import {motion} from 'framer-motion';
-import {memo} from 'react';
+import { services } from '@/app/about/data';
+import { Service } from '@/app/about/structure/types';
+import { motion } from 'framer-motion';
+import { memo } from 'react';
 
 function Home() {
     return (
-        <div className="flex flex-grow flex-col px-4">
+        <div className="flex flex-col px-4">
             <motion.div
-                className="mb-3 mt-2 text-base"
-                initial={{opacity: 0.0, scale: 0.7}}
+                className="mb-3 mt-3 text-base"
+                initial={{ opacity: 0.0, scale: 0.7 }}
                 animate={{
                     scale: [1, 1, 1],
                     opacity: [0.0, 0.0, 1],
@@ -36,19 +36,19 @@ function Home() {
                     I work hard and do well no matter what I do.
                 </span>
             </motion.div>
-            <div className="-ml-4 -mr-4 flex flex-grow flex-col bg-base-300 px-4 py-3 rounded-2xl">
-                <div className="text-2xl font-bold tracking-wide mb-3">
+            <div className="-ml-4 -mr-4 flex flex-grow flex-col rounded-2xl px-4 pt-5">
+                <div className="mb-2 text-2xl font-bold tracking-wide">
                     <span className="border-b-4 border-gray-400">
                         What I can do
                     </span>
                 </div>
-                <div>
+                <div className="mb-1">
                     {/* children's initial and animate property should be same as the parent during a stagger effect  */}
                     {services.map((service: Service, index) => (
                         <motion.div
-                            className="my-3 p-2.5 rounded-lg bg-base-100"
+                            className="mt-2 rounded-lg bg-slate-700 bg-opacity-25 p-2 md:mt-1 lg:mt-2 xl:mt-4 2xl:mt-6"
                             key={service.title}
-                            initial={{opacity: 0.0, scale: 0.7}}
+                            initial={{ opacity: 0.0, scale: 0.7 }}
                             animate={{
                                 scale: [1, 1, 1],
                                 opacity: [0.0, 0.0, 1],
