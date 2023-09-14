@@ -95,8 +95,8 @@ const Projectcard = ({
                 onClick={() => setShowDetail(true)}
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOUk2OtBwABZQDCADJyswAAAABJRU5ErkJggg=="
-                width={640}
-                height={480}
+                // width={640}
+                // height={480}
                 quality={100}
                 priority={true}
                 unoptimized={false}
@@ -132,7 +132,8 @@ const Projectcard = ({
                 >
                     <div
                         onClick={() => setShowDetail(false)}
-                        className="sticky right-0 top-0 text-right rounded-2xl focus:outline-none flex justify-end">
+                        className="sticky right-0 top-0 flex justify-end rounded-2xl text-right focus:outline-none"
+                    >
                         <IoMdCloseCircle size={30}/>
                     </div>
                     <div className="grid gap-x-4 lg:grid-cols-2">
@@ -143,8 +144,8 @@ const Projectcard = ({
                                 placeholder="blur"
                                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOUk2OtBwABZQDCADJyswAAAABJRU5ErkJggg=="
                                 className="mx-auto rounded-2xl"
-                                width={1280}
-                                height={720}
+                                // width={1280}
+                                // height={720}
                                 quality={100}
                                 priority={true}
                                 unoptimized={false}
@@ -175,7 +176,9 @@ const Projectcard = ({
                                 {name}
                             </h2>
                             <h3
-                                dangerouslySetInnerHTML={{__html: description}}
+                                dangerouslySetInnerHTML={{
+                                    __html: description,
+                                }}
                                 className="mb-2"
                             ></h3>
                             <div className="mt-2 flex flex-wrap text-sm">
