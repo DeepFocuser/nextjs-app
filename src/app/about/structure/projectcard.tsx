@@ -114,83 +114,82 @@ const Projectcard = ({
             {/*z index는 큰걸로 해놓자*/}
             {showDetail && (
                 <div
-                    className="fixed inset-0 z-[20] h-full w-full bg-gray-700 bg-opacity-50"
+                    className="fixed inset-0 z-[21] h-full w-full bg-gray-700 bg-opacity-50"
                     ref={blockRef}
                 />
             )}
             {showDetail && (
                 <motion.div
-                    className="projects-scrollbar fixed left-[calc(100%/6)] top-[15%] z-[21] grid h-[36%] w-8/12 gap-x-4 overflow-y-scroll rounded-l-2xl bg-gradient-to-r from-blue-200 to-purple-300 p-2 text-black md:h-[44%] lg:h-[34%] lg:grid-cols-2 xl:h-[38%] 2xl:h-[42%]"
-                    initial={{opacity: 0.0, scale: 1}}
+                    className="projects-scrollbar fixed left-[calc(100%/6)] top-[15%] z-[21] h-[36%] w-8/12 overflow-y-scroll rounded-l-2xl bg-gradient-to-r from-blue-200 to-purple-300 p-2 text-black md:h-[44%] lg:h-[34%] xl:h-[38%] 2xl:h-[42%]"
+                    initial={{opacity: 0.8, scale: 1}}
                     animate={{
-                        scale: [1, 1, 1],
-                        opacity: [0.0, 0.5, 1],
+                        scale: [0.5, 0.75, 1],
+                        opacity: [0.8, 0.9, 1],
                         x: [startPosition.current[0], 0],
                         y: [startPosition.current[1], 0],
                     }}
-                    transition={{type: 'spring', duration: 1.5}}
+                    transition={{type: 'spring', duration: 2.1}}
                 >
-                    <div className="mt-8">
-                        <Image
-                            src={image_path}
-                            alt={name}
-                            placeholder="blur"
-                            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOUk2OtBwABZQDCADJyswAAAABJRU5ErkJggg=="
-                            className="mx-auto rounded-2xl"
-                            width={640}
-                            height={480}
-                            quality={100}
-                            priority={true}
-                            unoptimized={false}
-                        />
-                        <div className="mt-4 flex justify-center">
-                            <Link
-                                href={github_url}
-                                target="_blank"
-                                className="mr-6 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-400 p-2 text-sm font-bold text-white max-[340px]:mr-3 max-[340px]:p-1 max-[340px]:text-xs"
-                            >
-                                <VscGithubInverted/> <span>Github</span>
-                            </Link>
-                            <Link
-                                href={deployed_url}
-                                target="_blank"
-                                className="flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-400 p-2 text-sm font-bold text-white max-[340px]:p-1 max-[340px]:text-xs"
-                            >
-                                <IoLogoVercel/> <span>Deployed</span>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="mt-8">
-                        <h2
-                            className={`${
-                                cardFont.className
-                            } ${'mb-2'} ${'text-2xl'} ${'flex-wrap'} ${'font-bold'} ${'max-[350px]:text-xl'}`}
-                        >
-                            {name}
-                        </h2>
-                        <h3
-                            dangerouslySetInnerHTML={{__html: description}}
-                            className="mb-2"
-                        ></h3>
-                        <div className="mt-4 flex flex-wrap text-sm">
-                            {key_techs.map((tech) => (
-                                <span
-                                    key={tech}
-                                    className="my-1.5 mr-4 rounded-xl bg-base-300/5 p-1 font-bold"
-                                >
-                                    {tech}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-
-                    <button
+                    <div
                         onClick={() => setShowDetail(false)}
-                        className="absolute right-1 top-1 rounded-2xl p-1 focus:outline-none"
-                    >
-                        <IoMdCloseCircle size={24}/>
-                    </button>
+                        className="sticky right-0 top-0 text-right rounded-2xl focus:outline-none flex justify-end">
+                        <IoMdCloseCircle size={30}/>
+                    </div>
+                    <div className="grid gap-x-4 lg:grid-cols-2">
+                        <div>
+                            <Image
+                                src={image_path}
+                                alt={name}
+                                placeholder="blur"
+                                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOUk2OtBwABZQDCADJyswAAAABJRU5ErkJggg=="
+                                className="mx-auto rounded-2xl"
+                                width={1280}
+                                height={720}
+                                quality={100}
+                                priority={true}
+                                unoptimized={false}
+                            />
+                            <div className="mt-2 flex justify-center">
+                                <Link
+                                    href={github_url}
+                                    target="_blank"
+                                    className="mr-6 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-400 p-2 text-sm font-bold text-white max-[340px]:mr-3 max-[340px]:p-1 max-[340px]:text-xs"
+                                >
+                                    <VscGithubInverted/> <span>Github</span>
+                                </Link>
+                                <Link
+                                    href={deployed_url}
+                                    target="_blank"
+                                    className="flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-400 p-2 text-sm font-bold text-white max-[340px]:p-1 max-[340px]:text-xs"
+                                >
+                                    <IoLogoVercel/> <span>Deployed</span>
+                                </Link>
+                            </div>
+                        </div>
+                        <div>
+                            <h2
+                                className={`${
+                                    cardFont.className
+                                } ${'mb-2'} ${'text-2xl'} ${'flex-wrap'} ${'font-bold'} ${'max-[350px]:text-xl'}`}
+                            >
+                                {name}
+                            </h2>
+                            <h3
+                                dangerouslySetInnerHTML={{__html: description}}
+                                className="mb-2"
+                            ></h3>
+                            <div className="mt-2 flex flex-wrap text-sm">
+                                {key_techs.map((tech) => (
+                                    <span
+                                        key={tech}
+                                        className="my-1.5 mr-4 rounded-xl bg-base-300/5 p-1 font-bold"
+                                    >
+                                        {tech}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                 </motion.div>
             )}
         </>
