@@ -121,10 +121,10 @@ const Projectcard = ({
             {showDetail && (
                 <motion.div
                     className="projects-scrollbar fixed left-[calc(100%/6)] top-[15%] z-[21] h-[36%] w-8/12 overflow-y-scroll rounded-l-2xl bg-gradient-to-r from-blue-200 to-purple-300 p-2 text-black md:h-[44%] lg:h-[34%] xl:h-[38%] 2xl:h-[42%]"
-                    initial={{opacity: 0.8, scale: 1}}
+                    initial={{opacity: 1, scale: 0.5}}
                     animate={{
                         scale: [0.5, 0.75, 1],
-                        opacity: [0.8, 0.9, 1],
+                        opacity: [1, 1, 1],
                         x: [startPosition.current[0], 0],
                         y: [startPosition.current[1], 0],
                     }}
