@@ -1,22 +1,12 @@
-import { IProject, Service, Skill } from './structure/types';
-import { BsUnity } from 'react-icons/bs';
-import {
-    SiCsharp,
-    SiPytorch,
-    SiSmartthings,
-    SiTensorflow,
-} from 'react-icons/si';
-import { FcGlobe, FcReading, FcTemplate } from 'react-icons/fc';
-import { FaPython } from 'react-icons/fa';
-import {
-    BiLogoCPlusPlus,
-    BiLogoCss3,
-    BiLogoReact,
-    BiLogoTypescript,
-} from 'react-icons/bi';
-import { AiFillHtml5 } from 'react-icons/ai';
-import { TbBrandNextjs } from 'react-icons/tb';
-import { GiArtificialIntelligence } from 'react-icons/gi';
+import {IProject, Service, Skill} from './structure/types';
+import {BsUnity} from 'react-icons/bs';
+import {SiCsharp, SiPytorch, SiSmartthings, SiTensorflow,} from 'react-icons/si';
+import {FcGlobe, FcReading, FcTemplate} from 'react-icons/fc';
+import {FaPython} from 'react-icons/fa';
+import {BiLogoCPlusPlus, BiLogoCss3, BiLogoReact, BiLogoTypescript,} from 'react-icons/bi';
+import {AiFillHtml5} from 'react-icons/ai';
+import {TbBrandNextjs} from 'react-icons/tb';
+import {GiArtificialIntelligence} from 'react-icons/gi';
 
 export const services: Service[] = [
     {
@@ -333,62 +323,5 @@ export const projects: IProject[] = [
             'Computer Vision',
             'go',
         ],
-    },
-    {
-        name: 'Dummy JG',
-        description:
-            "This page is the first page created by DeepFocuser using Next.js and shows the results of operating self-made AI models on the web and also shows DeepFocuser's career.",
-        image_path: '/images/projects/portfolio.png',
-        deployed_url: 'https://deepfocuser.vercel.app/',
-        github_url: 'https://github.com/DeepFocuser/nextjs-app',
-        category: ['AI'],
-        key_techs: [
-            'React',
-            'NextJS',
-            'DaisyUI',
-            'Onnxruntime web',
-            'AI',
-            'Framer Motion',
-            'Computer Vision',
-            'go',
-        ],
-    },
-    {
-        name: 'Dummy JG',
-        description:
-            "This page is the first page created by DeepFocuser using Next.js and shows the results of operating self-made AI models on the web and also shows DeepFocuser's career.",
-        image_path: '/images/projects/portfolio.png',
-        deployed_url: 'https://deepfocuser.vercel.app/',
-        github_url: 'https://github.com/DeepFocuser/nextjs-app',
-        category: ['AI'],
-        key_techs: [
-            'React',
-            'NextJS',
-            'DaisyUI',
-            'Onnxruntime web',
-            'AI',
-            'Framer Motion',
-            'Computer Vision',
-            'go',
-        ],
-    },
-    {
-        name: 'Dummy JG',
-        description:
-            "This page is the first page created by DeepFocuser using Next.js and shows the results of operating self-made AI models on the web and also shows DeepFocuser's career.",
-        image_path: '/images/projects/portfolio.png',
-        deployed_url: 'https://deepfocuser.vercel.app/',
-        github_url: 'https://github.com/DeepFocuser/nextjs-app',
-        category: ['AI'],
-        key_techs: [
-            'React',
-            'NextJS',
-            'DaisyUI',
-            'Onnxruntime web',
-            'AI',
-            'Framer Motion',
-            'Computer Vision',
-            'go',
-        ],
-    },
+    }
 ];

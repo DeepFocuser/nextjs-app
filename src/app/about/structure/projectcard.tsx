@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {VscGithubInverted} from 'react-icons/vsc';
 import {IoLogoVercel} from 'react-icons/io5';
-import {motion} from 'framer-motion';
+import {AnimatePresence, motion} from 'framer-motion';
 import {Frank_Ruhl_Libre} from 'next/font/google';
 import {IoMdCloseCircle} from 'react-icons/io';
 
@@ -118,83 +118,94 @@ const Projectcard = ({
                     ref={blockRef}
                 />
             )}
-            {showDetail && (
-                <motion.div
-                    className="projects-scrollbar fixed left-[calc(100%/6)] top-[15%] z-[21] h-[36%] w-8/12 overflow-y-scroll rounded-l-2xl bg-gradient-to-r from-blue-200 to-purple-300 p-2 text-black md:h-[44%] lg:h-[34%] xl:h-[38%] 2xl:h-[42%]"
-                    initial={{opacity: 0.5, scale: 0.5}}
-                    animate={{
-                        scale: [0.5, 0.75, 1],
-                        opacity: [0.5, 0.75, 1],
-                        x: [startPosition.current[0], 0],
-                        y: [startPosition.current[1], 0],
-                    }}
-                    transition={{type: 'spring', duration: 2.1}}
-                >
-                    <div
-                        onClick={() => setShowDetail(false)}
-                        className="sticky right-0 top-0 flex justify-end rounded-2xl text-right focus:outline-none"
+            <AnimatePresence>
+                {showDetail && (
+                    <motion.div
+                        key={crypto.getRandomValues(new Uint32Array(1))[0]}
+                        className="projects-scrollbar fixed left-[calc(100%/6)] top-[15%] z-[21] h-[36%] w-8/12 overflow-y-scroll rounded-l-2xl bg-gradient-to-r from-blue-200 to-purple-300 p-2 text-black md:h-[44%] lg:h-[34%] xl:h-[38%] 2xl:h-[42%]"
+                        // initial={{opacity: 1, scale: 1}}
+                        animate={{
+                            scale: [0.5, 0.75, 1],
+                            opacity: [0.5, 0.75, 1],
+                            x: [startPosition.current[0], 0],
+                            y: [startPosition.current[1], 0],
+                        }}
+                        transition={{type: 'spring', duration: 1}}
+                        exit={{
+                            opacity: [1, 0.75, 0.5, 0],
+                            scale: [1, 0.75, 0.5, 0],
+                            // 좌표 계산해야됨
+                            // x: [0, startPosition.current[0]],
+                            // y: [0, startPosition.current[1]]
+
+                        }}
                     >
-                        <IoMdCloseCircle size={30}/>
-                    </div>
-                    <div className="grid gap-x-4 lg:grid-cols-2">
-                        <div>
-                            <Image
-                                src={image_path}
-                                alt={name}
-                                placeholder="blur"
-                                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOUk2OtBwABZQDCADJyswAAAABJRU5ErkJggg=="
-                                className="mx-auto rounded-2xl"
-                                width={1280}
-                                height={720}
-                                quality={100}
-                                priority={true}
-                                unoptimized={false}
-                            />
-                            <div className="mt-2 flex justify-center">
-                                <Link
-                                    href={github_url}
-                                    target="_blank"
-                                    className="mr-6 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-400 p-2 text-sm font-bold text-white max-[340px]:mr-3 max-[340px]:p-1 max-[340px]:text-xs"
-                                >
-                                    <VscGithubInverted/> <span>Github</span>
-                                </Link>
-                                <Link
-                                    href={deployed_url}
-                                    target="_blank"
-                                    className="flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-400 p-2 text-sm font-bold text-white max-[340px]:p-1 max-[340px]:text-xs"
-                                >
-                                    <IoLogoVercel/> <span>Deployed</span>
-                                </Link>
-                            </div>
+                        <div
+                            onClick={() => setShowDetail(false)}
+                            className="sticky right-0 top-0 flex justify-end rounded-2xl text-right focus:outline-none"
+                        >
+                            <IoMdCloseCircle size={30}/>
                         </div>
-                        <div>
-                            <h2
-                                className={`${
-                                    cardFont.className
-                                } ${'mb-2'} ${'text-2xl'} ${'flex-wrap'} ${'font-bold'} ${'max-[350px]:text-xl'}`}
-                            >
-                                {name}
-                            </h2>
-                            <h3
-                                dangerouslySetInnerHTML={{
-                                    __html: description,
-                                }}
-                                className="mb-2"
-                            ></h3>
-                            <div className="mt-2 flex flex-wrap text-sm">
-                                {key_techs.map((tech) => (
-                                    <span
-                                        key={tech}
-                                        className="my-1.5 mr-4 rounded-xl bg-base-300/5 p-1 font-bold"
+                        <div className="grid gap-x-4 lg:grid-cols-2">
+                            <div>
+                                <Image
+                                    src={image_path}
+                                    alt={name}
+                                    placeholder="blur"
+                                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOUk2OtBwABZQDCADJyswAAAABJRU5ErkJggg=="
+                                    className="mx-auto rounded-2xl"
+                                    width={1280}
+                                    height={720}
+                                    quality={100}
+                                    priority={true}
+                                    unoptimized={false}
+                                />
+                                <div className="mt-2 flex justify-center">
+                                    <Link
+                                        href={github_url}
+                                        target="_blank"
+                                        className="mr-6 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-400 p-2 text-sm font-bold text-white max-[340px]:mr-3 max-[340px]:p-1 max-[340px]:text-xs"
                                     >
+                                        <VscGithubInverted/> <span>Github</span>
+                                    </Link>
+                                    <Link
+                                        href={deployed_url}
+                                        target="_blank"
+                                        className="flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-400 p-2 text-sm font-bold text-white max-[340px]:p-1 max-[340px]:text-xs"
+                                    >
+                                        <IoLogoVercel/> <span>Deployed</span>
+                                    </Link>
+                                </div>
+                            </div>
+                            <div>
+                                <h2
+                                    className={`${
+                                        cardFont.className
+                                    } ${'mb-2'} ${'text-2xl'} ${'flex-wrap'} ${'font-bold'} ${'max-[350px]:text-xl'}`}
+                                >
+                                    {name}
+                                </h2>
+                                <h3
+                                    dangerouslySetInnerHTML={{
+                                        __html: description,
+                                    }}
+                                    className="mb-2"
+                                ></h3>
+                                <div className="mt-2 flex flex-wrap text-sm">
+                                    {key_techs.map((tech) => (
+                                        <span
+                                            key={tech}
+                                            className="my-1.5 mr-4 rounded-xl bg-base-300/5 p-1 font-bold"
+                                        >
                                         {tech}
                                     </span>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </motion.div>
-            )}
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     );
 };
