@@ -95,8 +95,8 @@ const Projectcard = ({
                 onClick={() => setShowDetail(true)}
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOUk2OtBwABZQDCADJyswAAAABJRU5ErkJggg=="
-                width={640}
-                height={480}
+                width={1280}
+                height={720}
                 quality={100}
                 priority={true}
                 unoptimized={false}
