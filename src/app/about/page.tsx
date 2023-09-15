@@ -48,7 +48,7 @@ function Home() {
                         <motion.div
                             className="mt-2 rounded-lg bg-slate-700 bg-opacity-25 p-2 md:mt-1 lg:mt-2 xl:mt-4 2xl:mt-6"
                             key={service.title}
-                            initial={{ opacity: 0.0, scale: 0.7 }}
+                            initial={{ opacity: 0.0, scale: 1 }}
                             animate={{
                                 scale: [1, 1, 1],
                                 opacity: [0.0, 0.0, 1],

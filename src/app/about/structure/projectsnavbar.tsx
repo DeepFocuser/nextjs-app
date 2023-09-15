@@ -1,13 +1,13 @@
 'use client';
 
-import { memo } from 'react';
-import { Category } from './types';
+import {memo} from 'react';
+import {Category} from './types';
 
 const NavItem = ({
-    value,
-    handlerFilterCategory,
-    active,
-}: {
+                     value,
+                     handlerFilterCategory,
+                     active,
+                 }: {
     value: Category | 'All';
     handlerFilterCategory: Function;
     active: string;
@@ -27,6 +27,7 @@ const Projectsnavbar = (props: {
 }) => {
     return (
         <div className="flex list-none space-x-3 py-3 text-lg font-bold">
+            {/*미리 그려져있어서 문제가 되는듯*/}
             <NavItem value="All" {...props} />
             <NavItem value="NextJS" {...props} />
             <NavItem value="AI" {...props} />
