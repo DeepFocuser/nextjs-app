@@ -29,7 +29,7 @@ const Projectsnavbar = (props: {
         <div className="flex list-none space-x-3 py-3 text-lg font-bold">
             {/*미리 그려져있어서 문제가 되는듯*/}
             <NavItem value="All" {...props} />
-            <NavItem value="NextJS" {...props} />
+            <NavItem value="Web" {...props} />
             <NavItem value="AI" {...props} />
         </div>
     );

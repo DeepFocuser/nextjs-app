@@ -15,7 +15,7 @@ const Projectcards = ({contents}: { contents: Array<IProject> }) => {
                 )[0];
                 return (
                     <motion.div
-                        className="col-span-12 rounded-2xl border bg-gradient-to-r from-blue-400 to-purple-400 max-[319px]:w-[12rem] min-[480px]:col-span-6 lg:col-span-4"
+                        className="col-span-12 rounded-2xl border bg-gradient-to-r from-blue-500 to-purple-700 max-[319px]:w-[12rem] min-[480px]:col-span-6 lg:col-span-4"
                         key={randomValue} // 이걸 난수로 줘야 project간 이동시 애니매이션이 정상적으로 적용
                         initial={{opacity: 0.0, scale: 1}}
                         animate={{
@@ -24,7 +24,7 @@ const Projectcards = ({contents}: { contents: Array<IProject> }) => {
                             y: [(index + 1) * 7, 0],
                         }}
                         transition={{
-                            type: "spring",
+                            type: 'spring',
                             duration: index / (contents.length * 3),
                         }}
                     >

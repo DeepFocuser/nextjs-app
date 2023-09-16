@@ -11,11 +11,11 @@ import {AnimatePresence, motion} from 'framer-motion';
 import {Frank_Ruhl_Libre} from 'next/font/google';
 import {IoMdCloseCircle} from 'react-icons/io';
 
-const nameFont = Frank_Ruhl_Libre({
-    weight: ['500'],
-    subsets: ['latin'], // style: ['italic'],
-    display: 'swap',
-});
+// const nameFont = Frank_Ruhl_Libre({
+//     weight: ['500'],
+//     subsets: ['latin'], // style: ['italic'],
+//     display: 'swap',
+// });
 
 const cardFont = Frank_Ruhl_Libre({
     weight: ['900'],
@@ -39,9 +39,7 @@ const Projectcard = ({
     const blockRef = useRef<any>(null);
 
     useEffect(() => {
-
         function handleClickOutside(event: KeyboardEvent | MouseEvent) {
-
             if (event.target === blockRef.current) {
                 setShowDetail(false);
             }
@@ -52,15 +50,24 @@ const Projectcard = ({
         }
 
         function projectClick(event: MouseEvent) {
-
             // childNodes는 기존 html에서 코딩한 방식 / react에서는 ref를 쓰겠다.
             if (
-                event.target === imageRef.current || event.target === nameRef.current
+                event.target === imageRef.current ||
+                event.target === nameRef.current
             ) {
-                const [windowX, windowY] = [window.innerWidth, window.innerHeight];
+                const [windowX, windowY] = [
+                    window.innerWidth,
+                    window.innerHeight,
+                ];
                 const cardRefInfo = cardRef.current.getBoundingClientRect();
-                const [cardCenterX, cardTopY] = [cardRefInfo.left + cardRefInfo.width / 2, cardRefInfo.top - cardRefInfo.height / 2];
-                const [targetCenterX, targetTopY] = [windowX / 2, windowY * 0.15];
+                const [cardCenterX, cardTopY] = [
+                    cardRefInfo.left + cardRefInfo.width / 2,
+                    cardRefInfo.top - cardRefInfo.height / 2,
+                ];
+                const [targetCenterX, targetTopY] = [
+                    windowX / 2,
+                    windowY * 0.15,
+                ];
 
                 startPosition.current = [
                     cardCenterX - targetCenterX,
@@ -91,9 +98,7 @@ const Projectcard = ({
     }, [showDetail]);
     return (
         <>
-            <div ref={cardRef}
-                 onClick={() => setShowDetail(true)}
-            >
+            <div ref={cardRef} onClick={() => setShowDetail(true)}>
                 <Image
                     src={image_path}
                     ref={imageRef}
@@ -101,17 +106,15 @@ const Projectcard = ({
                     className="mx-auto cursor-pointer rounded-2xl"
                     placeholder="blur"
                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOUk2OtBwABZQDCADJyswAAAABJRU5ErkJggg=="
-                    width={1280}
-                    height={720}
+                    width={640}
+                    height={480}
                     quality={100}
                     priority={true}
                     unoptimized={false}
                 />
                 <div
                     ref={nameRef}
-                    className={`${'text-center'} ${'pt-0.5'} ${'font-bold'} ${'text-md'} ${'max-[319px]:text-sm'} ${'text-white'} ${'cursor-pointer'} ${
-                        nameFont.className
-                    }`}
+                    className="text-center text-base text-white font-bold cursor-pointer max-[319px]:text-sm"
                 >
                     {name}
                 </div>
@@ -127,7 +130,7 @@ const Projectcard = ({
                 {showDetail && (
                     <motion.div
                         key={crypto.getRandomValues(new Uint32Array(1))[0]}
-                        className="cursor-grab projects-scrollbar fixed left-[calc(100%/6)] top-[15%] z-[21] h-[36%] w-8/12 overflow-y-scroll rounded-l-2xl bg-gradient-to-r from-blue-200 to-purple-300 p-2 text-black md:h-[44%] lg:h-[34%] xl:h-[38%] 2xl:h-[42%]"
+                        className="projects-scrollbar fixed left-[calc(100%/6)] top-[15%] z-[21] h-[36%] w-8/12 cursor-grab overflow-y-scroll rounded-l-2xl bg-gradient-to-r from-blue-200 to-purple-300 p-2 text-black md:h-[44%] lg:h-[34%] xl:h-[38%] 2xl:h-[42%]"
                         initial={{opacity: 1, scale: 1}}
                         animate={{
                             scale: [0.5, 0.75, 1],
@@ -136,7 +139,7 @@ const Projectcard = ({
                             y: [startPosition.current[1], 0],
                         }}
                         transition={{
-                            type: "spring",
+                            type: 'spring',
                         }}
                         exit={{
                             opacity: [1, 0.5, 0.0],
@@ -146,11 +149,12 @@ const Projectcard = ({
                         }}
                     >
                         <div
-                            className="sticky right-0 top-0 flex justify-end rounded-2xl text-right focus:outline-none"
-                        >
-                            <IoMdCloseCircle className="cursor-pointer"
-                                             onClick={() => setShowDetail(false)}
-                                             size={30}/>
+                            className="sticky right-0 top-0 flex justify-end rounded-2xl text-right focus:outline-none">
+                            <IoMdCloseCircle
+                                className="cursor-pointer"
+                                onClick={() => setShowDetail(false)}
+                                size={30}
+                            />
                         </div>
                         <div className="grid gap-x-4 lg:grid-cols-2">
                             <div>
@@ -160,8 +164,8 @@ const Projectcard = ({
                                     placeholder="blur"
                                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOUk2OtBwABZQDCADJyswAAAABJRU5ErkJggg=="
                                     className="mx-auto rounded-2xl"
-                                    width={1280}
-                                    height={720}
+                                    width={640}
+                                    height={480}
                                     quality={100}
                                     priority={true}
                                     unoptimized={false}

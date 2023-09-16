@@ -1,4 +1,4 @@
-import { IconType } from 'react-icons';
+import {IconType} from 'react-icons';
 
 export interface Service {
     Icon?: IconType | any;
@@ -22,4 +22,4 @@ export interface IProject {
     key_techs: string[];
 }
 
-export type Category = 'AI' | 'NextJS';
+export type Category = 'AI' | 'Web';
