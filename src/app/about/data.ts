@@ -1,12 +1,22 @@
-import {IProject, Service, Skill} from './structure/types';
-import {BsUnity} from 'react-icons/bs';
-import {SiCsharp, SiPytorch, SiSmartthings, SiTensorflow,} from 'react-icons/si';
-import {FcGlobe, FcReading, FcTemplate} from 'react-icons/fc';
-import {FaPython} from 'react-icons/fa';
-import {BiLogoCPlusPlus, BiLogoCss3, BiLogoReact, BiLogoTypescript,} from 'react-icons/bi';
-import {AiFillHtml5} from 'react-icons/ai';
-import {TbBrandNextjs} from 'react-icons/tb';
-import {GiArtificialIntelligence} from 'react-icons/gi';
+import { IProject, Service, Skill } from './structure/types';
+import { BsUnity } from 'react-icons/bs';
+import {
+    SiCsharp,
+    SiPytorch,
+    SiSmartthings,
+    SiTensorflow,
+} from 'react-icons/si';
+import { FcGlobe, FcReading, FcTemplate } from 'react-icons/fc';
+import { FaPython } from 'react-icons/fa';
+import {
+    BiLogoCPlusPlus,
+    BiLogoCss3,
+    BiLogoReact,
+    BiLogoTypescript,
+} from 'react-icons/bi';
+import { AiFillHtml5 } from 'react-icons/ai';
+import { TbBrandNextjs } from 'react-icons/tb';
+import { GiArtificialIntelligence } from 'react-icons/gi';
 
 export const services: Service[] = [
     {
@@ -124,7 +134,8 @@ export const projects: IProject[] = [
             "It is a project that operates<strong class='text-red-500'> Human Matting Model(made by me)</strong> that separates people from the background on the web.",
         image_path: '/images/projects/ai/humanmatting.png',
         deployed_url: 'https://deepfocuser.vercel.app/humanmattingbetter',
-        github_url: 'https://github.com/DeepFocuser/nextjs-app/tree/main/src/app/humanmattingbetter',
+        github_url:
+            'https://github.com/DeepFocuser/nextjs-app/tree/main/src/app/humanmattingbetter',
         category: ['AI'],
         key_techs: [
             'Human Matting',
@@ -145,7 +156,8 @@ export const projects: IProject[] = [
             "It is a project to operate<strong class='text-red-500'> Silero Vad Model</strong> on the web that finds voice intervals in signals mixed with voice and noise.",
         image_path: '/images/projects/ai/vad.png',
         deployed_url: 'https://deepfocuser.vercel.app/vad',
-        github_url: 'https://github.com/DeepFocuser/nextjs-app/tree/main/src/app/vad',
+        github_url:
+            'https://github.com/DeepFocuser/nextjs-app/tree/main/src/app/vad',
         category: ['AI'],
         key_techs: [
             'Face Detection',
@@ -168,7 +180,8 @@ export const projects: IProject[] = [
             "It is a project to operate<strong class='text-red-500'> Face Detection Model(made by me)</strong> that extracts landmarks of the face area, eyes, nose, and mouth on the web.",
         image_path: '/images/projects/ai/facedetection.png',
         deployed_url: 'https://deepfocuser.vercel.app/facedetection',
-        github_url: 'https://github.com/DeepFocuser/nextjs-app/tree/main/src/app/facedetection',
+        github_url:
+            'https://github.com/DeepFocuser/nextjs-app/tree/main/src/app/facedetection',
         category: ['AI'],
         key_techs: [
             'Face Detection',
@@ -189,7 +202,8 @@ export const projects: IProject[] = [
             "It is a project to operate<strong class='text-red-500'> Movenet2D Model</strong> on the web that estimates the posture of 17 keypoints of the web.",
         image_path: '/images/projects/ai/posedetection.png',
         deployed_url: 'https://deepfocuser.vercel.app/posedetection',
-        github_url: 'https://github.com/DeepFocuser/nextjs-app/tree/main/src/app/posedetection',
+        github_url:
+            'https://github.com/DeepFocuser/nextjs-app/tree/main/src/app/posedetection',
         category: ['AI'],
         key_techs: [
             'Face Detection',
