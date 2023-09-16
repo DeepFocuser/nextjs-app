@@ -17,12 +17,12 @@ export default function Layout({ children }: { children: ReactNode }) {
                 {/* // do this div style later (after putting the content) */}
                 <div
                     // rounded-xl border border-pink-300 shadow-xl shadow-pink-300/10 transition hover:shadow-pink-300
-                    className="col-span-12 rounded-2xl border border-blue-300 border-2 p-4 text-center text-base shadow-xl shadow-blue-300 lg:col-span-3"
+                    className="col-span-12 rounded-2xl border border-2 border-blue-300 p-4 text-center text-base shadow-xl shadow-blue-300 lg:col-span-3"
                 >
                     {/* //!sidebar */}
                     <Sidebar />
                 </div>
-                <div className="col-span-12 flex flex-col rounded-l-2xl borde border-2 border-blue-300 shadow-xl shadow-blue-300 lg:col-span-9">
+                <div className="borde col-span-12 flex flex-col rounded-l-2xl border-2 border-blue-300 shadow-xl shadow-blue-300 lg:col-span-9">
                     {/* //!navbar */}
                     <Navbar />
                     {children}

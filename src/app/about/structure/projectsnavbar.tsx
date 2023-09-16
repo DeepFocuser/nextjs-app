@@ -1,13 +1,13 @@
 'use client';
 
-import {memo} from 'react';
-import {Category} from './types';
+import { memo } from 'react';
+import { Category } from './types';
 
 const NavItem = ({
-                     value,
-                     handlerFilterCategory,
-                     active,
-                 }: {
+    value,
+    handlerFilterCategory,
+    active,
+}: {
     value: Category | 'All';
     handlerFilterCategory: Function;
     active: string;

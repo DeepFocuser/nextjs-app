@@ -26,7 +26,7 @@ function Home() {
                             opacity: [0.0, 0.0, 1],
                             y: [3, 0],
                         }}
-                        transition={{type: 'spring', duration: 1}}
+                        transition={{duration: 0.2}}
                     >
                         <p className="text-md mt-2">
                             🔵 2010 ~ 2016 / 👨‍🎓 a bachelor of
@@ -70,7 +70,7 @@ function Home() {
                             opacity: [0.0, 0.0, 1],
                             y: [6, 0],
                         }}
-                        transition={{type: 'spring', duration: 1.5}}
+                        transition={{duration: 0.4}}
                     >
                         <div className="my-1">
                             <span
@@ -168,7 +168,7 @@ function Home() {
                             opacity: [0.0, 0.0, 1],
                             y: [9, 0],
                         }}
-                        transition={{type: 'spring', duration: 2.1}}
+                        transition={{duration: 0.6}}
                     >
                         {languages.map((language, index) => (
                             <Languagebar {...language} key={index}/>
@@ -188,7 +188,7 @@ function Home() {
                             opacity: [0.0, 0.0, 1],
                             y: [12, 0],
                         }}
-                        transition={{type: 'spring', duration: 2.5}}
+                        transition={{duration: 0.8}}
                     >
                         {tools.map((tool, index) => (
                             <Toolbar {...tool} key={index}/>

@@ -1,23 +1,23 @@
 'use client';
 import Servicecard from '@/app/about/structure/servicecard';
-import { services } from '@/app/about/data';
-import { Service } from '@/app/about/structure/types';
-import { motion } from 'framer-motion';
-import { memo } from 'react';
+import {services} from '@/app/about/data';
+import {Service} from '@/app/about/structure/types';
+import {motion} from 'framer-motion';
+import {memo} from 'react';
 
 function Home() {
     return (
         <div className="flex flex-col px-4">
             <motion.div
                 className="mb-3 mt-3 text-base"
-                initial={{ opacity: 0.0, scale: 0.7 }}
+                initial={{opacity: 0.0, scale: 0.7}}
                 animate={{
                     scale: [1, 1, 1],
                     opacity: [0.0, 0.0, 1],
                     y: [3, 0],
                 }}
                 transition={{
-                    duration: 0.5,
+                    duration: 0.3,
                 }}
             >
                 I am Kim Jong Gon, who is developing hard every day based on the
@@ -48,7 +48,7 @@ function Home() {
                         <motion.div
                             className="mt-2 rounded-lg bg-slate-700 bg-opacity-25 p-2 md:mt-1 lg:mt-2 xl:mt-4 2xl:mt-6"
                             key={service.title}
-                            initial={{ opacity: 0.0, scale: 1 }}
+                            initial={{opacity: 0.0, scale: 1}}
                             animate={{
                                 scale: [1, 1, 1],
                                 opacity: [0.0, 0.0, 1],
@@ -56,7 +56,7 @@ function Home() {
                                 borderRadius: ['7%', '21%', '7%'],
                             }}
                             transition={{
-                                duration: 0.5 + index / services.length,
+                                duration: 0.3 + index / services.length,
                             }}
                         >
                             <Servicecard {...service} />
