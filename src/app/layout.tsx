@@ -50,7 +50,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         // https://eunhee-programming.tistory.com/205
         <html
             suppressHydrationWarning
-            lang="ko"
+            lang="en"
             className={interFont.className}
         >
             {process.env.NEXT_PUBLIC_GA_TRACKING_ID && (
