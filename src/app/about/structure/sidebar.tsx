@@ -33,6 +33,8 @@ const Sidebar = () => {
                 src="/images/me.jpg"
                 alt="Picture of DeepFocuser"
                 className="mx-auto rounded-3xl"
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOUk2OtBwABZQDCADJyswAAAABJRU5ErkJggg=="
                 width={192}
                 height={192}
                 quality={100}
