@@ -35,7 +35,7 @@ export const languages: Skill[] = [
   {
     Icon: FaPython,
     name: "Python",
-    level: "84"
+    level: "85"
   },
   {
     Icon: BiLogoTypescript,
@@ -45,22 +45,22 @@ export const languages: Skill[] = [
   {
     Icon: BiLogoCPlusPlus,
     name: "C++",
-    level: "53"
+    level: "55"
   },
   {
     Icon: SiCsharp,
     name: "C#",
-    level: "67"
+    level: "70"
   },
   {
     Icon: AiFillHtml5,
     name: "HTML5",
-    level: "67"
+    level: "70"
   },
   {
     Icon: BiLogoCss3,
     name: "CSS3",
-    level: "64"
+    level: "65"
   }
 ];
 
@@ -68,17 +68,17 @@ export const tools: Skill[] = [
   {
     Icon: SiTensorflow,
     name: "Tensorflow",
-    level: "83"
+    level: "85"
   },
   {
     Icon: SiPytorch,
     name: "Pytorch",
-    level: "91"
+    level: "92"
   },
   {
     Icon: GiArtificialIntelligence,
     name: "Mxnet",
-    level: "91"
+    level: "92"
   },
   {
     Icon: BiLogoReact,
@@ -93,7 +93,7 @@ export const tools: Skill[] = [
   {
     Icon: BsUnity,
     name: "Unity",
-    level: "47"
+    level: "51"
   }
 ];
 
