@@ -23,9 +23,9 @@ export default function Home() {
         return (
             <div className="mb-28 mt-8">
                 <div className="mx-auto max-w-lg text-center">
-                    <h2 className="text-2xl font-bold sm:text-3xl">
+                    <p className="text-2xl font-bold sm:text-3xl">
                         SWR Example Code
-                    </h2>
+                    </p>
                     <Link
                         href="/practice"
                         className="mt-6 inline-block rounded-2xl bg-pink-600 p-2 font-bold normal-case text-white transition hover:scale-110"
@@ -40,9 +40,9 @@ export default function Home() {
             <>
                 <div className="mb-28 mt-8">
                     <div className="mx-auto max-w-lg text-center">
-                        <h2 className="text-2xl font-bold sm:text-3xl">
+                        <p className="text-2xl font-bold sm:text-3xl">
                             SWR Example Code
-                        </h2>
+                        </p>
                         <Link
                             href="/practice"
                             className="mt-6 inline-block rounded-2xl bg-pink-600 p-2 font-bold normal-case text-white transition hover:scale-110"
@@ -59,9 +59,9 @@ export default function Home() {
             <>
                 <div className="mb-28 mt-8">
                     <div className="mx-auto max-w-lg text-center">
-                        <h2 className="text-2xl font-bold sm:text-3xl">
+                        <p className="text-2xl font-bold sm:text-3xl">
                             SWR Example Code
-                        </h2>
+                        </p>
                         <Link
                             href="/practice"
                             className="mt-6 inline-block rounded-2xl bg-pink-600 p-2 font-bold normal-case text-white transition hover:scale-110"
@@ -97,9 +97,9 @@ export default function Home() {
     return (
         <div className="mb-28 mt-8">
             <div className="mx-auto max-w-lg text-center">
-                <h2 className="text-2xl font-bold sm:text-3xl">
+                <p className="text-2xl font-bold sm:text-3xl">
                     SWR Example Code
-                </h2>
+                </p>
                 <Link
                     href="/practice"
                     className="mt-6 inline-block rounded-2xl bg-pink-600 p-2 font-bold normal-case text-white transition hover:scale-110"
@@ -130,7 +130,7 @@ export default function Home() {
                     className="modal modal-bottom sm:modal-middle"
                 >
                     <form method="dialog" className="modal-box">
-                        <h3 className="text-lg font-bold">SWR Result!</h3>
+                        <p className="text-lg font-bold">SWR Result!</p>
                         <p className="py-4">{data.message}</p>
                         <div className="modal-action">
                             {/* if there is a button in form, it will close the modal */}

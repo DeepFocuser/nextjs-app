@@ -17,10 +17,10 @@ const Servicecard = ({ Icon, title, about }: Service) => {
             <Icon className="h-12 w-12 text-blue-400" />
             <div>
                 <p className={`${titleFont.className} ${'text-xl'}`}>{title}</p>
-                <h6
+                <p
                     dangerouslySetInnerHTML={{ __html: about }}
                     className="text-md mt-1"
-                ></h6>
+                ></p>
             </div>
         </div>
     );

@@ -6,9 +6,9 @@ export default function Home() {
         <div className="mx-auto mb-28 px-4 pt-8 sm:px-6 lg:px-8">
             <div className="grid gap-y-8 lg:gap-x-16">
                 <div className="text-center lg:mx-0 ltr:lg:text-left rtl:lg:text-right">
-                    <h1 className="text-2xl font-bold sm:text-3xl">
+                    <p className="text-2xl font-bold sm:text-3xl">
                         Welcome to DeepFocuser Home
-                    </h1>
+                    </p>
                     <p className="mt-1.5 text-sm text-gray-400 max-[319px]:text-xs">
                         🎉 Welcome to DeepFocuser world 🎉
                     </p>
@@ -37,9 +37,9 @@ export default function Home() {
                                 />
                             </svg>
                         </span>
-                        <h2 className="mt-2 font-bold text-blue-300">
+                        <p className="mt-2 font-bold text-blue-300">
                             Portfolio
-                        </h2>
+                        </p>
                         <p className="mt-1 block text-sm text-gray-400">
                             about my career
                         </p>
@@ -65,9 +65,9 @@ export default function Home() {
                             </svg>
                         </span>
 
-                        <h2 className="mt-2 font-bold text-pink-300">
+                        <p className="mt-2 font-bold text-pink-300">
                             Help For Develop
-                        </h2>
+                        </p>
 
                         <p className="mt-1 block text-sm text-gray-400">
                             For React or Next Development
@@ -92,9 +92,9 @@ export default function Home() {
                             </svg>
                         </span>
 
-                        <h2 className="mt-2 font-bold text-green-300">
+                        <p className="mt-2 font-bold text-green-300">
                             AI Contents
-                        </h2>
+                        </p>
 
                         <Link
                             href="/humanmatting"

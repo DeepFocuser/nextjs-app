@@ -42,7 +42,7 @@ const Sidebar = () => {
                 unoptimized={false}
             />
 
-            <h3 className="mt-6 text-4xl/10">
+            <p className="mt-6 text-4xl/10">
                 <span className={`${nameFont.className} ${'text-blue-400'}`}>
                     Jonggon
                 </span>
@@ -50,7 +50,7 @@ const Sidebar = () => {
                     {' '}
                     Kim
                 </span>
-            </h3>
+            </p>
             <p className="-ml-4 -mr-4 mt-6 bg-base-300 py-0.5">
                 <span className="bg-gradient-to-r from-orange-500 to-orange-300 bg-clip-text text-xl font-bold text-transparent">
                     AI

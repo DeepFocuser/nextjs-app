@@ -18,7 +18,7 @@ function Home() {
         <>
             <div className="mt-2 grid gap-6 px-4 md:grid-cols-2">
                 <div>
-                    <h5 className="mb-1 mt-1 text-2xl font-bold">Education</h5>
+                    <p className="mb-1 mt-1 text-2xl font-bold">Education</p>
                     <motion.div
                         initial={{ opacity: 0.0, scale: 0.7 }}
                         animate={{
@@ -62,7 +62,7 @@ function Home() {
                     </motion.div>
                 </div>
                 <div>
-                    <h5 className="mb-1 mt-1 text-2xl font-bold">Experience</h5>
+                    <p className="mb-1 mt-1 text-2xl font-bold">Experience</p>
                     <motion.div
                         initial={{ opacity: 0.0, scale: 0.7 }}
                         animate={{
@@ -155,7 +155,7 @@ function Home() {
             </div>
             <div className="grid gap-6 px-4 md:grid-cols-2 lg:mt-4 xl:mt-8 2xl:mt-16">
                 <div>
-                    <h5 className="mt-4 text-2xl font-bold">Language</h5>
+                    <p className="mt-4 text-2xl font-bold">Language</p>
                     <motion.div
                         className="my-3"
                         initial={{ opacity: 0.0, scale: 1 }}
@@ -173,9 +173,9 @@ function Home() {
                 </div>
 
                 <div>
-                    <h5 className="mt-2 text-2xl font-bold">
+                    <p className="mt-2 text-2xl font-bold">
                         Library & Framework
-                    </h5>
+                    </p>
                     <motion.div
                         className="my-3"
                         initial={{ opacity: 0.0, scale: 0.7 }}

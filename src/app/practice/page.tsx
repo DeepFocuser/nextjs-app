@@ -4,9 +4,9 @@ export default function Home() {
     return (
         <div className="mx-auto mb-28 px-4 pt-8 sm:px-6 lg:px-8 ">
             <div className="text-center lg:mx-0 ltr:lg:text-left rtl:lg:text-right">
-                <h1 className="text-2xl font-bold sm:text-3xl">
+                <p className="text-2xl font-bold sm:text-3xl">
                     React / Next Study Zone
-                </h1>
+                </p>
                 <p className="mt-1.5 text-sm text-gray-400 max-[319px]:text-xs">
                     🎉 Let`s Study! 🎉
                 </p>
@@ -31,9 +31,9 @@ export default function Home() {
                         />
                     </svg>
 
-                    <h2 className="mt-4 text-xl font-bold text-pink-300">
+                    <p className="mt-4 text-xl font-bold text-pink-300">
                         SWR
-                    </h2>
+                    </p>
 
                     <p className="mt-1 text-sm text-gray-400">
                         Simple Example Code
@@ -58,9 +58,9 @@ export default function Home() {
                         />
                     </svg>
 
-                    <h2 className="mt-4 text-xl font-bold text-pink-300">
+                    <p className="mt-4 text-xl font-bold text-pink-300">
                         React Query
-                    </h2>
+                    </p>
 
                     <p className="mt-1 text-sm text-gray-400">
                         Simple Example Code

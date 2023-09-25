@@ -188,19 +188,19 @@ const Projectcard = ({
                                 </div>
                             </div>
                             <div>
-                                <h2
+                                <p
                                     className={`${
                                         cardFont.className
                                     } ${'mb-2'} ${'text-2xl'} ${'flex-wrap'} ${'font-bold'} ${'max-[350px]:text-xl'}`}
                                 >
                                     {name}
-                                </h2>
-                                <h3
+                                </p>
+                                <p
                                     dangerouslySetInnerHTML={{
                                         __html: description,
                                     }}
                                     className="mb-2"
-                                ></h3>
+                                ></p>
                                 <div className="mt-2 flex flex-wrap text-sm">
                                     {key_techs.map((tech) => (
                                         <span
