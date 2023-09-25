@@ -30,7 +30,7 @@ function Home() {
                     >
                         <p className="text-md mt-2">
                             🔵 2010 ~ 2016 / 👨‍🎓 a bachelor of
-                            Robotics(Intelligent system control) at{' '}
+                            Robotics(Intelligent system) at{' '}
                             <span className="font-bold text-warning">
                                 Kwangwoon University
                             </span>
@@ -46,7 +46,7 @@ function Home() {
                         </p>
                         <p className="text-md mt-3">
                             🔵 2016 ~ 2018 / 👨‍🎓 a master of Robotics(Machine
-                            Learning) at{' '}
+                            Learning / Deep Learning) at{' '}
                             <span className="font-bold text-warning">
                                 Kwangwoon University
                             </span>
