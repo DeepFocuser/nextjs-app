@@ -97,7 +97,7 @@ function Home() {
                                         <td className="py-1.5 text-left text-emerald-400">
                                             Koyoung Technology
                                         </td>
-                                        <td className="px-2 py-1.5">
+                                        <td className="px-2 py-1.5 text-xs">
                                             2018.01 ~ 2019.03
                                         </td>
                                         <td className="py-1.5 text-center">
@@ -109,7 +109,7 @@ function Home() {
                                         <td className="py-1.5 text-cyan-400">
                                             Alchera
                                         </td>
-                                        <td className="px-2 py-1.5">
+                                        <td className="px-2 py-1.5 text-xs">
                                             2019.04 ~ 2020.09
                                         </td>
                                         <td className="py-1.5 text-center">
@@ -121,7 +121,7 @@ function Home() {
                                         <td className="py-1.5 text-sky-400">
                                             Hyundai Autoever
                                         </td>
-                                        <td className="px-2 py-1.5">
+                                        <td className="px-2 py-1.5 text-xs">
                                             2020.10 ~ 2022.06
                                         </td>
                                         <td className="py-1.5 text-center">
@@ -132,7 +132,7 @@ function Home() {
                                         <td className="py-1.5 text-rose-400">
                                             Com2verse
                                         </td>
-                                        <td className="px-2 py-1.5">
+                                        <td className="px-2 py-1.5 text-xs">
                                             2022.06 ~ now
                                         </td>
                                         <td className="py-1.5 text-center">
