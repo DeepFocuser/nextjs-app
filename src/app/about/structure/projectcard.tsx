@@ -109,7 +109,7 @@ const Projectcard = ({
                     width={640}
                     height={480}
                     quality={100}
-                    priority={true}
+                    // priority={true}
                     unoptimized={false}
                 />
                 <div

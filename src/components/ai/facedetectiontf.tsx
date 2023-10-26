@@ -273,7 +273,6 @@ function FacedetectionTF({ backendName, modelPath }: ModelInfo) {
                         transform: 'scaleX(-1)',
                     }}
                     autoPlay
-                    playsInline
                 />
             </div>
         </div>

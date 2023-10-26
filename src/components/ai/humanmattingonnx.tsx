@@ -354,7 +354,6 @@ function HumanmattingONNX({ modelPath }: { modelPath: string }) {
                         transform: 'scaleX(-1)',
                     }}
                     autoPlay
-                    playsInline
                 />
                 <canvas
                     ref={canvasInferenceRef}
