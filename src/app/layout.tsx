@@ -1,6 +1,6 @@
 // import localFont from 'next/font/local';
 import { Inter as InterFont } from 'next/font/google';
-import '../styles/globals.css';
+import '@/styles/globals.css';
 import { siteMetadata } from '@/config/seo';
 import { ReactNode, Suspense } from 'react';
 import Nav from '@/components/structure/nav';
