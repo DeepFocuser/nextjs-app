@@ -131,9 +131,7 @@ export default function Home() {
                     className="modal modal-bottom sm:modal-middle"
                 >
                     <form method="dialog" className="modal-box">
-                        <p className="text-lg font-bold">
-                            ReactQuery Result!
-                        </p>
+                        <p className="text-lg font-bold">ReactQuery Result!</p>
                         <p className="py-4">{data.message}</p>
                         <div className="modal-action">
                             {/* if there is a button in form, it will close the modal */}

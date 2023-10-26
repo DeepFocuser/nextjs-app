@@ -326,7 +326,7 @@ function FacedetectionONNX({ modelPath }: { modelPath: string }) {
                         transform: 'scaleX(-1)',
                     }}
                     autoPlay
-                    // playsInline
+                    playsInline
                 />
                 <canvas
                     ref={canvasInferenceRef}

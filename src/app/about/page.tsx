@@ -20,7 +20,9 @@ function Home() {
                     duration: 0.3,
                 }}
             >
-                I am Kim jonggon, who is developing hard everyday with the belief that people who stick their butt for a long time can do everything. I have about 6 years of experience in{' '}
+                I am Kim jonggon, who is developing hard everyday with the
+                belief that people who stick their butt for a long time can do
+                everything. I have about 6 years of experience in{' '}
                 <span className="font-bold text-error">
                     AI Research / Development
                 </span>{' '}

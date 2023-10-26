@@ -31,9 +31,7 @@ export default function Home() {
                         />
                     </svg>
 
-                    <p className="mt-4 text-xl font-bold text-pink-300">
-                        SWR
-                    </p>
+                    <p className="mt-4 text-xl font-bold text-pink-300">SWR</p>
 
                     <p className="mt-1 text-sm text-gray-400">
                         Simple Example Code
