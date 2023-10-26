@@ -35,6 +35,7 @@ function Nav() {
                             <Link
                                 href="/about"
                                 scroll={false}
+                                prefetch={false}
                                 className="border-1 hover:border-1 mr-3 mt-1 flex rounded-xl border border-blue-200 bg-base-100 p-3 font-bold text-blue-500 shadow-xl shadow-blue-300/10 transition hover:scale-110 hover:border hover:border-blue-200 hover:bg-base-100 active:text-blue-700 active:shadow-blue-300"
                             >
                                 Portfolio

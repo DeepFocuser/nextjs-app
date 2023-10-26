@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 function MenubarAll() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -79,6 +79,7 @@ function MenubarAll() {
                                 href="/about"
                                 onClick={closeDropdown}
                                 scroll={false}
+                                prefetch={false}
                             >
                                 Portfolio
                             </Link>

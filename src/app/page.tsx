@@ -19,6 +19,7 @@ export default function Home() {
                         className="border-1 block rounded-xl border border-blue-300 p-8 shadow-xl shadow-blue-300/10 transition hover:scale-105 hover:shadow-blue-300"
                         href="/about"
                         scroll={false}
+                        prefetch={false}
                     >
                         <span className="inline-block rounded-lg p-3">
                             <svg

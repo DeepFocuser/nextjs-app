@@ -41,6 +41,7 @@ const Navbar = () => {
                             className="mx-2"
                             href="/about/skills"
                             scroll={false}
+                            prefetch={false}
                         >
                             Skills
                         </Link>
@@ -50,6 +51,7 @@ const Navbar = () => {
                             className="mx-2"
                             href="/about/projects"
                             scroll={false}
+                            prefetch={false}
                         >
                             Projects
                         </Link>
@@ -85,6 +87,7 @@ const Navbar = () => {
                                 className="mx-2 border-b-4 border-blue-500 max-[300px]:mx-1"
                                 href="/about/skills"
                                 scroll={false}
+                                prefetch={false}
                             >
                                 Skills
                             </Link>
@@ -95,6 +98,7 @@ const Navbar = () => {
                                 className="mx-2 max-[300px]:mx-1"
                                 href="/about/skills"
                                 scroll={false}
+                                prefetch={false}
                             >
                                 Skills
                             </Link>
@@ -106,6 +110,7 @@ const Navbar = () => {
                                 className="mx-2 border-b-4 border-blue-500 max-[300px]:mx-1"
                                 href="/about/projects"
                                 scroll={false}
+                                prefetch={false}
                             >
                                 Projects
                             </Link>
@@ -116,6 +121,7 @@ const Navbar = () => {
                                 className="mx-2 max-[300px]:mx-1"
                                 href="/about/projects"
                                 scroll={false}
+                                prefetch={false}
                             >
                                 Projects
                             </Link>
