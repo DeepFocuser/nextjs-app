@@ -11,6 +11,7 @@ const thesisFont = Roboto_Condensed({
     weight: ['700'],
     subsets: ['latin'], // style: ['italic'],
     display: 'swap',
+    preload: false,
 });
 
 function Home() {

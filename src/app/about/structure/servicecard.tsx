@@ -8,6 +8,7 @@ const titleFont = Wendy_One({
     weight: ['400'],
     subsets: ['latin'],
     display: 'swap',
+    preload: false,
 });
 
 // https://velog.io/@nemo/string-to-jsx - 참고하기

@@ -33,6 +33,7 @@ export const metadata = { ...siteMetadata };
 const interFont = InterFont({
     subsets: ['latin'],
     display: 'swap',
+    preload: false,
 });
 /*
 Passing data between a parent layout and its children is not possible.

@@ -11,6 +11,7 @@ const nameFont = Slackey({
     subsets: ['latin'],
     // style: ['italic'],
     display: 'swap',
+    preload: false,
 });
 
 const mailFont = Karla({
@@ -18,6 +19,7 @@ const mailFont = Karla({
     subsets: ['latin'],
     // style: ['italic'],
     display: 'swap',
+    preload: false,
 });
 
 const Sidebar = () => {

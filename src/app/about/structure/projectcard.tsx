@@ -21,6 +21,7 @@ const cardFont = Frank_Ruhl_Libre({
     weight: ['900'],
     subsets: ['latin'], // style: ['italic'],
     display: 'swap',
+    preload: false,
 });
 
 const Projectcard = ({
